@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Dribbble
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
