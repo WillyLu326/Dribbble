@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Dribbble</string>
+    <string name="shot_item_image">shotItemImage</string>
+    <string name="shot_item_bucket">shotItemBucket</string>
+    <string name="shot_item_like">shotItemLike</string>
+    <string name="shot_item_view_count">shotItemViewCount</string>
 </resources>
