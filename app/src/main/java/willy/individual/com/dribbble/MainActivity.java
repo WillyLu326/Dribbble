@@ -6,10 +6,9 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import willy.individual.com.dribbble.views.shot_list.ShotListFragment;
 
 public class MainActivity extends AppCompatActivity {
-
-    @BindView(R.id.text) TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +16,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        tv.setText("Willy Lu");
+        if (savedInstanceState == null) {
+            getFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.shot_fragment_container, ShotListFragment.newInstance())
+                    .commit();
+        }
     }
 }

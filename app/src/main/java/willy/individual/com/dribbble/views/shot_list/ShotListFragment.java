@@ -26,6 +26,10 @@ public class ShotListFragment extends Fragment{
 
     @BindView(R.id.shot_list_recycler_view) RecyclerView shotListRecyclerView;
 
+    public static ShotListFragment newInstance() {
+        return new ShotListFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -38,7 +42,7 @@ public class ShotListFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        shotListRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        shotListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ShotListAdapter adapter = new ShotListAdapter(mockData());
         shotListRecyclerView.setAdapter(adapter);
     }
