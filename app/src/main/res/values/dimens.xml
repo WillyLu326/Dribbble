@@ -7,4 +7,5 @@
     <dimen name="medium_space">16dp</dimen>
     <dimen name="small_space">12dp</dimen>
     <dimen name="medium_size">18sp</dimen>
+    <dimen name="logo_size">72dp</dimen>
 </resources>
