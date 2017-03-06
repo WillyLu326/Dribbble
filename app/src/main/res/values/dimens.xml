@@ -6,4 +6,5 @@
     <dimen name="xsmall_space">4dp</dimen>
     <dimen name="medium_space">16dp</dimen>
     <dimen name="small_space">12dp</dimen>
+    <dimen name="medium_size">18sp</dimen>
 </resources>

@@ -4,4 +4,5 @@
     <string name="shot_item_bucket">shotItemBucket</string>
     <string name="shot_item_like">shotItemLike</string>
     <string name="shot_item_view_count">shotItemViewCount</string>
+    <string name="login_btn_text">Log Into Dribbble</string>
 </resources>
