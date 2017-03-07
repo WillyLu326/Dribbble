@@ -9,6 +9,6 @@
     <string name="drawer_menu_like">Favoriate</string>
     <string name="drawer_menu_bucket">Bucket</string>
     <string name="home_title">Dribbble</string>
-    <string name="favoriate_title">Favoriate</string>
-    <string name="bucket_title">Bucket</string>
+    <string name="favoriate_title">Favoriates</string>
+    <string name="bucket_title">Buckets</string>
 </resources>
