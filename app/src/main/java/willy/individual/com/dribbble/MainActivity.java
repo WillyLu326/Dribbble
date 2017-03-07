@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
                         setTitle(R.string.bucket_title);
                         break;
                 }
-                // Testing git
                 drawerLayout.closeDrawers();
                 return true;
             }
