@@ -8,6 +8,7 @@ Using Dribbble API to create this Application
 * RecyclerView and RecyclerView.ViewHolder
 * CardView
 * Android Fragment
+* Navigation Drawer (NavigationView, Navigation header layout, Navigation menu layout)
 * UI & UX Design
 * OAuth
 * Dribbble API
