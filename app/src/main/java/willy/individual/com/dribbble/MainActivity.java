@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 drawerLayout.closeDrawers();
 
+                // Health check
                 if (fragment != null) {
                     getFragmentManager()
                             .beginTransaction()
