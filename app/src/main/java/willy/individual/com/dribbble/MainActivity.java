@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Bucket Clicked", Toast.LENGTH_SHORT).show();
                         break;
                 }
+                // Remove git ssh
                 drawerLayout.closeDrawers();
                 return true;
             }
