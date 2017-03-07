@@ -5,4 +5,7 @@
     <string name="shot_item_like">shotItemLike</string>
     <string name="shot_item_view_count">shotItemViewCount</string>
     <string name="login_btn_text">Log Into Dribbble</string>
+    <string name="drawer_menu_home">Home</string>
+    <string name="drawer_menu_like">Favoriate</string>
+    <string name="drawer_menu_bucket">Bucket</string>
 </resources>
