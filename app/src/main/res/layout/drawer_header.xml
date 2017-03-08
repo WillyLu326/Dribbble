@@ -10,6 +10,7 @@
         android:id="@+id/drawer_header_image"
         android:layout_width="@dimen/header_image_size"
         android:layout_height="@dimen/header_image_size"
+        android:layout_marginTop="@dimen/large_space"
         android:layout_marginLeft="@dimen/medium_space"
         android:src="@drawable/ic_account_circle_white_48dp" />
 
