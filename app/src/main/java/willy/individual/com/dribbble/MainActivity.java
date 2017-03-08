@@ -93,14 +93,17 @@ public class MainActivity extends AppCompatActivity {
                 switch(item.getItemId()) {
                     case R.id.drawer_menu_home :
                         Toast.makeText(getApplicationContext(), "Home Clicked", Toast.LENGTH_SHORT).show();
+                        setTitle(R.string.home_title);
                         fragment = ShotListFragment.newInstance();
                         break;
                     case R.id.drawer_menu_like :
                         Toast.makeText(getApplicationContext(), "Like Clicked", Toast.LENGTH_SHORT).show();
+                        setTitle(R.string.favoriate_title);
                         fragment = ShotListFragment.newInstance();
                         break;
                     case R.id.drawer_menu_bucket :
                         Toast.makeText(getApplicationContext(), "Bucket Clicked", Toast.LENGTH_SHORT).show();
+                        setTitle(R.string.bucket_title);
                         fragment = ShotListFragment.newInstance();
                         break;
                 }
