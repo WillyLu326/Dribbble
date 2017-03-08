@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/drawer_header_image"
+        android:layout_width="@dimen/header_image_size"
+        android:layout_height="@dimen/header_image_size"
+        android:layout_marginLeft="@dimen/medium_space"
+        android:src="@drawable/ic_account_circle_white_48dp" />
+
+    <TextView
+        android:id="@+id/drawer_header_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/xsmall_space"
+        android:layout_marginLeft="@dimen/medium_space"
+        android:layout_marginTop="@dimen/medium_space"
+        android:text="Willy Lu"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/drawer_header_text_size"
+        tools:text="Willy Lu" />
+
+    <TextView
+        android:id="@+id/drawer_header_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/large_space"
+        android:layout_marginLeft="@dimen/medium_space"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:text="@string/drawer_header_logout"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/drawer_header_text_size"
+        android:textStyle="bold" />
 </LinearLayout>
