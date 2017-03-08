@@ -11,4 +11,6 @@
     <string name="home_title">Dribbble</string>
     <string name="favoriate_title">Favoriates</string>
     <string name="bucket_title">Buckets</string>
+    <string name="open_drawer">open drawer</string>
+    <string name="close_drawer">close drawer</string>
 </resources>

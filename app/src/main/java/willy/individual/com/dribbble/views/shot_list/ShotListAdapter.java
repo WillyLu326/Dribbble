@@ -38,7 +38,6 @@ public class ShotListAdapter extends RecyclerView.Adapter {
 
         ShotListViewHolder shotViewHolder = (ShotListViewHolder) holder;
 
-
         shotViewHolder.viewsCountTv.setText(String.valueOf(shot.views_count));
         shotViewHolder.likesCountTv.setText(String.valueOf(shot.likes_count));
         shotViewHolder.bucketsCountTv.setText(String.valueOf(shot.butckets_count));
