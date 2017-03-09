@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,6 +17,7 @@ import willy.individual.com.dribbble.R;
 public class AuthActivity extends AppCompatActivity {
 
     @BindView(R.id.my_toolbar) Toolbar toolbar;
+    @BindView(R.id.progress_bar) ProgressBar progressBar;
     @BindView(R.id.web_view) WebView webView;
 
     @Override
@@ -26,10 +28,14 @@ public class AuthActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
+        progressBar.setMax(100);
+
         String url = "https://dribbble.com/oauth/authorize?client_id=76048d257d97a98958efb5bdf0ccbc521b793af5725dbab3b67c55a672080bf4&redirect_uri=http://www.zhenglu326.com&scope=public+write&state=willylu";
 
 
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient() {
+
+        });
 
         webView.loadUrl(url);
     }

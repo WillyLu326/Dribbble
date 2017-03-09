@@ -7,6 +7,12 @@
 
     <include layout="@layout/toolbar" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+
     <WebView
         android:id="@+id/web_view"
         android:layout_width="match_parent"
