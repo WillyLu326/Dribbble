@@ -31,11 +31,10 @@ public class AuthActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Login");
 
 
         progressBar.setMax(100);
-
-        String url = "https://dribbble.com/oauth/authorize?client_id=76048d257d97a98958efb5bdf0ccbc521b793af5725dbab3b67c55a672080bf4&redirect_uri=http://www.zhenglu326.com&scope=public+write&state=willylu";
 
 
         webView.requestFocus(View.FOCUS_DOWN);
@@ -62,7 +61,7 @@ public class AuthActivity extends AppCompatActivity {
             }
         });
 
-        webView.loadUrl(url);
+        webView.loadUrl(Auth.getDribbbleGetRequestUrl());
     }
 
     @Override
