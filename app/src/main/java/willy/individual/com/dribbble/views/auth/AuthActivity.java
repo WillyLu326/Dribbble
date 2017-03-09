@@ -1,28 +1,28 @@
 package willy.individual.com.dribbble.views.auth;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
-import willy.individual.com.dribbble.views.LoginActivity;
 
 
 public class AuthActivity extends AppCompatActivity {
+
+    public static final String KEY_CODE = "code";
 
     @BindView(R.id.my_toolbar) Toolbar toolbar;
     @BindView(R.id.progress_bar) ProgressBar progressBar;
@@ -45,7 +45,6 @@ public class AuthActivity extends AppCompatActivity {
         webView.requestFocus(View.FOCUS_DOWN);
         webView.setWebViewClient(new WebViewClient() {
 
-
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
@@ -57,6 +56,13 @@ public class AuthActivity extends AppCompatActivity {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 progressBar.setVisibility(View.GONE);
+                if (url.contains(Auth.REDIRECT_URL)) {
+                    Uri uri = Uri.parse(url);
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra(KEY_CODE, uri.getQueryParameter(KEY_CODE));
+                    setResult(Activity.RESULT_OK, resultIntent);
+                    finish();
+                }
             }
         });
 
