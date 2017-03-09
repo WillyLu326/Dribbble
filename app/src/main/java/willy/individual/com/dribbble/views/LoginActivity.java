@@ -10,6 +10,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
+import willy.individual.com.dribbble.views.auth.AuthActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -28,7 +29,8 @@ public class LoginActivity extends AppCompatActivity {
         loginTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
+                Intent intent = new Intent(LoginActivity.this, AuthActivity.class);
+                startActivity(intent);
             }
         });
     }

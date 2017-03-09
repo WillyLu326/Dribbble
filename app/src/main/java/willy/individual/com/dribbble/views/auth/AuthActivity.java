@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +26,10 @@ public class AuthActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        String url = getIntent().getStringExtra("");
+        String url = "https://dribbble.com/oauth/authorize?client_id=76048d257d97a98958efb5bdf0ccbc521b793af5725dbab3b67c55a672080bf4&redirect_uri=http://www.zhenglu326.com&scope=public+write&state=willylu";
+
+
+        webView.setWebViewClient(new WebViewClient());
 
         webView.loadUrl(url);
     }
