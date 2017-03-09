@@ -1,43 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/drawer_header_height"
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/drawer_header_image"
-        android:layout_width="@dimen/header_image_size"
-        android:layout_height="@dimen/header_image_size"
-        android:layout_marginTop="@dimen/large_space"
-        android:layout_marginLeft="@dimen/medium_space"
-        android:src="@drawable/ic_account_circle_white_48dp" />
-
-    <TextView
-        android:id="@+id/drawer_header_username"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/xsmall_space"
-        android:layout_marginLeft="@dimen/medium_space"
-        android:layout_marginTop="@dimen/medium_space"
-        android:text="Willy Lu"
-        android:textStyle="bold|italic"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/drawer_header_text_size"
-        tools:text="Willy Lu" />
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/drawer_header_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/medium_space"
-        android:layout_marginLeft="@dimen/medium_space"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:text="@string/drawer_header_logout"
-        android:textAllCaps="true"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/drawer_header_logout_text_size"
-        android:textStyle="bold" />
-</LinearLayout>
+        <ImageView
+            android:id="@+id/drawer_header_image"
+            android:layout_width="@dimen/header_image_size"
+            android:layout_height="@dimen/header_image_size"
+            android:layout_marginLeft="@dimen/medium_space"
+            android:layout_marginBottom="@dimen/small_space"
+            android:src="@drawable/ic_account_circle_white_48dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/drawer_header_image"
+            android:layout_marginLeft="@dimen/small_space"
+            android:layout_marginTop="@dimen/small_space"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/drawer_header_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Willy Lu"
+                android:textStyle="bold|italic"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/drawer_header_text_size"
+                tools:text="Willy Lu" />
+
+            <TextView
+                android:id="@+id/drawer_header_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xsmall_space"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:text="@string/drawer_header_logout"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/drawer_header_logout_text_size" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
