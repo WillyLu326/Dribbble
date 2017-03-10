@@ -55,8 +55,15 @@ public class LoginActivity extends AppCompatActivity {
         loginTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, AuthActivity.class);
-                startActivityForResult(intent, AUTH_CODE_REQ);
+                Intent intent;
+                if (Auth.isLogin(getApplicationContext())) {
+                    intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent = new Intent(LoginActivity.this, AuthActivity.class);
+                    startActivityForResult(intent, AUTH_CODE_REQ);
+                }
+
             }
         });
     }

@@ -2,6 +2,9 @@ package willy.individual.com.dribbble.views.auth;
 
 
 import android.content.Context;
+import android.text.TextUtils;
+
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -76,5 +79,10 @@ public class Auth {
 
     public static void saveAccessToken(Context context, String accessToken) {
         ModelUtils.save(context, ACCESS_TOKEN_SP_KEY, accessToken);
+    }
+
+    public static boolean isLogin(Context context) {
+        String accessToken = ModelUtils.read(context, ACCESS_TOKEN_SP_KEY, new TypeToken<String>(){});
+        return !TextUtils.equals("", accessToken);
     }
 }
