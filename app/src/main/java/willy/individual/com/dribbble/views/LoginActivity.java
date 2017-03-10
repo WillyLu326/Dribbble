@@ -16,7 +16,7 @@ import willy.individual.com.dribbble.views.auth.AuthActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static int CODE_REQ = 100;
+    private static int AUTH_CODE_REQ = 100;
 
 
     @BindView(R.id.login_btn) TextView loginTv;
@@ -33,8 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CODE_REQ && resultCode == Activity.RESULT_OK) {
-            String code = data.getStringExtra(AuthActivity.KEY_CODE);
+        if (requestCode == AUTH_CODE_REQ && resultCode == Activity.RESULT_OK) {
+            String code = data.getStringExtra(AuthActivity.KEY_AUTH_CODE);
             Toast.makeText(getApplicationContext(), code, Toast.LENGTH_LONG).show();
         }
     }
@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, AuthActivity.class);
-                startActivityForResult(intent, CODE_REQ);
+                startActivityForResult(intent, AUTH_CODE_REQ);
             }
         });
     }

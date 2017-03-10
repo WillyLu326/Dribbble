@@ -22,7 +22,7 @@ import willy.individual.com.dribbble.R;
 
 public class AuthActivity extends AppCompatActivity {
 
-    public static final String KEY_CODE = "code";
+    public static final String KEY_AUTH_CODE = "code";
 
     @BindView(R.id.my_toolbar) Toolbar toolbar;
     @BindView(R.id.progress_bar) ProgressBar progressBar;
@@ -38,9 +38,7 @@ public class AuthActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Login");
 
-
         progressBar.setMax(100);
-
 
         webView.requestFocus(View.FOCUS_DOWN);
         webView.setWebViewClient(new WebViewClient() {
@@ -56,10 +54,10 @@ public class AuthActivity extends AppCompatActivity {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 progressBar.setVisibility(View.GONE);
-                if (url.contains(Auth.REDIRECT_URL)) {
+                if (url.startsWith(Auth.REDIRECT_URL)) {
                     Uri uri = Uri.parse(url);
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra(KEY_CODE, uri.getQueryParameter(KEY_CODE));
+                    resultIntent.putExtra(KEY_AUTH_CODE, uri.getQueryParameter(KEY_AUTH_CODE));
                     setResult(Activity.RESULT_OK, resultIntent);
                     finish();
                 }

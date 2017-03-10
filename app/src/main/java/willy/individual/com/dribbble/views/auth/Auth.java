@@ -44,6 +44,9 @@ public class Auth {
                 .append("&redirect_uri=")
                 .append(REDIRECT_URL);
         return sb.toString();
+    }
 
+    public static String fetchAccessToken(String url) {
+        return null;
     }
 }
