@@ -10,10 +10,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.reflect.TypeToken;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.MainActivity;
 import willy.individual.com.dribbble.R;
+import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.auth.Auth;
 import willy.individual.com.dribbble.views.auth.AuthActivity;
 
@@ -43,28 +46,32 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     String accessToken = Auth.fetchAccessToken(code);
-                    Auth.saveAccessToken(getApplicationContext(), accessToken);
+                    Auth.login(getApplicationContext(), accessToken);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }).start();
         }
     }
 
     private void setupLoginUI() {
-        loginTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent;
-                if (Auth.isLogin(getApplicationContext())) {
-                    intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                } else {
-                    intent = new Intent(LoginActivity.this, AuthActivity.class);
+
+        Auth.init(getApplicationContext());
+
+        if (Auth.isLogin(getApplicationContext())) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            loginTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(LoginActivity.this, AuthActivity.class);
                     startActivityForResult(intent, AUTH_CODE_REQ);
                 }
+            });
+        }
 
-            }
-        });
     }
 }

@@ -2,6 +2,7 @@ package willy.individual.com.dribbble.views.auth;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
@@ -35,6 +36,10 @@ public class Auth {
     public static final String CLIENT_SECRET = "8f66398d59f0e67a5b66df946777d1c92e7dc3d7e43e7235562a6c966202b9cf";
 
     public static final String ACCESS_TOKEN_SP_KEY = "access token sp key";
+
+    public static final String AUTH_SP = "auth";
+
+    public static String accessToken;
 
 
     public static String getDribbbleGetRequestUrl() {
@@ -77,12 +82,31 @@ public class Auth {
 
     }
 
-    public static void saveAccessToken(Context context, String accessToken) {
-        ModelUtils.save(context, ACCESS_TOKEN_SP_KEY, accessToken);
+    public static void init(Context context) {
+        accessToken = loadAccessToken(context);
+    }
+
+    public static void login(Context context, String accessToken) {
+        Auth.accessToken = accessToken;
+        saveAccessToken(context, accessToken);
     }
 
     public static boolean isLogin(Context context) {
-        String accessToken = ModelUtils.read(context, ACCESS_TOKEN_SP_KEY, new TypeToken<String>(){});
-        return !TextUtils.equals("", accessToken);
+        return accessToken != null;
     }
+
+    public static void saveAccessToken(Context context, String accessToken) {
+        SharedPreferences sp = context.getSharedPreferences(AUTH_SP, context.MODE_PRIVATE);
+        sp.edit().putString(ACCESS_TOKEN_SP_KEY, accessToken).apply();
+    }
+
+    public static String loadAccessToken(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(AUTH_SP, context.MODE_PRIVATE);
+        return sp.getString(ACCESS_TOKEN_SP_KEY, null);
+    }
+
+    public static void clearAccessToken(Context context) {
+        ModelUtils.save(context, ACCESS_TOKEN_SP_KEY, null);
+    }
+
 }

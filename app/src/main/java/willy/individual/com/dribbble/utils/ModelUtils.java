@@ -14,7 +14,7 @@ public class ModelUtils {
 
     private static Gson gson = new Gson();
 
-    private static final String SP_KEY = "model_key";
+    private static final String SP_KEY = "model";
 
     public static void save(Context context, String key, Object model) {
         SharedPreferences sp = context.getSharedPreferences(SP_KEY, context.MODE_PRIVATE);
@@ -23,7 +23,7 @@ public class ModelUtils {
 
     public static <T> T read(Context context, String key, TypeToken<T> typeToken) {
         SharedPreferences sp = context.getSharedPreferences(SP_KEY, context.MODE_PRIVATE);
-        String value = sp.getString(key, "");
+        String value = sp.getString(key, null);
         return gson.fromJson(value, typeToken.getType());
     }
 }

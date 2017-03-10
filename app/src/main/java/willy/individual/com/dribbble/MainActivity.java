@@ -1,6 +1,7 @@
 package willy.individual.com.dribbble;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,10 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import willy.individual.com.dribbble.views.LoginActivity;
+import willy.individual.com.dribbble.views.auth.Auth;
 import willy.individual.com.dribbble.views.shot_list.ShotListFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.navigation_drawer) NavigationView navigationView;
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
     @BindView(R.id.my_toolbar) Toolbar toolbar;
+    @BindView(R.id.drawer_header_logout) TextView logoutTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         setupDrawer();
+        setupDrawerUI();
 
         if (savedInstanceState == null) {
             getFragmentManager()
@@ -116,6 +123,17 @@ public class MainActivity extends AppCompatActivity {
                 }
                 drawerLayout.closeDrawers();
                 return true;
+            }
+        });
+    }
+
+    private void setupDrawerUI() {
+        logoutTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Auth.clearAccessToken(getApplicationContext());
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         });
     }
