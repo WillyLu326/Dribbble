@@ -1,6 +1,17 @@
 package willy.individual.com.dribbble.views.auth;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class Auth {
 
     public static final String AUTH_GET_URL = "https://dribbble.com/oauth/authorize";
@@ -32,21 +43,30 @@ public class Auth {
         return sb.toString();
     }
 
-    public static String getDribbblePostRequestUrl(String code) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(AUTH_POST_URL)
-                .append("?client_id=")
-                .append(CLIENT_ID)
-                .append("&client_secret=")
-                .append(CLIENT_SECRET)
-                .append("&code=")
-                .append(code)
-                .append("&redirect_uri=")
-                .append(REDIRECT_URL);
-        return sb.toString();
-    }
 
-    public static String fetchAccessToken(String url) {
-        return null;
+    public static String fetchAccessToken(String code) {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("client_id", CLIENT_ID)
+                .add("client_secret", CLIENT_SECRET)
+                .add("code", code)
+                .add("redirect_uri", REDIRECT_URL)
+                .build();
+        Request request = new Request.Builder()
+                .url(AUTH_POST_URL)
+                .post(body)
+                .build();
+
+        Response response;
+        try {
+            response = client.newCall(request).execute();
+            String responseBody = response.body().string();
+            JSONObject jsonObject = new JSONObject(responseBody);
+            return jsonObject.get("access_token").toString();
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+            return "error";
+        }
+
     }
 }

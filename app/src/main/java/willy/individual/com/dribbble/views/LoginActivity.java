@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import willy.individual.com.dribbble.MainActivity;
 import willy.individual.com.dribbble.R;
+import willy.individual.com.dribbble.views.auth.Auth;
 import willy.individual.com.dribbble.views.auth.AuthActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -34,8 +37,17 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AUTH_CODE_REQ && resultCode == Activity.RESULT_OK) {
-            String code = data.getStringExtra(AuthActivity.KEY_AUTH_CODE);
-            Toast.makeText(getApplicationContext(), code, Toast.LENGTH_LONG).show();
+            final String code = data.getStringExtra(AuthActivity.KEY_AUTH_CODE);
+            //Toast.makeText(getApplicationContext(), code, Toast.LENGTH_LONG).show();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    String accessToken = Auth.fetchAccessToken(code);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            }).start();
         }
     }
 
