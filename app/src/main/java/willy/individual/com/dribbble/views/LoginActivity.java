@@ -38,12 +38,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AUTH_CODE_REQ && resultCode == Activity.RESULT_OK) {
             final String code = data.getStringExtra(AuthActivity.KEY_AUTH_CODE);
-            //Toast.makeText(getApplicationContext(), code, Toast.LENGTH_LONG).show();
 
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     String accessToken = Auth.fetchAccessToken(code);
+                    Auth.saveAccessToken(getApplicationContext(), accessToken);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 }

@@ -1,6 +1,8 @@
 package willy.individual.com.dribbble.views.auth;
 
 
+import android.content.Context;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,6 +13,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import willy.individual.com.dribbble.utils.ModelUtils;
 
 public class Auth {
 
@@ -28,6 +31,8 @@ public class Auth {
 
     public static final String CLIENT_SECRET = "8f66398d59f0e67a5b66df946777d1c92e7dc3d7e43e7235562a6c966202b9cf";
 
+    public static final String ACCESS_TOKEN_SP_KEY = "access token sp key";
+
 
     public static String getDribbbleGetRequestUrl() {
         StringBuilder sb = new StringBuilder();
@@ -42,7 +47,6 @@ public class Auth {
                 .append(STATE);
         return sb.toString();
     }
-
 
     public static String fetchAccessToken(String code) {
         OkHttpClient client = new OkHttpClient();
@@ -68,5 +72,9 @@ public class Auth {
             return "error";
         }
 
+    }
+
+    public static void saveAccessToken(Context context, String accessToken) {
+        ModelUtils.save(context, ACCESS_TOKEN_SP_KEY, accessToken);
     }
 }
