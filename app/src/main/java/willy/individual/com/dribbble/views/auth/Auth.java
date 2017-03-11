@@ -38,7 +38,7 @@ public class Auth {
     public static String accessToken;
 
 
-    public static String getDribbbleGetRequestUrl() {
+    public static String doGetRequestUrl() {
         StringBuilder sb = new StringBuilder();
         sb.append(AUTH_GET_URL)
                 .append("?client_id=")

@@ -78,7 +78,7 @@ public class AuthActivity extends AppCompatActivity {
             }
         });
 
-        webView.loadUrl(Auth.getDribbbleGetRequestUrl());
+        webView.loadUrl(Auth.doGetRequestUrl());
     }
 
     @Override
