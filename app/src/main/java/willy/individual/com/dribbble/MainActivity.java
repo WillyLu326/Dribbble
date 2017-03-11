@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -106,17 +105,14 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = null;
                 switch(item.getItemId()) {
                     case R.id.drawer_menu_home :
-                        Toast.makeText(getApplicationContext(), "Home Clicked", Toast.LENGTH_SHORT).show();
                         setTitle(R.string.home_title);
                         fragment = ShotListFragment.newInstance();
                         break;
                     case R.id.drawer_menu_like :
-                        Toast.makeText(getApplicationContext(), "Like Clicked", Toast.LENGTH_SHORT).show();
                         setTitle(R.string.favoriate_title);
                         fragment = ShotListFragment.newInstance();
                         break;
                     case R.id.drawer_menu_bucket :
-                        Toast.makeText(getApplicationContext(), "Bucket Clicked", Toast.LENGTH_SHORT).show();
                         setTitle(R.string.bucket_title);
                         fragment = BucketListFragment.newInstance();
                         break;

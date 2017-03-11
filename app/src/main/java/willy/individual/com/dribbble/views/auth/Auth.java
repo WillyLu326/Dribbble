@@ -2,7 +2,6 @@ package willy.individual.com.dribbble.views.auth;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -80,7 +79,6 @@ public class Auth {
 
     public static void init(Context context) {
         accessToken = loadAccessToken(context);
-        Toast.makeText(context, accessToken, Toast.LENGTH_LONG).show();
     }
 
     public static void login(Context context, String accessToken) {

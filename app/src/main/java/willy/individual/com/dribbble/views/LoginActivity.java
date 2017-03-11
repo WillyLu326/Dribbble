@@ -5,18 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.reflect.TypeToken;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.MainActivity;
 import willy.individual.com.dribbble.R;
-import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.auth.Auth;
 import willy.individual.com.dribbble.views.auth.AuthActivity;
 
