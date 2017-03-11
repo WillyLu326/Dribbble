@@ -15,7 +15,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/large_space"
             android:layout_weight="1"
-            android:paddingLeft="@dimen/medium_space"
             android:text="Bucket Name"
             android:textSize="@dimen/drawer_header_text_size"
             tools:text="Bucket Name" />
