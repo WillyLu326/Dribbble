@@ -20,8 +20,11 @@ public class ShotViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.shot_item_like) public TextView likesCountTv;
     @BindView(R.id.shot_item_bucket) public TextView bucketsCountTv;
 
+    View itemView;
+
     public ShotViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+        this.itemView = itemView;
     }
 }

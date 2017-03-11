@@ -1,5 +1,7 @@
 package willy.individual.com.dribbble.views.shot_list;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,8 +10,10 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import willy.individual.com.dribbble.MainActivity;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
+import willy.individual.com.dribbble.views.shot_detail.ShotActivity;
 
 
 public class ShotAdapter extends RecyclerView.Adapter {
@@ -30,13 +34,22 @@ public class ShotAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Shot shot = shotList.get(position);
+        final Shot shot = shotList.get(position);
 
-        ShotViewHolder shotViewHolder = (ShotViewHolder) holder;
+        final ShotViewHolder shotViewHolder = (ShotViewHolder) holder;
 
         shotViewHolder.viewsCountTv.setText(String.valueOf(shot.views_count));
         shotViewHolder.likesCountTv.setText(String.valueOf(shot.likes_count));
         shotViewHolder.bucketsCountTv.setText(String.valueOf(shot.butckets_count));
+        shotViewHolder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = shotViewHolder.itemView.getContext();
+                Intent intent = new Intent(context, ShotActivity.class);
+                context.startActivity(intent);
+
+            }
+        });
     }
 
     @Override

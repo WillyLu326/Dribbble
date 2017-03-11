@@ -19,6 +19,7 @@
 
         <activity android:name=".views.auth.AuthActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".views.shot_detail.ShotActivity" />
 
     </application>
 
