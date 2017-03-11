@@ -9,15 +9,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
 
+/**
+ * Created by zhenglu on 3/11/17.
+ */
 
-public class ShotListViewHolder extends RecyclerView.ViewHolder {
+public class ShotViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.shot_item_image) public ImageView image;
     @BindView(R.id.shot_item_view_count) public TextView viewsCountTv;
     @BindView(R.id.shot_item_like) public TextView likesCountTv;
     @BindView(R.id.shot_item_bucket) public TextView bucketsCountTv;
 
-    public ShotListViewHolder(View itemView) {
+    public ShotViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }

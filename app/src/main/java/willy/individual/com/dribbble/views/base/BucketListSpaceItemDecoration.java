@@ -20,9 +20,12 @@ public class BucketListSpaceItemDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
 
-        outRect.top = space;
         outRect.left = space;
         outRect.right = space;
         outRect.bottom = space;
+
+        if (parent.indexOfChild(view) == 0) {
+            outRect.top = space;
+        }
     }
 }

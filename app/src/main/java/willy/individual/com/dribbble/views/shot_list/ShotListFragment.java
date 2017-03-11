@@ -45,7 +45,7 @@ public class ShotListFragment extends Fragment{
 
         shotListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         shotListRecyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
-        ShotListAdapter adapter = new ShotListAdapter(mockData());
+        ShotAdapter adapter = new ShotAdapter(mockData());
         shotListRecyclerView.setAdapter(adapter);
     }
 
