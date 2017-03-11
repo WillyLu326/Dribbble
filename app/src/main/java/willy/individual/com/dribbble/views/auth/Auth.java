@@ -1,11 +1,8 @@
 package willy.individual.com.dribbble.views.auth;
 
-
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.text.TextUtils;
-
-import com.google.gson.reflect.TypeToken;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +14,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import willy.individual.com.dribbble.utils.ModelUtils;
 
 public class Auth {
 
@@ -84,6 +80,7 @@ public class Auth {
 
     public static void init(Context context) {
         accessToken = loadAccessToken(context);
+        Toast.makeText(context, accessToken, Toast.LENGTH_LONG).show();
     }
 
     public static void login(Context context, String accessToken) {
@@ -91,7 +88,7 @@ public class Auth {
         saveAccessToken(context, accessToken);
     }
 
-    public static boolean isLogin(Context context) {
+    public static boolean isLogin() {
         return accessToken != null;
     }
 
@@ -106,7 +103,9 @@ public class Auth {
     }
 
     public static void clearAccessToken(Context context) {
-        ModelUtils.save(context, ACCESS_TOKEN_SP_KEY, null);
+        accessToken = null;
+        SharedPreferences sp = context.getSharedPreferences(AUTH_SP, context.MODE_PRIVATE);
+        sp.edit().putString(ACCESS_TOKEN_SP_KEY, null).apply();
     }
 
 }

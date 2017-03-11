@@ -14,4 +14,5 @@
     <string name="open_drawer">open drawer</string>
     <string name="close_drawer">close drawer</string>
     <string name="drawer_header_logout">Log Out</string>
+    <string name="dribbble_login">Dribbble Login</string>
 </resources>

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -36,9 +37,11 @@ public class AuthActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("Login");
+        setTitle(getResources().getString(R.string.dribbble_login));
+
 
         progressBar.setMax(100);
+
 
         webView.requestFocus(View.FOCUS_DOWN);
         webView.setWebViewClient(new WebViewClient() {
@@ -53,12 +56,15 @@ public class AuthActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+
                 progressBar.setVisibility(View.GONE);
                 if (url.startsWith(Auth.REDIRECT_URL)) {
                     Uri uri = Uri.parse(url);
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra(KEY_AUTH_CODE, uri.getQueryParameter(KEY_AUTH_CODE));
                     setResult(Activity.RESULT_OK, resultIntent);
+                    CookieManager cookieManager = CookieManager.getInstance();
+                    cookieManager.removeAllCookies(null);
                     finish();
                 }
             }

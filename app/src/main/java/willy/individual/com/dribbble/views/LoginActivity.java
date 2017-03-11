@@ -24,7 +24,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private static int AUTH_CODE_REQ = 100;
 
-
     @BindView(R.id.login_btn) TextView loginTv;
 
     @Override
@@ -59,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Auth.init(getApplicationContext());
 
-        if (Auth.isLogin(getApplicationContext())) {
+        if (Auth.isLogin()) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();

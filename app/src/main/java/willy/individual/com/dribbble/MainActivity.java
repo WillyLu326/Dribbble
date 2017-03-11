@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -28,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.navigation_drawer) NavigationView navigationView;
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
     @BindView(R.id.my_toolbar) Toolbar toolbar;
-    @BindView(R.id.drawer_header_logout) TextView logoutTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         setupDrawer();
-        setupDrawerUI();
 
         if (savedInstanceState == null) {
             getFragmentManager()
@@ -78,6 +75,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupDrawer() {
+
+        View headerView = navigationView.inflateHeaderView(R.layout.drawer_header);
+
+        headerView.findViewById(R.id.drawer_header_logout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Auth.clearAccessToken(getApplicationContext());
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
         drawerToggle = new ActionBarDrawerToggle(
                 this,
@@ -118,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 if (fragment != null) {
                     getFragmentManager()
                             .beginTransaction()
-                            .add(R.id.fragment_container, fragment)
+                            .replace(R.id.fragment_container, fragment)
                             .commit();
                 }
                 drawerLayout.closeDrawers();
@@ -127,14 +137,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setupDrawerUI() {
-        logoutTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Auth.clearAccessToken(getApplicationContext());
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
 }
