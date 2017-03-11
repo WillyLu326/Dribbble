@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.views.LoginActivity;
 import willy.individual.com.dribbble.views.auth.Auth;
+import willy.individual.com.dribbble.views.bucket_list.BucketListFragment;
 import willy.individual.com.dribbble.views.shot_list.ShotListFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.drawer_menu_bucket :
                         Toast.makeText(getApplicationContext(), "Bucket Clicked", Toast.LENGTH_SHORT).show();
                         setTitle(R.string.bucket_title);
-                        fragment = ShotListFragment.newInstance();
+                        fragment = BucketListFragment.newInstance();
                         break;
                 }
 

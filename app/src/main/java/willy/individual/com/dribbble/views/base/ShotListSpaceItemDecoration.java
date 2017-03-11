@@ -9,11 +9,11 @@ import android.view.View;
  * Created by zhenglu on 3/7/17.
  */
 
-public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
+public class ShotListSpaceItemDecoration extends RecyclerView.ItemDecoration {
 
     private int space;
 
-    public SpaceItemDecoration(int space) {
+    public ShotListSpaceItemDecoration(int space) {
         this.space = space;
     }
 

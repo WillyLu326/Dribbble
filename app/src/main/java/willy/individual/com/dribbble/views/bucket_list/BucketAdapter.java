@@ -35,7 +35,7 @@ public class BucketAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Bucket bucket = buckets.get(position);
 
-        ((BucketViewHolder) holder).bucketItemNameTv.setText(bucket.name);
+        //((BucketViewHolder) holder).bucketItemNameTv.setText(bucket.name);
     }
 
     @Override

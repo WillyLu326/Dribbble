@@ -15,8 +15,8 @@ import willy.individual.com.dribbble.R;
 
 public class BucketViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.bucket_item_name) TextView bucketItemNameTv;
-    @BindView(R.id.bucket_item_check_box) CheckBox bucketItemCb;
+//    @BindView(R.id.bucket_item_name) TextView bucketItemNameTv;
+//    @BindView(R.id.bucket_item_check_box) CheckBox bucketItemCb;
 
     public BucketViewHolder(View itemView) {
         super(itemView);

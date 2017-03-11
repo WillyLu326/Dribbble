@@ -16,10 +16,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Bucket;
+import willy.individual.com.dribbble.views.base.BucketListSpaceItemDecoration;
 
-/**
- * Created by zhenglu on 3/11/17.
- */
 
 public class BucketListFragment extends Fragment {
 
@@ -33,7 +31,7 @@ public class BucketListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.bucket_recycle_list, container, false);
-        ButterKnife.bind(view);
+        ButterKnife.bind(this, view);
         return view;
     }
 
@@ -41,6 +39,7 @@ public class BucketListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         bucketRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        bucketRecyclerView.addItemDecoration(new BucketListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
         bucketRecyclerView.setAdapter(new BucketAdapter(mockData()));
     }
 
