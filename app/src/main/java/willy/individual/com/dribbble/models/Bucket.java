@@ -9,4 +9,7 @@ public class Bucket {
     public String name;
     public boolean isChose;
 
+    public Bucket(String name) {
+        this.name = name;
+    }
 }
