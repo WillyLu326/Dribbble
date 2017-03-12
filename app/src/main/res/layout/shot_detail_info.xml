@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/shot_detail_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/medium_space">
+
+        <TextView
+            android:id="@+id/shot_detail_view_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:drawablePadding="@dimen/xsmall_space"
+            android:drawableTop="@drawable/ic_visibility_black_24dp"
+            android:text="3000"
+            android:textAlignment="center"
+            tools:text="3000" />
+
+        <TextView
+            android:id="@+id/shot_detail_like_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:drawablePadding="@dimen/xsmall_space"
+            android:drawableTop="@drawable/ic_favorite_black_24dp"
+            android:text="100"
+            android:textAlignment="center"
+            tools:text="100" />
+
+        <TextView
+            android:id="@+id/shot_detail_bucket_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:drawablePadding="@dimen/xsmall_space"
+            android:drawableTop="@drawable/ic_inbox_black_24dp"
+            android:text="20"
+            android:textAlignment="center"
+            tools:text="20" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:drawablePadding="@dimen/xsmall_space"
+            android:drawableTop="@drawable/ic_share_black_24dp"
+            android:text="share"
+            android:textAlignment="center"
+            tools:text="share" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </RelativeLayout>
+
+</LinearLayout>
