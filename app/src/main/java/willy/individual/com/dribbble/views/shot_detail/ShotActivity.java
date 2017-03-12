@@ -7,16 +7,13 @@ import willy.individual.com.dribbble.views.base.SingleFragmentActivity;
 
 public class ShotActivity extends SingleFragmentActivity {
 
-
-
-
     @Override
     protected Fragment newFragment() {
-        return null;
+        return ShotFragment.newFragment();
     }
 
     @Override
     protected String getActivityTitle() {
-        return null;
+        return "Shot";
     }
 }

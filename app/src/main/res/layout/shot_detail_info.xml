@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/shot_detail_info_user_info"
-            android:layourt="@id/shot_detail_info_user_info"
+            android:layout="@id/shot_detail_info_user_info"
             android:text="jdslfdlfjlsd"
             android:textSize="@dimen/medium_size"
             android:layout_marginTop="@dimen/large_space"/>
