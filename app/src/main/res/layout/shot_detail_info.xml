@@ -12,7 +12,7 @@
         android:padding="@dimen/medium_space">
 
         <TextView
-            android:id="@+id/shot_detail_view_count"
+            android:id="@+id/shot_detail_info_view_count"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -24,7 +24,7 @@
             tools:text="3000" />
 
         <TextView
-            android:id="@+id/shot_detail_like_count"
+            android:id="@+id/shot_detail_info_like_count"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -36,7 +36,7 @@
             tools:text="100" />
 
         <TextView
-            android:id="@+id/shot_detail_bucket_count"
+            android:id="@+id/shot_detail_info_bucket_count"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -48,6 +48,7 @@
             tools:text="20" />
 
         <TextView
+            android:id="@+id/shot_detail_info_share"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -61,8 +62,43 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/medium_space">
 
+        <ImageView
+            android:id="@+id/shot_detail_info_user_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_account_circle_black_48dp"/>
+
+        <TextView
+            android:id="@+id/shot_detail_info_user_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/shot_detail_info_user_image"
+            android:layout_toRightOf="@id/shot_detail_info_user_image"
+            android:text="XX"
+            android:layout_marginLeft="@dimen/medium_space"
+            android:textSize="@dimen/large_size"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/shot_detail_info_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/shot_detail_info_user_info"
+            android:layourt="@id/shot_detail_info_user_info"
+            android:text="jdslfdlfjlsd"
+            android:textSize="@dimen/medium_size"
+            android:layout_marginTop="@dimen/large_space"/>
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/large_space"
+        android:text="XXXXXXXXXX\nxxxxxxxxxx\nxxxxxxxxx"/>
 
 </LinearLayout>

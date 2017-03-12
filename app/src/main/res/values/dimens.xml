@@ -15,4 +15,5 @@
     <dimen name="drawer_header_logout_text_size">16sp</dimen>
     <dimen name="toolbar_elevation">4dp</dimen>
     <dimen name="progress_bar_height">3dp</dimen>
+    <dimen name="large_size">24sp</dimen>
 </resources>
