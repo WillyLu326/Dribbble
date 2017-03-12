@@ -19,7 +19,7 @@ import willy.individual.com.dribbble.R;
 
 public class ShotFragment extends Fragment {
 
-    @BindView(R.id.shot_detail_recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.shot_list_recycler_view) RecyclerView recyclerView;
 
     public static Fragment newFragment() {
         return new ShotFragment();

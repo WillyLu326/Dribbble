@@ -29,9 +29,9 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         setTitle(getActivityTitle());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, newFragment())
+                    .add(R.id.single_fragment_container, newFragment())
                     .commit();
         }
     }

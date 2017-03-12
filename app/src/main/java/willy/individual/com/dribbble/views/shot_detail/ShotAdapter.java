@@ -22,17 +22,17 @@ public class ShotAdapter extends RecyclerView.Adapter {
             View view = LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.shot_detail_image, parent, false);
             return new ShotImageViewHolder(view);
-        } else if (viewType == TYPE_SHOT_INFO) {
+        } else  {
             View view = LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.shot_detail_info, parent, false);
             return new ShotInfoViewHolder(view);
         }
-        return null;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         int viewType = getItemViewType(position);
+
         if (viewType == TYPE_SHOT_IMAGE) {
             ShotImageViewHolder viewHolder = (ShotImageViewHolder) holder;
 
@@ -47,5 +47,14 @@ public class ShotAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return TYPE_SHOT_IMAGE;
+        } else {
+            return TYPE_SHOT_INFO;
+        }
     }
 }
