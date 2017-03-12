@@ -30,7 +30,7 @@
             android:layout_weight="1"
             android:clickable="true"
             android:drawablePadding="@dimen/xsmall_space"
-            android:drawableTop="@drawable/ic_favorite_black_24dp"
+            android:drawableTop="@drawable/ic_favorite_border_black_24dp"
             android:text="100"
             android:textAlignment="center"
             tools:text="100" />
@@ -63,7 +63,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/medium_space">
+        android:padding="@dimen/large_space">
 
         <ImageView
             android:id="@+id/shot_detail_info_user_image"

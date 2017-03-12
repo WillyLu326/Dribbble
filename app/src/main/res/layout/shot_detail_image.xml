@@ -2,7 +2,7 @@
 <ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="264dp"
+    android:layout_height="@dimen/shot_item_height"
     android:id="@+id/shot_detail_image"
     android:src="@color/colorPrimary"
     android:background="?attr/selectableItemBackground">
