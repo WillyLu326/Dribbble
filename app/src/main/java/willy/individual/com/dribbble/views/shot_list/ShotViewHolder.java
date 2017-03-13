@@ -9,9 +9,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
 
-/**
- * Created by zhenglu on 3/11/17.
- */
 
 public class ShotViewHolder extends RecyclerView.ViewHolder {
 

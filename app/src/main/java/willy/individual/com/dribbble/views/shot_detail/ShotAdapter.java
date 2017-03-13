@@ -7,9 +7,6 @@ import android.view.ViewGroup;
 
 import willy.individual.com.dribbble.R;
 
-/**
- * Created by zhenglu on 3/12/17.
- */
 
 public class ShotAdapter extends RecyclerView.Adapter {
 

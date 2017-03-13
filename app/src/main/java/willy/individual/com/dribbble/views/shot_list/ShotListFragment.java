@@ -20,9 +20,6 @@ import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.views.base.ShotListSpaceItemDecoration;
 
-/**
- * Created by zhenglu on 3/5/17.
- */
 
 public class ShotListFragment extends Fragment{
 
