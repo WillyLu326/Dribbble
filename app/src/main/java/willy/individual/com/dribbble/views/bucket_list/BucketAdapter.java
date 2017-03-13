@@ -62,4 +62,8 @@ public class BucketAdapter extends RecyclerView.Adapter {
         }
         return BUCKET_TYPE;
     }
+
+    public void append(List<Bucket> moreData) {
+        this.buckets.addAll(moreData);
+    }
 }

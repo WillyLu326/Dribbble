@@ -45,7 +45,7 @@ public class BucketListFragment extends Fragment {
         bucketRecyclerView.setAdapter(new BucketAdapter(mockData(), new OnLoadingMoreListener() {
             @Override
             public void onLoadingMore() {
-                Toast.makeText(getContext(), "xxx", Toast.LENGTH_LONG).show();
+
             }
         }));
     }
