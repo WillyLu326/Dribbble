@@ -18,6 +18,9 @@ import willy.individual.com.dribbble.views.shot_detail.ShotActivity;
 
 public class ShotAdapter extends RecyclerView.Adapter {
 
+    private static final int SHOT_TYPE = 0;
+    private static final int SHOT_WITH_SPINNER_TYPE = 1;
+
     private List<Shot> shotList;
 
     public ShotAdapter(@NonNull List<Shot> shotList) {
@@ -55,5 +58,13 @@ public class ShotAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return shotList.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == shotList.size() - 1) {
+            return SHOT_WITH_SPINNER_TYPE;
+        }
+        return SHOT_TYPE;
     }
 }
