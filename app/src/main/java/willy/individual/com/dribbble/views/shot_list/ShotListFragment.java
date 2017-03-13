@@ -53,7 +53,7 @@ public class ShotListFragment extends Fragment{
         List<Shot> shotList = new ArrayList<>();
 
         Random random = new Random();
-        for (int i = 0; i < 20; ++i) {
+        for (int i = 0; i < 5; ++i) {
             Shot shot = new Shot();
             shot.views_count = random.nextInt(3000);
             shot.likes_count = random.nextInt(100);

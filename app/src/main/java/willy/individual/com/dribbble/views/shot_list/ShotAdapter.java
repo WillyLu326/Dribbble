@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import willy.individual.com.dribbble.MainActivity;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.views.shot_detail.ShotActivity;
@@ -19,7 +18,7 @@ import willy.individual.com.dribbble.views.shot_detail.ShotActivity;
 public class ShotAdapter extends RecyclerView.Adapter {
 
     private static final int SHOT_TYPE = 0;
-    private static final int SHOT_WITH_SPINNER_TYPE = 1;
+    private static final int SPINNER_TYPE = 1;
 
     private List<Shot> shotList;
 
@@ -33,43 +32,47 @@ public class ShotAdapter extends RecyclerView.Adapter {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.shot_item, parent, false);
             return new ShotViewHolder(view);
-        } else if (viewType == SHOT_WITH_SPINNER_TYPE) {
+        } else if (viewType == SPINNER_TYPE) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.shot_item_with_spinner, parent, false);
-            return null;
+                    .inflate(R.layout.shot_spinner, parent, false);
+            return new ShotWithSpinnerViewHolder(view);
         }
         return null;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final Shot shot = shotList.get(position);
 
-        final ShotViewHolder shotViewHolder = (ShotViewHolder) holder;
+        if (getItemViewType(position) == SHOT_TYPE) {
+            final Shot shot = shotList.get(position);
+            final ShotViewHolder shotViewHolder = (ShotViewHolder) holder;
 
-        shotViewHolder.viewsCountTv.setText(String.valueOf(shot.views_count));
-        shotViewHolder.likesCountTv.setText(String.valueOf(shot.likes_count));
-        shotViewHolder.bucketsCountTv.setText(String.valueOf(shot.butckets_count));
-        shotViewHolder.image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = shotViewHolder.itemView.getContext();
-                Intent intent = new Intent(context, ShotActivity.class);
-                context.startActivity(intent);
+            shotViewHolder.viewsCountTv.setText(String.valueOf(shot.views_count));
+            shotViewHolder.likesCountTv.setText(String.valueOf(shot.likes_count));
+            shotViewHolder.bucketsCountTv.setText(String.valueOf(shot.butckets_count));
+            shotViewHolder.image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = shotViewHolder.itemView.getContext();
+                    Intent intent = new Intent(context, ShotActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+        } else if (getItemViewType(position) == SPINNER_TYPE) {
+            final ShotWithSpinnerViewHolder shotWithSpinnerViewHolder = (ShotWithSpinnerViewHolder) holder;
 
-            }
-        });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return shotList.size();
+        return shotList.size() + 1;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == shotList.size() - 1) {
-            return SHOT_WITH_SPINNER_TYPE;
+        if (position == shotList.size()) {
+            return SPINNER_TYPE;
         }
         return SHOT_TYPE;
     }
