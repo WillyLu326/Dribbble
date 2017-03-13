@@ -23,6 +23,8 @@ import willy.individual.com.dribbble.views.base.ShotListSpaceItemDecoration;
 
 public class ShotListFragment extends Fragment{
 
+    // thread branch
+
     @BindView(R.id.shot_list_recycler_view) RecyclerView shotListRecyclerView;
 
     ShotAdapter adapter;
