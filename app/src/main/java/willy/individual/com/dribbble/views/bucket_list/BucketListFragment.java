@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Bucket;
 import willy.individual.com.dribbble.views.base.BucketListSpaceItemDecoration;
+import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 
 
 public class BucketListFragment extends Fragment {
@@ -40,7 +42,12 @@ public class BucketListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         bucketRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         bucketRecyclerView.addItemDecoration(new BucketListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
-        bucketRecyclerView.setAdapter(new BucketAdapter(mockData()));
+        bucketRecyclerView.setAdapter(new BucketAdapter(mockData(), new OnLoadingMoreListener() {
+            @Override
+            public void onLoadingMore() {
+                Toast.makeText(getContext(), "xxx", Toast.LENGTH_LONG).show();
+            }
+        }));
     }
 
     private List<Bucket> mockData() {

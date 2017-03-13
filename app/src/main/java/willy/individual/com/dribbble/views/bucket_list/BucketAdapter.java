@@ -9,6 +9,7 @@ import java.util.List;
 
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Bucket;
+import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 
 
 public class BucketAdapter extends RecyclerView.Adapter {
@@ -17,9 +18,11 @@ public class BucketAdapter extends RecyclerView.Adapter {
     private static final int BUCKET_WITH_SPINNER_TYPE = 1;
 
     private List<Bucket> buckets;
+    private OnLoadingMoreListener onLoadingMoreListener;
 
-    public BucketAdapter(List<Bucket> buckets) {
+    public BucketAdapter(List<Bucket> buckets, OnLoadingMoreListener onLoadingMoreListener) {
         this.buckets = buckets;
+        this.onLoadingMoreListener = onLoadingMoreListener;
     }
 
     @Override
@@ -43,7 +46,7 @@ public class BucketAdapter extends RecyclerView.Adapter {
         if (getItemViewType(position) == BUCKET_TYPE) {
             Bucket bucket = buckets.get(position);
         } else if (getItemViewType(position) == BUCKET_WITH_SPINNER_TYPE) {
-
+            onLoadingMoreListener.onLoadingMore();
         }
     }
 
