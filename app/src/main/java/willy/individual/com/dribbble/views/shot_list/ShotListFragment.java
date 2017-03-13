@@ -61,6 +61,7 @@ public class ShotListFragment extends Fragment{
                                 @Override
                                 public void run() {
                                     adapter.append(mockData());
+                                    adapter.toggleSpinner(adapter.getItemCount() < 16);
                                 }
                             });
                         } catch (InterruptedException e) {

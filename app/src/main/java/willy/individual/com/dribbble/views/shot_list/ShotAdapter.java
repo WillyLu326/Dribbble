@@ -22,10 +22,12 @@ public class ShotAdapter extends RecyclerView.Adapter {
 
     private List<Shot> shotList;
     private OnLoadingMoreListener onLoadingMoreListener;
+    private boolean isShowingSpinner;
 
     public ShotAdapter(@NonNull List<Shot> shotList, OnLoadingMoreListener onLoadingMoreListener) {
         this.shotList = shotList;
         this.onLoadingMoreListener = onLoadingMoreListener;
+        this.isShowingSpinner = true;
     }
 
     @Override
@@ -69,7 +71,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return shotList.size() + 1;
+        return isShowingSpinner ? shotList.size() + 1 : shotList.size();
     }
 
     @Override
@@ -81,7 +83,12 @@ public class ShotAdapter extends RecyclerView.Adapter {
     }
 
     public void append(List<Shot> moreData) {
-        shotList.addAll(moreData);
+        this.shotList.addAll(moreData);
+        notifyDataSetChanged();
+    }
+
+    public void toggleSpinner(boolean showSpinner) {
+        this.isShowingSpinner = showSpinner;
         notifyDataSetChanged();
     }
 
