@@ -29,10 +29,16 @@ public class ShotAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.shot_item, parent, false);
-
-        return new ShotViewHolder(view);
+        if (viewType == SHOT_TYPE) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.shot_item, parent, false);
+            return new ShotViewHolder(view);
+        } else if (viewType == SHOT_WITH_SPINNER_TYPE) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.shot_item_with_spinner, parent, false);
+            return null;
+        }
+        return null;
     }
 
     @Override
