@@ -1,8 +1,15 @@
 package willy.individual.com.dribbble.views.bucket_list;
 
-/**
- * Created by zhenglu on 3/13/17.
- */
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
-public class BucketSpinnerViewHolder {
+import butterknife.ButterKnife;
+
+
+public class BucketSpinnerViewHolder extends RecyclerView.ViewHolder {
+
+    public BucketSpinnerViewHolder(View itemView) {
+        super(itemView);
+        ButterKnife.bind(this, itemView);
+    }
 }
