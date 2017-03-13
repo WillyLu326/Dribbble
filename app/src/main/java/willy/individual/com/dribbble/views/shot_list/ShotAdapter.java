@@ -1,6 +1,5 @@
 package willy.individual.com.dribbble.views.shot_list;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -79,6 +78,11 @@ public class ShotAdapter extends RecyclerView.Adapter {
             return SPINNER_TYPE;
         }
         return SHOT_TYPE;
+    }
+
+    public void append(List<Shot> moreData) {
+        shotList.addAll(moreData);
+        notifyDataSetChanged();
     }
 
     public interface OnLoadingMoreListener {

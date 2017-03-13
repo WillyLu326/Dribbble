@@ -2,13 +2,13 @@ package willy.individual.com.dribbble.views.shot_list;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +28,8 @@ public class ShotListFragment extends Fragment{
 
     @BindView(R.id.shot_list_recycler_view) RecyclerView shotListRecyclerView;
 
+    ShotAdapter adapter;
+
     public static ShotListFragment newInstance() {
         return new ShotListFragment();
     }
@@ -44,13 +46,28 @@ public class ShotListFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        final Handler uiThreadHandler = new Handler();
         shotListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         shotListRecyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
-        ShotAdapter adapter = new ShotAdapter(mockData(), new ShotAdapter.OnLoadingMoreListener() {
+        adapter = new ShotAdapter(mockData(), new ShotAdapter.OnLoadingMoreListener() {
             @Override
             public void onLoadingMore() {
-
-                Toast.makeText(getContext(), "Loading More Data", Toast.LENGTH_LONG).show();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2000);
+                            uiThreadHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    adapter.append(mockData());
+                                }
+                            });
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
             }
         });
         shotListRecyclerView.setAdapter(adapter);
