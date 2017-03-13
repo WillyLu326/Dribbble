@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.LoginActivity">
+        <activity android:name=".views.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,8 +17,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".views.auth.AuthActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".views.auth.AuthActivity" />
         <activity android:name=".views.shot_detail.ShotActivity" />
 
     </application>

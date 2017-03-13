@@ -1,4 +1,4 @@
-package willy.individual.com.dribbble.views;
+package willy.individual.com.dribbble.views.login;
 
 import android.app.Activity;
 import android.content.Intent;

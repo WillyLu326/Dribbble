@@ -15,7 +15,7 @@ import android.view.View;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import willy.individual.com.dribbble.views.LoginActivity;
+import willy.individual.com.dribbble.views.login.LoginActivity;
 import willy.individual.com.dribbble.views.auth.Auth;
 import willy.individual.com.dribbble.views.bucket_list.BucketListFragment;
 import willy.individual.com.dribbble.views.shot_list.ShotListFragment;

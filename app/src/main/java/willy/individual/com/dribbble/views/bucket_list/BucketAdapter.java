@@ -1,20 +1,15 @@
 package willy.individual.com.dribbble.views.bucket_list;
 
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Bucket;
 
-/**
- * Created by zhenglu on 3/11/17.
- */
 
 public class BucketAdapter extends RecyclerView.Adapter {
 

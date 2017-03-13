@@ -9,12 +9,12 @@ import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
 
 
-public class ShotWithSpinnerViewHolder extends RecyclerView.ViewHolder {
+public class ShotSpinnerViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.loading_spinner) ProgressBar spinner;
     View itemView;
 
-    public ShotWithSpinnerViewHolder(View itemView) {
+    public ShotSpinnerViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
         this.itemView = itemView;

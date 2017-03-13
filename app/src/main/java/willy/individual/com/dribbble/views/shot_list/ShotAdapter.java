@@ -39,7 +39,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
         } else if (viewType == SPINNER_TYPE) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.shot_spinner, parent, false);
-            return new ShotWithSpinnerViewHolder(view);
+            return new ShotSpinnerViewHolder(view);
         }
         return null;
     }
@@ -63,7 +63,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
                 }
             });
         } else if (getItemViewType(position) == SPINNER_TYPE) {
-            final ShotWithSpinnerViewHolder shotWithSpinnerViewHolder = (ShotWithSpinnerViewHolder) holder;
+            final ShotSpinnerViewHolder shotSpinnerViewHolder = (ShotSpinnerViewHolder) holder;
 
             onLoadingMoreListener.onLoadingMore();
         }
