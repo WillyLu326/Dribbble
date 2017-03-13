@@ -12,6 +12,8 @@ Using Dribbble API to create this Application
 * UI & UX Design
 * OAuth
 * Dribbble API
+* Infinite Scrolling View
+* UI Thread & Individual Thread
 
 ## Developer
 Willy Lu
