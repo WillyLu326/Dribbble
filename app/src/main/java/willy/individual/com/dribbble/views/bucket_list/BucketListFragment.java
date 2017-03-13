@@ -2,13 +2,13 @@ package willy.individual.com.dribbble.views.bucket_list;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,8 @@ public class BucketListFragment extends Fragment {
 
     @BindView(R.id.bucket_list_recycler_view) RecyclerView bucketRecyclerView;
 
+    private BucketAdapter bucketAdapter;
+
     public static BucketListFragment newInstance() {
         return new BucketListFragment();
     }
@@ -40,19 +42,37 @@ public class BucketListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        final Handler uiThreadHandler = new Handler();
         bucketRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         bucketRecyclerView.addItemDecoration(new BucketListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
-        bucketRecyclerView.setAdapter(new BucketAdapter(mockData(), new OnLoadingMoreListener() {
+        bucketAdapter = new BucketAdapter(mockData(), new OnLoadingMoreListener() {
             @Override
             public void onLoadingMore() {
-
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2000);
+                            uiThreadHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    bucketAdapter.append(mockData());
+                                }
+                            });
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
             }
-        }));
+        });
+        bucketRecyclerView.setAdapter(bucketAdapter);
     }
 
     private List<Bucket> mockData() {
         List<Bucket> buckets = new ArrayList<>();
-        for (int i = 0; i < 6; ++i) {
+        for (int i = 1; i < 6; ++i) {
             buckets.add(new Bucket("Bucket #" + i));
         }
         return buckets;

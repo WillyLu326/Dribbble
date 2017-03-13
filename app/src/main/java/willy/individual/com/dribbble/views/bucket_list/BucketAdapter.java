@@ -44,7 +44,11 @@ public class BucketAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == BUCKET_TYPE) {
+
             Bucket bucket = buckets.get(position);
+            BucketViewHolder bucketViewHolder = (BucketViewHolder) holder;
+            bucketViewHolder.bucketNameTv.setText(bucket.name);
+
         } else if (getItemViewType(position) == BUCKET_WITH_SPINNER_TYPE) {
             onLoadingMoreListener.onLoadingMore();
         }
@@ -65,5 +69,6 @@ public class BucketAdapter extends RecyclerView.Adapter {
 
     public void append(List<Bucket> moreData) {
         this.buckets.addAll(moreData);
+        notifyDataSetChanged();
     }
 }
