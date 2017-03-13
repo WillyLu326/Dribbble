@@ -12,6 +12,7 @@ import java.util.List;
 
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
+import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.shot_detail.ShotActivity;
 
 
@@ -90,9 +91,5 @@ public class ShotAdapter extends RecyclerView.Adapter {
     public void toggleSpinner(boolean showSpinner) {
         this.isShowingSpinner = showSpinner;
         notifyDataSetChanged();
-    }
-
-    public interface OnLoadingMoreListener {
-        void onLoadingMore();
     }
 }

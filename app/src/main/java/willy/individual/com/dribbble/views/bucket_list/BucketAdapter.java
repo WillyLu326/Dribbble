@@ -45,8 +45,6 @@ public class BucketAdapter extends RecyclerView.Adapter {
         } else if (getItemViewType(position) == BUCKET_WITH_SPINNER_TYPE) {
 
         }
-
-
     }
 
     @Override
