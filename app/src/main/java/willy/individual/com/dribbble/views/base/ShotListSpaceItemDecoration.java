@@ -5,9 +5,6 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-/**
- * Created by zhenglu on 3/7/17.
- */
 
 public class ShotListSpaceItemDecoration extends RecyclerView.ItemDecoration {
 

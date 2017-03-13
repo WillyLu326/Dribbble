@@ -13,8 +13,6 @@ import willy.individual.com.dribbble.models.Bucket;
 
 public class BucketAdapter extends RecyclerView.Adapter {
 
-    // Dribbble Android Thread
-
     private List<Bucket> buckets;
 
     public BucketAdapter(List<Bucket> buckets) {
@@ -32,7 +30,6 @@ public class BucketAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Bucket bucket = buckets.get(position);
 
-        //((BucketViewHolder) holder).bucketItemNameTv.setText(bucket.name);
     }
 
     @Override

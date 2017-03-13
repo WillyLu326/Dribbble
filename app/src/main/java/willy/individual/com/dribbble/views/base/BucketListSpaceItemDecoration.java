@@ -4,9 +4,6 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-/**
- * Created by zhenglu on 3/11/17.
- */
 
 public class BucketListSpaceItemDecoration extends RecyclerView.ItemDecoration {
 
