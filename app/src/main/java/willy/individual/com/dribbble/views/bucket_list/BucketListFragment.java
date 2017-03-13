@@ -58,6 +58,7 @@ public class BucketListFragment extends Fragment {
                                 @Override
                                 public void run() {
                                     bucketAdapter.append(mockData());
+                                    bucketAdapter.toggleBucketSpinner(bucketAdapter.getItemCount() < 21);
                                 }
                             });
                         } catch (InterruptedException e) {

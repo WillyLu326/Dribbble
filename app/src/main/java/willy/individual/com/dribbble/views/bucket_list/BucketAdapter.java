@@ -19,10 +19,12 @@ public class BucketAdapter extends RecyclerView.Adapter {
 
     private List<Bucket> buckets;
     private OnLoadingMoreListener onLoadingMoreListener;
+    private boolean isShowingBucketSpinner;
 
     public BucketAdapter(List<Bucket> buckets, OnLoadingMoreListener onLoadingMoreListener) {
         this.buckets = buckets;
         this.onLoadingMoreListener = onLoadingMoreListener;
+        this.isShowingBucketSpinner = true;
     }
 
     @Override
@@ -56,7 +58,7 @@ public class BucketAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return buckets.size() + 1;
+        return isShowingBucketSpinner ? buckets.size() + 1 : buckets.size();
     }
 
     @Override
@@ -69,6 +71,11 @@ public class BucketAdapter extends RecyclerView.Adapter {
 
     public void append(List<Bucket> moreData) {
         this.buckets.addAll(moreData);
+        notifyDataSetChanged();
+    }
+
+    public void toggleBucketSpinner(boolean showBucketSpinner) {
+        this.isShowingBucketSpinner = showBucketSpinner;
         notifyDataSetChanged();
     }
 }
