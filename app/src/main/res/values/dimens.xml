@@ -16,4 +16,5 @@
     <dimen name="toolbar_elevation">4dp</dimen>
     <dimen name="progress_bar_height">3dp</dimen>
     <dimen name="large_size">24sp</dimen>
+    <dimen name="shot_detail_item_height">284dp</dimen>
 </resources>
