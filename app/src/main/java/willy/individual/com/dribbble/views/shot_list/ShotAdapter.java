@@ -1,5 +1,6 @@
 package willy.individual.com.dribbble.views.shot_list;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -21,9 +22,11 @@ public class ShotAdapter extends RecyclerView.Adapter {
     private static final int SPINNER_TYPE = 1;
 
     private List<Shot> shotList;
+    private OnLoadingMoreListener onLoadingMoreListener;
 
-    public ShotAdapter(@NonNull List<Shot> shotList) {
+    public ShotAdapter(@NonNull List<Shot> shotList, OnLoadingMoreListener onLoadingMoreListener) {
         this.shotList = shotList;
+        this.onLoadingMoreListener = onLoadingMoreListener;
     }
 
     @Override
@@ -61,6 +64,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
         } else if (getItemViewType(position) == SPINNER_TYPE) {
             final ShotWithSpinnerViewHolder shotWithSpinnerViewHolder = (ShotWithSpinnerViewHolder) holder;
 
+            onLoadingMoreListener.onLoadingMore();
         }
     }
 
@@ -75,5 +79,9 @@ public class ShotAdapter extends RecyclerView.Adapter {
             return SPINNER_TYPE;
         }
         return SHOT_TYPE;
+    }
+
+    public interface OnLoadingMoreListener {
+        void onLoadingMore();
     }
 }

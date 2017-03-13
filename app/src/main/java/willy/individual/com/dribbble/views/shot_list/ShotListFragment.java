@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,13 @@ public class ShotListFragment extends Fragment{
 
         shotListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         shotListRecyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
-        ShotAdapter adapter = new ShotAdapter(mockData());
+        ShotAdapter adapter = new ShotAdapter(mockData(), new ShotAdapter.OnLoadingMoreListener() {
+            @Override
+            public void onLoadingMore() {
+
+                Toast.makeText(getContext(), "Loading More Data", Toast.LENGTH_LONG).show();
+            }
+        });
         shotListRecyclerView.setAdapter(adapter);
     }
 

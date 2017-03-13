@@ -4,15 +4,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center">
+    android:gravity="center"
+    android:padding="@dimen/small_space">
 
     <ProgressBar
         android:id="@+id/loading_spinner"
         style="@android:style/Widget.ProgressBar.Small.Inverse"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/xsmall_space"
-        android:layout_marginBottom="@dimen/xsmall_space"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
 
