@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/shot_item_height"
             android:clickable="true"
+            android:scaleType="centerCrop"
             android:background="?attr/selectableItemBackground"
             android:contentDescription="@string/shot_item_image"
             android:src="@android:color/darker_gray" />

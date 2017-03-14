@@ -56,6 +56,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
 
             Glide.with(shotViewHolder.itemView.getContext())
                     .load(shot.getImageUrl())
+                    .placeholder(R.drawable.shot_placeholder)
                     .into(shotViewHolder.image);
 
             shotViewHolder.viewsCountTv.setText(String.valueOf(shot.views_count));
