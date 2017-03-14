@@ -16,6 +16,8 @@ import willy.individual.com.dribbble.R;
 
 public class ShotFragment extends Fragment {
 
+    public static final String SHOT_KEY = "shot_key";
+
     @BindView(R.id.shot_list_recycler_view) RecyclerView recyclerView;
 
     public static Fragment newFragment() {

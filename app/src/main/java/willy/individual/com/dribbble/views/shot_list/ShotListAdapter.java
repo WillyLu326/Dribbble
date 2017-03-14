@@ -1,5 +1,6 @@
 package willy.individual.com.dribbble.views.shot_list;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -10,16 +11,19 @@ import android.view.ViewGroup;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
+import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.shot_detail.ShotActivity;
+import willy.individual.com.dribbble.views.shot_detail.ShotFragment;
 
 
-public class ShotAdapter extends RecyclerView.Adapter {
+public class ShotListAdapter extends RecyclerView.Adapter {
 
     private static final int SHOT_TYPE = 0;
     private static final int SPINNER_TYPE = 1;
@@ -28,7 +32,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
     private OnLoadingMoreListener onLoadingMoreListener;
     private boolean isShowingSpinner;
 
-    public ShotAdapter(@NonNull List<Shot> shotList, OnLoadingMoreListener onLoadingMoreListener) {
+    public ShotListAdapter(@NonNull List<Shot> shotList, OnLoadingMoreListener onLoadingMoreListener) {
         this.shotList = shotList;
         this.onLoadingMoreListener = onLoadingMoreListener;
         this.isShowingSpinner = true;
@@ -70,7 +74,9 @@ public class ShotAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     Context context = shotViewHolder.itemView.getContext();
                     Intent intent = new Intent(context, ShotActivity.class);
-                    context.startActivity(intent);
+                    intent.putExtra(ShotFragment.SHOT_KEY,
+                            ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
+                    ((Activity) context).startActivityForResult(intent, ShotListFragment.SHOTLIST_FRAGMENT_REQ_CODE);
                 }
             });
         } else if (getItemViewType(position) == SPINNER_TYPE) {

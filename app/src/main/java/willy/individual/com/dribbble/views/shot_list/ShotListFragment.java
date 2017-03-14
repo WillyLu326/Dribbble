@@ -25,11 +25,13 @@ import willy.individual.com.dribbble.views.dribbble.Dribbble;
 
 public class ShotListFragment extends Fragment{
 
+    public static final int SHOTLIST_FRAGMENT_REQ_CODE = 100;
+
     private static final int COUNT_PER_PAGE = 12;
 
     @BindView(R.id.shot_list_recycler_view) RecyclerView shotListRecyclerView;
 
-    private ShotAdapter adapter;
+    private ShotListAdapter adapter;
 
     public static ShotListFragment newInstance() {
         return new ShotListFragment();
@@ -49,10 +51,10 @@ public class ShotListFragment extends Fragment{
 
         shotListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         shotListRecyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
-        adapter = new ShotAdapter(new ArrayList<Shot>(), new OnLoadingMoreListener() {
+        adapter = new ShotListAdapter(new ArrayList<Shot>(), new OnLoadingMoreListener() {
                 @Override
                 public void onLoadingMore() {
-                AsyncTaskCompat.executeParallel(new LoadShotTask(adapter.getItemCount() / 12 + 1));
+                AsyncTaskCompat.executeParallel(new LoadShotTask(adapter.getItemCount() / COUNT_PER_PAGE + 1));
             }
         });
         shotListRecyclerView.setAdapter(adapter);
@@ -76,6 +78,7 @@ public class ShotListFragment extends Fragment{
         protected void onPostExecute(List<Shot> shotList) {
             super.onPostExecute(shotList);
             adapter.append(shotList);
+            adapter.toggleSpinner(adapter.getItemCount() / COUNT_PER_PAGE <= page);
         }
     }
 }
