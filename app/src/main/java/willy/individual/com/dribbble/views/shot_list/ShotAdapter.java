@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import willy.individual.com.dribbble.R;
@@ -51,6 +53,10 @@ public class ShotAdapter extends RecyclerView.Adapter {
         if (getItemViewType(position) == SHOT_TYPE) {
             final Shot shot = shotList.get(position);
             final ShotViewHolder shotViewHolder = (ShotViewHolder) holder;
+
+            Glide.with(shotViewHolder.itemView.getContext())
+                    .load(shot.getImageUrl())
+                    .into(shotViewHolder.image);
 
             shotViewHolder.viewsCountTv.setText(String.valueOf(shot.views_count));
             shotViewHolder.likesCountTv.setText(String.valueOf(shot.likes_count));
