@@ -52,7 +52,7 @@ public class ShotListFragment extends Fragment{
         adapter = new ShotAdapter(new ArrayList<Shot>(), new OnLoadingMoreListener() {
                 @Override
                 public void onLoadingMore() {
-                AsyncTaskCompat.executeParallel(new LoadShotTask());
+                AsyncTaskCompat.executeParallel(new LoadShotTask(adapter.getItemCount() / 12 + 1));
             }
         });
         shotListRecyclerView.setAdapter(adapter);
@@ -61,9 +61,15 @@ public class ShotListFragment extends Fragment{
 
     private class LoadShotTask extends AsyncTask<Void, Void, List<Shot>> {
 
+        private int page;
+
+        public LoadShotTask(int page) {
+            this.page = page;
+        }
+
         @Override
         protected List<Shot> doInBackground(Void... params) {
-            return Dribbble.getShots();
+            return Dribbble.getShots(page);
         }
 
         @Override

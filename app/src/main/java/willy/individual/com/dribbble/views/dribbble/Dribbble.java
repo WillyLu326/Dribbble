@@ -24,10 +24,12 @@ public class Dribbble {
 
     private static final String BASE_URL = "https://api.dribbble.com/v1/";
 
-    public static List<Shot> getShots() {
+    private static final String SHOTS_URL = BASE_URL + "shots";
+
+    public static List<Shot> getShots(int page) {
         Request request = new Request.Builder()
                 .addHeader("Authorization", "Bearer " + Auth.accessToken)
-                .url(BASE_URL + "shots")
+                .url(SHOTS_URL + "?page=" + page)
                 .build();
 
         try {
