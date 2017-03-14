@@ -9,9 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.reflect.TypeToken;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
+import willy.individual.com.dribbble.models.Shot;
+import willy.individual.com.dribbble.utils.ModelUtils;
 
 
 public class ShotFragment extends Fragment {
@@ -36,6 +40,10 @@ public class ShotFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new ShotAdapter());
+        recyclerView.setAdapter(new ShotAdapter(getShotFromShotListFragment()));
+    }
+
+    private Shot getShotFromShotListFragment() {
+        return ModelUtils.convertToObject(getActivity().getIntent().getStringExtra(SHOT_KEY), new TypeToken<Shot>(){});
     }
 }

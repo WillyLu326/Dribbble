@@ -6,12 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import willy.individual.com.dribbble.R;
+import willy.individual.com.dribbble.models.Shot;
 
 
 public class ShotAdapter extends RecyclerView.Adapter {
 
     private static final int TYPE_SHOT_IMAGE = 0;
     private static final int TYPE_SHOT_INFO = 1;
+
+    private Shot shot;
+
+    public ShotAdapter(Shot shot) {
+        this.shot = shot;
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -35,9 +42,9 @@ public class ShotAdapter extends RecyclerView.Adapter {
 
         } else if (viewType == TYPE_SHOT_INFO) {
             ShotInfoViewHolder viewHolder = (ShotInfoViewHolder) holder;
-            viewHolder.shotInfoViewCountTv.setText("100");
-            viewHolder.shotInfoLikeCountTv.setText("100");
-            viewHolder.shotInfoBucketCountTv.setText("100");
+            viewHolder.shotInfoViewCountTv.setText(String.valueOf(shot.views_count));
+            viewHolder.shotInfoLikeCountTv.setText(String.valueOf(shot.likes_count));
+            viewHolder.shotInfoBucketCountTv.setText(String.valueOf(shot.butckets_count));
         }
     }
 
