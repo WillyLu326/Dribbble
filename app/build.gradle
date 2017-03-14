@@ -36,4 +36,5 @@ dependencies {
     compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile 'com.android.support:support-v4:22.0.0'
+    compile 'com.facebook.fresco:fresco:1.1.0'
 }
