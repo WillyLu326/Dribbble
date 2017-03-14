@@ -26,4 +26,12 @@ public class ModelUtils {
         String value = sp.getString(key, null);
         return gson.fromJson(value, typeToken.getType());
     }
+
+    public static <T> String convertToString(T object, TypeToken<T> typeToken) {
+        return gson.toJson(object, typeToken.getRawType());
+    }
+
+    public static <T> T convertToObject(String json, TypeToken<T> typeToken) {
+        return gson.fromJson(json, typeToken.getType());
+    }
 }

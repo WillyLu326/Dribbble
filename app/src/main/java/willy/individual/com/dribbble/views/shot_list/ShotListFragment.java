@@ -1,6 +1,7 @@
 package willy.individual.com.dribbble.views.shot_list;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -70,6 +71,20 @@ public class ShotListFragment extends Fragment{
             }
         });
         shotListRecyclerView.setAdapter(adapter);
+    }
+
+
+    private class LoadShotTask extends AsyncTask<Void, Void, List<Shot>> {
+
+        @Override
+        protected List<Shot> doInBackground(Void... params) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(List<Shot> shotList) {
+            super.onPostExecute(shotList);
+        }
     }
 
     private List<Shot> mockData() {
