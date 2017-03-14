@@ -5,6 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
 
@@ -39,9 +42,15 @@ public class ShotAdapter extends RecyclerView.Adapter {
 
         if (viewType == TYPE_SHOT_IMAGE) {
             ShotImageViewHolder viewHolder = (ShotImageViewHolder) holder;
+            DraweeController controller = Fresco.newDraweeControllerBuilder()
+                    .setUri(shot.getImageUrl())
+                    .setAutoPlayAnimations(true)
+                    .build();
+            viewHolder.shotDetailDv.setController(controller);
 
         } else if (viewType == TYPE_SHOT_INFO) {
             ShotInfoViewHolder viewHolder = (ShotInfoViewHolder) holder;
+
             viewHolder.shotInfoViewCountTv.setText(String.valueOf(shot.views_count));
             viewHolder.shotInfoLikeCountTv.setText(String.valueOf(shot.likes_count));
             viewHolder.shotInfoBucketCountTv.setText(String.valueOf(shot.butckets_count));
