@@ -5,11 +5,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +24,19 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
+import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.base.ShotListSpaceItemDecoration;
+import willy.individual.com.dribbble.views.dribbble.Dribbble;
 
 
 public class ShotListFragment extends Fragment{
 
+    private static final int COUNT_PER_PAGE = 12;
+
     @BindView(R.id.shot_list_recycler_view) RecyclerView shotListRecyclerView;
 
-    ShotAdapter adapter;
+    private ShotAdapter adapter;
 
     public static ShotListFragment newInstance() {
         return new ShotListFragment();
@@ -45,29 +54,12 @@ public class ShotListFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final Handler uiThreadHandler = new Handler();
         shotListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         shotListRecyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
-        adapter = new ShotAdapter(mockData(), new OnLoadingMoreListener() {
-            @Override
-            public void onLoadingMore() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(2000);
-                            uiThreadHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    adapter.append(mockData());
-                                    adapter.toggleSpinner(adapter.getItemCount() < 16);
-                                }
-                            });
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
+        adapter = new ShotAdapter(new ArrayList<Shot>(), new OnLoadingMoreListener() {
+                @Override
+                public void onLoadingMore() {
+                AsyncTaskCompat.executeParallel(new LoadShotTask());
             }
         });
         shotListRecyclerView.setAdapter(adapter);
@@ -78,28 +70,13 @@ public class ShotListFragment extends Fragment{
 
         @Override
         protected List<Shot> doInBackground(Void... params) {
-            return null;
+            return Dribbble.getShots();
         }
 
         @Override
         protected void onPostExecute(List<Shot> shotList) {
             super.onPostExecute(shotList);
+            adapter.append(shotList);
         }
     }
-
-    private List<Shot> mockData() {
-        List<Shot> shotList = new ArrayList<>();
-
-        Random random = new Random();
-        for (int i = 0; i < 5; ++i) {
-            Shot shot = new Shot();
-            shot.views_count = random.nextInt(3000);
-            shot.likes_count = random.nextInt(100);
-            shot.butckets_count = random.nextInt(20);
-            shotList.add(shot);
-        }
-
-        return shotList;
-    }
-
 }
