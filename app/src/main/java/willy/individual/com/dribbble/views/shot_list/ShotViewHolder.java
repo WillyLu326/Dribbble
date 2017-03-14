@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
@@ -12,10 +14,11 @@ import willy.individual.com.dribbble.R;
 
 public class ShotViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.shot_item_image) public ImageView image;
-    @BindView(R.id.shot_item_view_count) public TextView viewsCountTv;
-    @BindView(R.id.shot_item_like) public TextView likesCountTv;
-    @BindView(R.id.shot_item_bucket) public TextView bucketsCountTv;
+    @BindView(R.id.shot_item_cover) View cover;
+    @BindView(R.id.shot_item_image) SimpleDraweeView image;
+    @BindView(R.id.shot_item_view_count) TextView viewsCountTv;
+    @BindView(R.id.shot_item_like) TextView likesCountTv;
+    @BindView(R.id.shot_item_bucket) TextView bucketsCountTv;
 
     View itemView;
 

@@ -8,7 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
 
 import java.util.List;
 
@@ -54,15 +55,17 @@ public class ShotAdapter extends RecyclerView.Adapter {
             final Shot shot = shotList.get(position);
             final ShotViewHolder shotViewHolder = (ShotViewHolder) holder;
 
-            Glide.with(shotViewHolder.itemView.getContext())
-                    .load(shot.getImageUrl())
-                    .placeholder(R.drawable.shot_placeholder)
-                    .into(shotViewHolder.image);
+            DraweeController controller = Fresco.newDraweeControllerBuilder()
+                    .setUri(shot.getImageUrl())
+                    .setTapToRetryEnabled(true)
+                    .setAutoPlayAnimations(true)
+                    .build();
+            shotViewHolder.image.setController(controller);
 
             shotViewHolder.viewsCountTv.setText(String.valueOf(shot.views_count));
             shotViewHolder.likesCountTv.setText(String.valueOf(shot.likes_count));
             shotViewHolder.bucketsCountTv.setText(String.valueOf(shot.butckets_count));
-            shotViewHolder.image.setOnClickListener(new View.OnClickListener() {
+            shotViewHolder.cover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Context context = shotViewHolder.itemView.getContext();

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/shot_detail_item_height"
     android:id="@+id/shot_detail_image"
-    android:src="@color/colorPrimary"
+    android:src="@drawable/shot_placeholder"
     android:background="?attr/selectableItemBackground">
 
 </ImageView>
