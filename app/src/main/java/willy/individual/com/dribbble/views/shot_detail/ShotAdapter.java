@@ -50,11 +50,29 @@ public class ShotAdapter extends RecyclerView.Adapter {
             shotImageViewHolder.shotDetailDv.setController(controller);
 
         } else if (viewType == TYPE_SHOT_INFO) {
-            ShotInfoViewHolder shotInfoViewHolder = (ShotInfoViewHolder) holder;
+            final ShotInfoViewHolder shotInfoViewHolder = (ShotInfoViewHolder) holder;
 
             shotInfoViewHolder.shotInfoViewCountTv.setText(String.valueOf(shot.views_count));
             shotInfoViewHolder.shotInfoLikeCountTv.setText(String.valueOf(shot.likes_count));
             shotInfoViewHolder.shotInfoBucketCountTv.setText(String.valueOf(shot.butckets_count));
+
+
+            shotInfoViewHolder.shotInfoLikeCountTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_black_24dp, 0, 0);
+                }
+            });
+
+
+
+            shotInfoViewHolder.shotInfoBucketCountTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
 
             shotInfoViewHolder.shotInfoUsername.setText(shot.user.name);
             shotInfoViewHolder.shotInfoUserInfo.setText(shot.user.username);

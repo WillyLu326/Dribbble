@@ -34,6 +34,10 @@ public class Shot {
     public List<String> tags;
     public User user;
 
+
+    // customized property
+    public boolean isLike;
+
     public String getImageUrl() {
         return images.containsKey("hidpi") ? images.get("hidpi") : images.get("normal");
     }

@@ -1,5 +1,6 @@
 package willy.individual.com.dribbble.views.dribbble;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
@@ -29,9 +30,15 @@ public class Dribbble {
 
     private static final String AUTH_USER_URL = BASE_URL + "user";
 
+    private static final String HEADER_CONTENT_TYPE = "Authorization";
+
+    private static final String HEADER_VALUE = "Bearer " + Auth.accessToken;
+
+
+    // Dribbble Functionality Method Below
     public static List<Shot> getShots(int page) {
         Request request = new Request.Builder()
-                .addHeader("Authorization", "Bearer " + Auth.accessToken)
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(SHOTS_URL + "?page=" + page)
                 .build();
 
@@ -48,7 +55,7 @@ public class Dribbble {
 
     public static User getAuthUser() {
         Request request = new Request.Builder()
-                .addHeader("Authorization", "Bearer " + Auth.accessToken)
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(AUTH_USER_URL)
                 .build();
 
@@ -60,4 +67,21 @@ public class Dribbble {
             return null;
         }
     }
+
+    public static boolean isLikeShot(int id) {
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(SHOTS_URL + "/" + id + "/like")
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            String body = response.body().string();
+            return body.length() != 0;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
