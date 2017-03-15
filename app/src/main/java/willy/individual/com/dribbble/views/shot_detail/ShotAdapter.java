@@ -1,5 +1,7 @@
 package willy.individual.com.dribbble.views.shot_detail;
 
+import android.os.AsyncTask;
+import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import com.facebook.drawee.interfaces.DraweeController;
 
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
+import willy.individual.com.dribbble.views.dribbble.Dribbble;
 
 
 public class ShotAdapter extends RecyclerView.Adapter {
@@ -19,6 +22,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
     private static final int TYPE_SHOT_INFO = 1;
 
     private Shot shot;
+    private int likes_count = -1;
 
     public ShotAdapter(Shot shot) {
         this.shot = shot;
@@ -56,11 +60,29 @@ public class ShotAdapter extends RecyclerView.Adapter {
             shotInfoViewHolder.shotInfoLikeCountTv.setText(String.valueOf(shot.likes_count));
             shotInfoViewHolder.shotInfoBucketCountTv.setText(String.valueOf(shot.butckets_count));
 
+            if (shot.isLike) {
+                shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_black_24dp, 0, 0);
+            } else {
+                shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_black_24dp, 0, 0);
+            }
 
             shotInfoViewHolder.shotInfoLikeCountTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_black_24dp, 0, 0);
+                    int current_count = Integer.parseInt(shotInfoViewHolder.shotInfoLikeCountTv.getText().toString());
+                    if (shot.isLike) {
+                        // unlike this shot
+                        shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_black_24dp, 0, 0);
+                        likes_count = current_count - 1;
+                        AsyncTaskCompat.executeParallel(new UnlikeShotTask(shot.id));
+                    } else {
+                        // like this shot
+                        shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_black_24dp, 0, 0);
+                        likes_count = current_count + 1;
+                        AsyncTaskCompat.executeParallel(new LikeShotTask(shot.id));
+                    }
+                    shot.isLike = !shot.isLike;
+                    shotInfoViewHolder.shotInfoLikeCountTv.setText(String.valueOf(likes_count));
                 }
             });
 
@@ -98,6 +120,36 @@ public class ShotAdapter extends RecyclerView.Adapter {
             return TYPE_SHOT_IMAGE;
         } else {
             return TYPE_SHOT_INFO;
+        }
+    }
+
+    private class LikeShotTask extends AsyncTask<Void, Void, Void> {
+
+        private int id;
+
+        public LikeShotTask(int id) {
+            this.id = id;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Dribbble.likeShot(id);
+            return null;
+        }
+    }
+
+    private class UnlikeShotTask extends AsyncTask<Void, Void, Void> {
+
+        private int id;
+
+        public UnlikeShotTask(int id) {
+            this.id = id;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Dribbble.unlikeShot(id);
+            return null;
         }
     }
 }

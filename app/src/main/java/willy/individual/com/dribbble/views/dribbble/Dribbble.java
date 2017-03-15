@@ -8,8 +8,10 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.util.List;
 
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.models.User;
@@ -81,6 +83,36 @@ public class Dribbble {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public static void likeShot(int id) {
+        RequestBody requestBody = new FormBody.Builder().build();
+
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(SHOTS_URL + "/" + id + "/like")
+                .post(requestBody)
+                .build();
+
+        try {
+            client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void unlikeShot(int id) {
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(SHOTS_URL + "/" + id + "/like")
+                .delete()
+                .build();
+
+        try {
+            client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
