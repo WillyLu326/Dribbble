@@ -64,7 +64,7 @@ public class ShotListAdapter extends RecyclerView.Adapter {
             final Shot shot = shotList.get(position);
             final ShotViewHolder shotViewHolder = (ShotViewHolder) holder;
 
-            AsyncTaskCompat.executeParallel(new LikeShotTask(shot));
+            AsyncTaskCompat.executeParallel(new IsLikeShotTask(shot));
 
             DraweeController controller = Fresco.newDraweeControllerBuilder()
                     .setUri(shot.getImageUrl())
@@ -119,11 +119,12 @@ public class ShotListAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-    private class LikeShotTask extends AsyncTask<Void, Void, Boolean> {
+
+    private class IsLikeShotTask extends AsyncTask<Void, Void, Boolean> {
 
         private Shot shot;
 
-        public LikeShotTask(Shot shot) {
+        public IsLikeShotTask(Shot shot) {
             this.shot = shot;
         }
 
@@ -132,7 +133,6 @@ public class ShotListAdapter extends RecyclerView.Adapter {
             shot.isLike = Dribbble.isLikeShot(shot.id);
             return shot.isLike;
         }
-
-
     }
+
 }

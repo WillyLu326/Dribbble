@@ -2,6 +2,7 @@ package willy.individual.com.dribbble.views.shot_detail;
 
 import android.app.Fragment;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -14,7 +15,6 @@ import com.facebook.drawee.interfaces.DraweeController;
 
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
-import willy.individual.com.dribbble.views.dribbble.Dribbble;
 
 
 public class ShotAdapter extends RecyclerView.Adapter {
@@ -23,11 +23,11 @@ public class ShotAdapter extends RecyclerView.Adapter {
     private static final int TYPE_SHOT_INFO = 1;
 
     private Shot shot;
-    private Fragment shotFragment;
+    private final ShotFragment shotFragment;
 
-    private int likes_count = -1;
+    private int likes_count = 0;
 
-    public ShotAdapter(Shot shot, Fragment shotFragment) {
+    public ShotAdapter(Shot shot, @NonNull ShotFragment shotFragment) {
         this.shot = shot;
         this.shotFragment = shotFragment;
     }
@@ -78,12 +78,14 @@ public class ShotAdapter extends RecyclerView.Adapter {
                         // unlike this shot
                         shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_black_24dp, 0, 0);
                         likes_count = current_count - 1;
-                        AsyncTaskCompat.executeParallel(new UnlikeShotTask(shot.id));
+
+                        // do unlike async
                     } else {
                         // like this shot
                         shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_black_24dp, 0, 0);
                         likes_count = current_count + 1;
-                        AsyncTaskCompat.executeParallel(new LikeShotTask(shot.id));
+
+                        // do like async
                     }
                     shot.isLike = !shot.isLike;
                     shotInfoViewHolder.shotInfoLikeCountTv.setText(String.valueOf(likes_count));
@@ -124,33 +126,5 @@ public class ShotAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private class LikeShotTask extends AsyncTask<Void, Void, Void> {
 
-        private int id;
-
-        public LikeShotTask(int id) {
-            this.id = id;
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            Dribbble.likeShot(id);
-            return null;
-        }
-    }
-
-    private class UnlikeShotTask extends AsyncTask<Void, Void, Void> {
-
-        private int id;
-
-        public UnlikeShotTask(int id) {
-            this.id = id;
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            Dribbble.unlikeShot(id);
-            return null;
-        }
-    }
 }

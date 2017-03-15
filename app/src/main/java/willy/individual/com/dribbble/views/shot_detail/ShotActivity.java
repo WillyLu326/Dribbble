@@ -9,7 +9,7 @@ public class ShotActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment newFragment() {
-        return ShotFragment.newFragment();
+        return ShotFragment.newFragment(getIntent().getExtras());
     }
 
     @Override
