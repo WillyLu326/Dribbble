@@ -20,6 +20,7 @@ import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
+import willy.individual.com.dribbble.views.shot_list.ShotListFragment;
 
 
 public class ShotFragment extends Fragment {
@@ -28,7 +29,7 @@ public class ShotFragment extends Fragment {
 
     @BindView(R.id.shot_list_recycler_view) RecyclerView recyclerView;
 
-    public static Fragment newFragment(@NonNull Bundle args) {
+    public static Fragment newInstance(@NonNull Bundle args) {
         ShotFragment fragment = new ShotFragment();
         fragment.setArguments(args);
         return fragment;

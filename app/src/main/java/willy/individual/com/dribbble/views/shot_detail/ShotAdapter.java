@@ -1,9 +1,6 @@
 package willy.individual.com.dribbble.views.shot_detail;
 
-import android.app.Fragment;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
