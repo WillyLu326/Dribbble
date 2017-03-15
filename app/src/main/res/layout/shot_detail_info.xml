@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -72,14 +72,14 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/shot_detail_info_user_image"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="@dimen/header_image_size"
+            android:layout_height="@dimen/header_image_size"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             fresco:actualImageScaleType="centerCrop"
-            fresco:roundedCornerRadius="50dp"
             fresco:placeholderImage="@drawable/image_circle"
-            fresco:placeholderImageScaleType="centerCrop"/>
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:roundedCornerRadius="50dp" />
 
         <TextView
             android:id="@+id/shot_detail_info_username"
@@ -90,7 +90,7 @@
             android:layout_toRightOf="@id/shot_detail_info_user_image"
             android:textSize="@dimen/large_size"
             android:textStyle="bold"
-            tools:text="User Name"/>
+            tools:text="User Name" />
 
         <TextView
             android:id="@+id/shot_detail_info_user_info"
@@ -101,16 +101,16 @@
             android:layout="@id/shot_detail_info_user_info"
             android:paddingTop="@dimen/small_space"
             android:textSize="@dimen/medium_size"
-            tools:text="user account name"/>
+            tools:text="user account name" />
     </RelativeLayout>
 
     <TextView
         android:id="@+id/shot_detail_info_user_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/large_space"
         android:paddingLeft="@dimen/large_space"
         android:paddingRight="@dimen/large_space"
-        android:paddingBottom="@dimen/large_space"
         android:textSize="@dimen/small_size"
         tools:text="Patches are in! These will be at the Super Team Deluxe gallery at CS17! Hope to see y'all there! Thanks! " />
 

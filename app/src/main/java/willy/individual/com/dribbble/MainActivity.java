@@ -17,6 +17,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.w3c.dom.Text;
 
@@ -155,7 +157,11 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(User user) {
             super.onPostExecute(user);
             ((TextView) headerView.findViewById(R.id.drawer_header_username)).setText(user.name);
-
+            DraweeController controller = Fresco.newDraweeControllerBuilder()
+                    .setUri(user.avatar_url)
+                    .setAutoPlayAnimations(true)
+                    .build();
+            ((SimpleDraweeView) headerView.findViewById(R.id.drawer_header_image)).setController(controller);
         }
     }
 }
