@@ -3,8 +3,10 @@ package willy.individual.com.dribbble;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.os.AsyncTaskCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,11 +14,16 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 
+import org.w3c.dom.Text;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import willy.individual.com.dribbble.models.User;
+import willy.individual.com.dribbble.views.dribbble.Dribbble;
 import willy.individual.com.dribbble.views.login.LoginActivity;
 import willy.individual.com.dribbble.views.auth.Auth;
 import willy.individual.com.dribbble.views.bucket_list.BucketListFragment;
@@ -29,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.navigation_drawer) NavigationView navigationView;
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
     @BindView(R.id.my_toolbar) Toolbar toolbar;
+
+    private View headerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +85,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupDrawer() {
 
-        View headerView = navigationView.inflateHeaderView(R.layout.drawer_header);
+        AsyncTaskCompat.executeParallel(new LoadAuthUser());
+
+        headerView = navigationView.inflateHeaderView(R.layout.drawer_header);
 
         headerView.findViewById(R.id.drawer_header_logout).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,4 +144,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private class LoadAuthUser extends AsyncTask<Void, Void, User> {
+
+        @Override
+        protected User doInBackground(Void... params) {
+            return Dribbble.getAuthUser();
+        }
+
+        @Override
+        protected void onPostExecute(User user) {
+            super.onPostExecute(user);
+            ((TextView) headerView.findViewById(R.id.drawer_header_username)).setText(user.name);
+
+        }
+    }
 }
