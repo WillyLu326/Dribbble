@@ -1,6 +1,7 @@
 package willy.individual.com.dribbble.views.shot_detail;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,19 +42,30 @@ public class ShotAdapter extends RecyclerView.Adapter {
         int viewType = getItemViewType(position);
 
         if (viewType == TYPE_SHOT_IMAGE) {
-            ShotImageViewHolder viewHolder = (ShotImageViewHolder) holder;
+            ShotImageViewHolder shotImageViewHolder = (ShotImageViewHolder) holder;
             DraweeController controller = Fresco.newDraweeControllerBuilder()
                     .setUri(shot.getImageUrl())
                     .setAutoPlayAnimations(true)
                     .build();
-            viewHolder.shotDetailDv.setController(controller);
+            shotImageViewHolder.shotDetailDv.setController(controller);
 
         } else if (viewType == TYPE_SHOT_INFO) {
-            ShotInfoViewHolder viewHolder = (ShotInfoViewHolder) holder;
+            ShotInfoViewHolder shotInfoViewHolder = (ShotInfoViewHolder) holder;
 
-            viewHolder.shotInfoViewCountTv.setText(String.valueOf(shot.views_count));
-            viewHolder.shotInfoLikeCountTv.setText(String.valueOf(shot.likes_count));
-            viewHolder.shotInfoBucketCountTv.setText(String.valueOf(shot.butckets_count));
+            shotInfoViewHolder.shotInfoViewCountTv.setText(String.valueOf(shot.views_count));
+            shotInfoViewHolder.shotInfoLikeCountTv.setText(String.valueOf(shot.likes_count));
+            shotInfoViewHolder.shotInfoBucketCountTv.setText(String.valueOf(shot.butckets_count));
+
+            shotInfoViewHolder.shotInfoUsername.setText(shot.user.name);
+            shotInfoViewHolder.shotInfoUserInfo.setText(shot.user.username);
+            shotInfoViewHolder.shotInfoUserDescription.setText(
+                    Html.fromHtml(shot.description == null ? "" : shot.description, 1));
+
+            DraweeController controller = Fresco.newDraweeControllerBuilder()
+                    .setUri(shot.user.avatar_url)
+                    .setAutoPlayAnimations(true)
+                    .build();
+            shotInfoViewHolder.shotInfoUserAvatar.setController(controller);
         }
     }
 

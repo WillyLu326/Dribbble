@@ -6,7 +6,7 @@ import java.util.Map;
  * Created by zhenglu on 3/14/17.
  */
 
-public class ShotUser {
+public class User {
 
     public int id;
     public String name;

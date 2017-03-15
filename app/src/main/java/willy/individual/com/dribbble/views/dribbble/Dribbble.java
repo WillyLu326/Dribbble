@@ -11,6 +11,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import willy.individual.com.dribbble.models.Shot;
+import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.auth.Auth;
 
@@ -26,6 +27,8 @@ public class Dribbble {
 
     private static final String SHOTS_URL = BASE_URL + "shots";
 
+    private static final String AUTH_USER_URL = BASE_URL + "user";
+
     public static List<Shot> getShots(int page) {
         Request request = new Request.Builder()
                 .addHeader("Authorization", "Bearer " + Auth.accessToken)
@@ -37,6 +40,21 @@ public class Dribbble {
             String body = response.body().string();
             Log.i("Shot Json data: ", body);
             return ModelUtils.convertToObject(body, new TypeToken<List<Shot>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static User getAuthUser() {
+        Request request = new Request.Builder()
+                .addHeader("Authorization", "Bearer " + Auth.accessToken)
+                .url(AUTH_USER_URL)
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            return ModelUtils.convertToObject(response.body().string(), new TypeToken<User>(){});
         } catch (IOException e) {
             e.printStackTrace();
             return null;

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -69,42 +70,48 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/large_space">
 
-        <ImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/shot_detail_info_user_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/ic_account_circle_black_48dp" />
-
-        <TextView
-            android:id="@+id/shot_detail_info_user_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/shot_detail_info_user_image"
-            android:layout_marginLeft="@dimen/medium_space"
-            android:layout_toRightOf="@id/shot_detail_info_user_image"
-            android:text="XX"
-            android:textSize="@dimen/large_size"
-            android:textStyle="bold" />
+            fresco:actualImageScaleType="centerCrop"
+            fresco:roundedCornerRadius="50dp"
+            fresco:placeholderImage="@drawable/image_circle"
+            fresco:placeholderImageScaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/shot_detail_info_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/shot_detail_info_user_info"
+            android:layout_alignTop="@id/shot_detail_info_user_image"
+            android:layout_marginLeft="@dimen/medium_space"
+            android:layout_toRightOf="@id/shot_detail_info_user_image"
+            android:textSize="@dimen/large_size"
+            android:textStyle="bold"
+            tools:text="User Name"/>
+
+        <TextView
+            android:id="@+id/shot_detail_info_user_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/shot_detail_info_username"
             android:layout_marginTop="@dimen/large_space"
             android:layout="@id/shot_detail_info_user_info"
-            android:text="jdslfdlfjlsd"
-            android:textSize="@dimen/medium_size" />
+            android:paddingTop="@dimen/small_space"
+            android:textSize="@dimen/medium_size"
+            tools:text="user account name"/>
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/shot_detail_info_user_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/large_space"
         android:paddingRight="@dimen/large_space"
         android:paddingBottom="@dimen/large_space"
-        android:text="XXXXXXXXXX\nxxxxxxxxxx\nxxxxxxxxx" />
+        android:textSize="@dimen/small_size"
+        tools:text="Patches are in! These will be at the Super Team Deluxe gallery at CS17! Hope to see y'all there! Thanks! " />
 
 </LinearLayout>

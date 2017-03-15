@@ -32,7 +32,7 @@ public class Shot {
     public String rebounds_url;
     public boolean animated;
     public List<String> tags;
-    public ShotUser user;
+    public User user;
 
     public String getImageUrl() {
         return images.containsKey("hidpi") ? images.get("hidpi") : images.get("normal");
