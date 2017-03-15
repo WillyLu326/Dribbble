@@ -35,7 +35,9 @@ public class ShotListAdapter extends RecyclerView.Adapter {
     private OnLoadingMoreListener onLoadingMoreListener;
     private boolean isShowingSpinner;
 
-    public ShotListAdapter(@NonNull List<Shot> shotList, OnLoadingMoreListener onLoadingMoreListener) {
+
+    public ShotListAdapter(@NonNull List<Shot> shotList,
+                           OnLoadingMoreListener onLoadingMoreListener) {
         this.shotList = shotList;
         this.onLoadingMoreListener = onLoadingMoreListener;
         this.isShowingSpinner = true;
@@ -75,7 +77,7 @@ public class ShotListAdapter extends RecyclerView.Adapter {
             shotViewHolder.viewsCountTv.setText(String.valueOf(shot.views_count));
             shotViewHolder.likesCountTv.setText(String.valueOf(shot.likes_count));
             shotViewHolder.bucketsCountTv.setText(String.valueOf(shot.butckets_count));
-            
+
 
             shotViewHolder.cover.setOnClickListener(new View.OnClickListener() {
                 @Override

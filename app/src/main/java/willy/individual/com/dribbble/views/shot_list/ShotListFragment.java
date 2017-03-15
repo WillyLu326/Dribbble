@@ -1,6 +1,8 @@
 package willy.individual.com.dribbble.views.shot_list;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +23,7 @@ import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.base.ShotListSpaceItemDecoration;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
+import willy.individual.com.dribbble.views.shot_detail.ShotFragment;
 
 
 public class ShotListFragment extends Fragment{
@@ -36,6 +39,7 @@ public class ShotListFragment extends Fragment{
     public static ShotListFragment newInstance() {
         return new ShotListFragment();
     }
+
 
     @Nullable
     @Override

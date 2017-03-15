@@ -1,5 +1,6 @@
 package willy.individual.com.dribbble.views.shot_detail;
 
+import android.app.Fragment;
 import android.os.AsyncTask;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.RecyclerView;
@@ -22,10 +23,13 @@ public class ShotAdapter extends RecyclerView.Adapter {
     private static final int TYPE_SHOT_INFO = 1;
 
     private Shot shot;
+    private Fragment shotFragment;
+
     private int likes_count = -1;
 
-    public ShotAdapter(Shot shot) {
+    public ShotAdapter(Shot shot, Fragment shotFragment) {
         this.shot = shot;
+        this.shotFragment = shotFragment;
     }
 
     @Override
@@ -86,15 +90,12 @@ public class ShotAdapter extends RecyclerView.Adapter {
                 }
             });
 
-
-
             shotInfoViewHolder.shotInfoBucketCountTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                 }
             });
-
 
             shotInfoViewHolder.shotInfoUsername.setText(shot.user.name);
             shotInfoViewHolder.shotInfoUserInfo.setText(shot.user.username);

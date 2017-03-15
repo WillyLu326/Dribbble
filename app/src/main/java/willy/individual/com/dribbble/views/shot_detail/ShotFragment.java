@@ -40,7 +40,7 @@ public class ShotFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new ShotAdapter(getShotFromShotListFragment()));
+        recyclerView.setAdapter(new ShotAdapter(getShotFromShotListFragment(), new ShotFragment()));
     }
 
     private Shot getShotFromShotListFragment() {

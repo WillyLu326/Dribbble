@@ -1,5 +1,6 @@
 package willy.individual.com.dribbble.views.shot_detail;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ public class ShotInfoViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.shot_detail_info_username) TextView shotInfoUsername;
     @BindView(R.id.shot_detail_info_user_info) TextView shotInfoUserInfo;
     @BindView(R.id.shot_detail_info_user_description) TextView shotInfoUserDescription;
+
 
     public ShotInfoViewHolder(View itemView) {
         super(itemView);
