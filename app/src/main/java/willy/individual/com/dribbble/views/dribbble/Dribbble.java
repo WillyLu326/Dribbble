@@ -1,6 +1,5 @@
 package willy.individual.com.dribbble.views.dribbble;
 
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;

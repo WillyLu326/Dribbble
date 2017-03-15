@@ -1,6 +1,5 @@
 package willy.individual.com.dribbble.views.shot_detail;
 
-import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
