@@ -153,7 +153,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected User doInBackground(Void... params) {
-            return Dribbble.getAuthUser();
+            try {
+                return Dribbble.getAuthUser();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         }
 
         @Override
