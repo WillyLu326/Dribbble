@@ -34,11 +34,8 @@ public class Auth {
 
     public static final String AUTH_TOKEN_SP = "auth_token";
 
-    public static final String AUTH_USER_ID_KEY = "auth user id key";
-
 
     public static String accessToken;
-    public static int authUserId;
 
 
     public static String doGetRequestUrl() {
@@ -109,7 +106,5 @@ public class Auth {
         SharedPreferences sp = context.getSharedPreferences(AUTH_TOKEN_SP, context.MODE_PRIVATE);
         sp.edit().putString(ACCESS_TOKEN_SP_KEY, null).apply();
     }
-
-
 
 }
