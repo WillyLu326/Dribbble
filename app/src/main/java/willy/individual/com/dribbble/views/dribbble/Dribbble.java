@@ -65,10 +65,15 @@ public class Dribbble {
                 .build();
         try {
             Response response = client.newCall(request).execute();
-//            List<Like> likes = ModelUtils.convertToObject(response.body().toString(), new TypeToken<List<Like>>(){});
-//            for (Like like : likes) {
-//                likeShots.add(like.shot);
-//            }
+            //System.out.println(response.body().string());
+            List<Like> likes = ModelUtils.convertToObject(response.body().string(), new TypeToken<List<Like>>(){});
+            for (Like like : likes) {
+                likeShots.add(like.shot);
+            }
+            System.out.println("====================");
+            System.out.println("========= " + likeShots.size() + " ===========");
+            System.out.println("====================");
+
             return likeShots;
         } catch (IOException e) {
             e.printStackTrace();

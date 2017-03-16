@@ -77,8 +77,13 @@ public class ShotFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            Dribbble.likeShot(id);
-            return null;
+            try {
+                Dribbble.likeShot(id);
+                return null;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         }
     }
 
@@ -92,8 +97,13 @@ public class ShotFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            Dribbble.unlikeShot(id);
-            return null;
+            try {
+                Dribbble.unlikeShot(id);
+                return null;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         }
     }
 

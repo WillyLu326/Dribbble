@@ -104,19 +104,24 @@ public class ShotListFragment extends Fragment{
 
         @Override
         protected List<Shot> doInBackground(Void... params) {
-            if (shotListType == MainActivity.SHOT_LIST_POPULAR_TYPE) {
+            try {
+                if (shotListType == MainActivity.SHOT_LIST_POPULAR_TYPE) {
+                    return Dribbble.getPopularShots(page);
+                } else if (shotListType == MainActivity.SHOT_LIST_LIKE_TYPE) {
+                    return Dribbble.getLikeShots(page);
+                }
                 return Dribbble.getPopularShots(page);
-            } else if (shotListType == MainActivity.SHOT_LIST_LIKE_TYPE) {
-                return Dribbble.getLikeShots(page);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
             }
-            return Dribbble.getPopularShots(page);
         }
 
         @Override
         protected void onPostExecute(List<Shot> shotList) {
             super.onPostExecute(shotList);
             adapter.append(shotList);
-            adapter.toggleSpinner(adapter.getItemCount() / COUNT_PER_PAGE <= page);
+            adapter.toggleSpinner(adapter.getItemCount() / COUNT_PER_PAGE >= page);
         }
     }
 }

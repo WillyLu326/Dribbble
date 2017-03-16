@@ -132,8 +132,13 @@ public class ShotListAdapter extends RecyclerView.Adapter {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            shot.isLike = Dribbble.isLikeShot(shot.id);
-            return shot.isLike;
+            try {
+                shot.isLike = Dribbble.isLikeShot(shot.id);
+                return shot.isLike;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         }
     }
 
