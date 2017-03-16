@@ -111,6 +111,7 @@ public class Auth {
         sp.edit().putString(ACCESS_TOKEN_SP_KEY, null).apply();
     }
 
+    // Need to find user thread
     public static void saveAuthUserId(Context context, int authUserId) {
         SharedPreferences sp = context.getSharedPreferences(AUTH_USER_ID_SP, Context.MODE_PRIVATE);
         sp.edit().putInt(AUTH_USER_ID_KEY, authUserId).apply();
