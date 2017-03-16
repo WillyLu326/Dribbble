@@ -1,6 +1,8 @@
 package willy.individual.com.dribbble.views.shot_detail;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,12 +22,13 @@ import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
-import willy.individual.com.dribbble.views.shot_list.ShotListFragment;
 
 
 public class ShotFragment extends Fragment {
 
     public static final String SHOT_KEY = "shot_key";
+
+    private Shot shot;
 
     @BindView(R.id.shot_list_recycler_view) RecyclerView recyclerView;
 
@@ -46,52 +49,67 @@ public class ShotFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        shot = ModelUtils.convertToObject(getArguments().getString(SHOT_KEY), new TypeToken<Shot>(){});
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new ShotAdapter(getShotFromShotListFragment(), this));
-    }
-
-    private Shot getShotFromShotListFragment() {
-        return ModelUtils.convertToObject(getActivity().getIntent().getStringExtra(SHOT_KEY), new TypeToken<Shot>(){});
+        recyclerView.setAdapter(new ShotAdapter(shot, this));
     }
 
 
-    public void like(int id) {
-        AsyncTaskCompat.executeParallel(new LikeShotTask(id));
+    public void like(Shot shot) {
+        AsyncTaskCompat.executeParallel(new LikeShotTask(shot));
     }
 
-    public void unlike(int id) {
-        AsyncTaskCompat.executeParallel(new UnlikeShotTask(id));
+    public void unlike(Shot shot) {
+        AsyncTaskCompat.executeParallel(new UnlikeShotTask(shot));
     }
 
     private class LikeShotTask extends AsyncTask<Void, Void, Void> {
 
-        private int id;
+        private Shot shot;
 
-        public LikeShotTask(int id) {
-            this.id = id;
+        public LikeShotTask(Shot shot) {
+            this.shot = shot;
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            Dribbble.likeShot(id);
+            Dribbble.likeShot(shot.id);
             return null;
         }
 
-
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            recyclerView.getAdapter().notifyDataSetChanged();
+            setResult(shot);
+        }
     }
 
     private class UnlikeShotTask extends AsyncTask<Void, Void, Void> {
 
-        private int id;
+        private Shot shot;
 
-        public UnlikeShotTask(int id) {
-            this.id = id;
+        public UnlikeShotTask(Shot shot) {
+            this.shot = shot;
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            Dribbble.unlikeShot(id);
+            Dribbble.unlikeShot(shot.id);
             return null;
         }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            recyclerView.getAdapter().notifyDataSetChanged();
+            setResult(shot);
+        }
+    }
+
+    public void setResult(Shot shot) {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(SHOT_KEY, ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
+        getActivity().setResult(Activity.RESULT_OK, resultIntent);
     }
 }

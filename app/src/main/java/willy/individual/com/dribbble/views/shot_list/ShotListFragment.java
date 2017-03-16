@@ -1,6 +1,8 @@
 package willy.individual.com.dribbble.views.shot_list;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +22,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
+import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.base.ShotListSpaceItemDecoration;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
+import willy.individual.com.dribbble.views.shot_detail.ShotActivity;
+import willy.individual.com.dribbble.views.shot_detail.ShotFragment;
 
 
 public class ShotListFragment extends Fragment{
@@ -32,11 +39,27 @@ public class ShotListFragment extends Fragment{
     @BindView(R.id.shot_list_recycler_view) RecyclerView shotListRecyclerView;
 
     private ShotListAdapter adapter;
+    private Shot updateShot;
 
     public static ShotListFragment newInstance() {
         return new ShotListFragment();
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        System.out.println("=======================");
+        System.out.println("=======================");
+        System.out.println("=======================");
+        System.out.println("=======================");
+        System.out.println("=======================");
+        if (requestCode == ShotListFragment.SHOTLIST_FRAGMENT_REQ_CODE && resultCode == Activity.RESULT_OK) {
+            Shot updateShot = ModelUtils.convertToObject(data.getStringExtra(ShotFragment.SHOT_KEY), new TypeToken<Shot>(){});
+            this.updateShot = updateShot;
+
+        }
+    }
 
     @Nullable
     @Override
@@ -52,7 +75,7 @@ public class ShotListFragment extends Fragment{
 
         shotListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         shotListRecyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
-        adapter = new ShotListAdapter(new ArrayList<Shot>(), new OnLoadingMoreListener() {
+        adapter = new ShotListAdapter(new ArrayList<Shot>(), updateShot, this, new OnLoadingMoreListener() {
                 @Override
                 public void onLoadingMore() {
                 AsyncTaskCompat.executeParallel(new LoadShotTask(adapter.getItemCount() / COUNT_PER_PAGE + 1));
@@ -81,5 +104,13 @@ public class ShotListFragment extends Fragment{
             adapter.append(shotList);
             adapter.toggleSpinner(adapter.getItemCount() / COUNT_PER_PAGE <= page);
         }
+    }
+
+    public void startAcivity(Shot shot) {
+        Intent intent = new Intent(getContext(), ShotActivity.class);
+        intent.putExtra(ShotFragment.SHOT_KEY,
+                ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
+        getActivity().startActivityForResult(intent, ShotListFragment.SHOTLIST_FRAGMENT_REQ_CODE);
+
     }
 }

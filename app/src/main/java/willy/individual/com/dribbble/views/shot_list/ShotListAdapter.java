@@ -32,13 +32,19 @@ public class ShotListAdapter extends RecyclerView.Adapter {
     private static final int SPINNER_TYPE = 1;
 
     private List<Shot> shotList;
+    private Shot updateShot;
+    private ShotListFragment shotListFragment;
     private OnLoadingMoreListener onLoadingMoreListener;
     private boolean isShowingSpinner;
 
 
     public ShotListAdapter(@NonNull List<Shot> shotList,
+                           Shot updateShot,
+                           ShotListFragment shotListFragment,
                            OnLoadingMoreListener onLoadingMoreListener) {
         this.shotList = shotList;
+        this.updateShot = updateShot;
+        this.shotListFragment = shotListFragment;
         this.onLoadingMoreListener = onLoadingMoreListener;
         this.isShowingSpinner = true;
     }
@@ -61,7 +67,7 @@ public class ShotListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         if (getItemViewType(position) == SHOT_TYPE) {
-            final Shot shot = shotList.get(position);
+            final Shot shot = updateShot == null ? shotList.get(position) : updateShot;
             final ShotViewHolder shotViewHolder = (ShotViewHolder) holder;
 
             AsyncTaskCompat.executeParallel(new IsLikeShotTask(shot));
@@ -78,17 +84,13 @@ public class ShotListAdapter extends RecyclerView.Adapter {
             shotViewHolder.likesCountTv.setText(String.valueOf(shot.likes_count));
             shotViewHolder.bucketsCountTv.setText(String.valueOf(shot.butckets_count));
 
-
             shotViewHolder.cover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Context context = shotViewHolder.itemView.getContext();
-                    Intent intent = new Intent(context, ShotActivity.class);
-                    intent.putExtra(ShotFragment.SHOT_KEY,
-                            ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
-                    ((Activity) context).startActivityForResult(intent, ShotListFragment.SHOTLIST_FRAGMENT_REQ_CODE);
+                    shotListFragment.startAcivity(shot);
                 }
             });
+
         } else if (getItemViewType(position) == SPINNER_TYPE) {
             final ShotSpinnerViewHolder shotSpinnerViewHolder = (ShotSpinnerViewHolder) holder;
 
