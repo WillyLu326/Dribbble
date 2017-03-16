@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -35,6 +36,7 @@ public class Dribbble {
 
     private static final String HEADER_VALUE = "Bearer " + Auth.accessToken;
 
+    private static final int AUTH_USER_ID = getAuthUser().id;
 
     // Dribbble Functionality Method Below
     public static List<Shot> getPopularShots(int page) {
@@ -55,7 +57,8 @@ public class Dribbble {
     }
 
     public static List<Shot> getLikeShots(int page) {
-        return null;
+        System.out.println(AUTH_USER_ID);
+        return new ArrayList<>();
     }
 
     public static User getAuthUser() {

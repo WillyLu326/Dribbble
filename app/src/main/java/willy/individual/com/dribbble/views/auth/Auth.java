@@ -36,7 +36,6 @@ public class Auth {
 
     public static final String AUTH_USER_ID_KEY = "auth user id key";
 
-    public static final String AUTH_USER_ID_SP = "auth_user_id_token";
 
     public static String accessToken;
     public static int authUserId;
@@ -111,15 +110,6 @@ public class Auth {
         sp.edit().putString(ACCESS_TOKEN_SP_KEY, null).apply();
     }
 
-    // Need to find user thread
-    public static void saveAuthUserId(Context context, int authUserId) {
-        SharedPreferences sp = context.getSharedPreferences(AUTH_USER_ID_SP, Context.MODE_PRIVATE);
-        sp.edit().putInt(AUTH_USER_ID_KEY, authUserId).apply();
-    }
 
-    public static int loadAuthUserId(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(AUTH_USER_ID_SP, Context.MODE_PRIVATE);
-        return sp.getInt(AUTH_USER_ID_KEY, 0);
-    }
 
 }
