@@ -52,6 +52,10 @@ public class ShotFragment extends Fragment {
         shot = ModelUtils.convertToObject(getArguments().getString(SHOT_KEY), new TypeToken<Shot>(){});
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new ShotAdapter(shot, this));
+
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(SHOT_KEY, ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
+        this.getActivity().setResult(Activity.RESULT_OK, resultIntent);
     }
 
 
@@ -76,12 +80,6 @@ public class ShotFragment extends Fragment {
             Dribbble.likeShot(shot.id);
             return null;
         }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            setResult(shot);
-        }
     }
 
     private class UnlikeShotTask extends AsyncTask<Void, Void, Void> {
@@ -97,18 +95,6 @@ public class ShotFragment extends Fragment {
             Dribbble.unlikeShot(shot.id);
             return null;
         }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            recyclerView.getAdapter().notifyDataSetChanged();
-            setResult(shot);
-        }
     }
 
-    public void setResult(Shot shot) {
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra(SHOT_KEY, ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
-        this.getActivity().setResult(Activity.RESULT_OK, resultIntent);
-    }
 }

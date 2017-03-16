@@ -67,7 +67,7 @@ public class ShotListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         if (getItemViewType(position) == SHOT_TYPE) {
-            final Shot shot = updateShot == null ? shotList.get(position) : updateShot;
+            final Shot shot = shotList.get(position);
             final ShotViewHolder shotViewHolder = (ShotViewHolder) holder;
 
             AsyncTaskCompat.executeParallel(new IsLikeShotTask(shot));
@@ -121,6 +121,10 @@ public class ShotListAdapter extends RecyclerView.Adapter {
     public void toggleSpinner(boolean showSpinner) {
         this.isShowingSpinner = showSpinner;
         notifyDataSetChanged();
+    }
+
+    public List<Shot> getData() {
+        return this.shotList;
     }
 
 

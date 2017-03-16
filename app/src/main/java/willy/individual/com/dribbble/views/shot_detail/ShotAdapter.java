@@ -93,6 +93,10 @@ public class ShotAdapter extends RecyclerView.Adapter {
                         // do like async
                         shotFragment.like(shot);
                     }
+
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra(ShotFragment.SHOT_KEY, ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
+                    shotFragment.getActivity().setResult(Activity.RESULT_OK, resultIntent);
                 }
             });
 
