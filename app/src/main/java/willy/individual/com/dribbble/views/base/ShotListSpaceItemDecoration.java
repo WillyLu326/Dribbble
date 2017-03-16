@@ -21,7 +21,7 @@ public class ShotListSpaceItemDecoration extends RecyclerView.ItemDecoration {
         outRect.top = space;
 
         if (parent.getChildAdapterPosition(view) == 0) {
-            outRect.top = 0;
+            outRect.top = 1;
         }
     }
 }
