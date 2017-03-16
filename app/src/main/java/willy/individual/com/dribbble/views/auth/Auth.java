@@ -111,9 +111,14 @@ public class Auth {
         sp.edit().putString(ACCESS_TOKEN_SP_KEY, null).apply();
     }
 
-    public static void saveAuthUserId(Context context, int authUserid) {
+    public static void saveAuthUserId(Context context, int authUserId) {
         SharedPreferences sp = context.getSharedPreferences(AUTH_USER_ID_SP, Context.MODE_PRIVATE);
-        sp.edit().putInt(AUTH_USER_ID_KEY, authUserid).apply();
+        sp.edit().putInt(AUTH_USER_ID_KEY, authUserId).apply();
+    }
+
+    public static int loadAuthUserId(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(AUTH_USER_ID_SP, Context.MODE_PRIVATE);
+        return sp.getInt(AUTH_USER_ID_KEY, 0);
     }
 
 }
