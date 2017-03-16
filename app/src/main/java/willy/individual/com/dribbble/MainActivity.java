@@ -32,8 +32,8 @@ import willy.individual.com.dribbble.views.shot_list.ShotListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int SHOT_LIST_POPULAR_TYPE = 0;
-    private static final int SHOT_LIST_LIKE_TYPE = 1;
+    public static final int SHOT_LIST_POPULAR_TYPE = 0;
+    public static final int SHOT_LIST_LIKE_TYPE = 1;
 
     private ActionBarDrawerToggle drawerToggle;
 

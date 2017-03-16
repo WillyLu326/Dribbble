@@ -37,7 +37,7 @@ public class Dribbble {
 
 
     // Dribbble Functionality Method Below
-    public static List<Shot> getShots(int page) {
+    public static List<Shot> getPopularShots(int page) {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(SHOTS_URL + "?page=" + page)
@@ -52,6 +52,10 @@ public class Dribbble {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static List<Shot> getLikeShots(int page) {
+        return null;
     }
 
     public static User getAuthUser() {

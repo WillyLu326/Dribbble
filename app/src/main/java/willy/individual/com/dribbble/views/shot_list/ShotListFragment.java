@@ -21,6 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import willy.individual.com.dribbble.MainActivity;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.utils.ModelUtils;
@@ -77,12 +78,14 @@ public class ShotListFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        final int shotListType = getArguments().getInt(SHOT_LIST_TYPE);
+
         shotListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         shotListRecyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
         adapter = new ShotListAdapter(new ArrayList<Shot>(), this, new OnLoadingMoreListener() {
                 @Override
                 public void onLoadingMore() {
-                AsyncTaskCompat.executeParallel(new LoadShotTask(adapter.getItemCount() / COUNT_PER_PAGE + 1));
+                AsyncTaskCompat.executeParallel(new LoadShotTask(shotListType, adapter.getItemCount() / COUNT_PER_PAGE + 1));
             }
         });
         shotListRecyclerView.setAdapter(adapter);
@@ -91,15 +94,22 @@ public class ShotListFragment extends Fragment{
 
     private class LoadShotTask extends AsyncTask<Void, Void, List<Shot>> {
 
+        private int shotListType;
         private int page;
 
-        public LoadShotTask(int page) {
+        public LoadShotTask(int shotListType, int page) {
+            this.shotListType = shotListType;
             this.page = page;
         }
 
         @Override
         protected List<Shot> doInBackground(Void... params) {
-            return Dribbble.getShots(page);
+            if (shotListType == MainActivity.SHOT_LIST_POPULAR_TYPE) {
+                return Dribbble.getPopularShots(page);
+            } else if (shotListType == MainActivity.SHOT_LIST_LIKE_TYPE) {
+                return Dribbble.getLikeShots(page);
+            }
+            return Dribbble.getPopularShots(page);
         }
 
         @Override
