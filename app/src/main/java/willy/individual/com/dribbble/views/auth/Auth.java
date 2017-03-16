@@ -32,9 +32,14 @@ public class Auth {
 
     public static final String ACCESS_TOKEN_SP_KEY = "access token sp key";
 
-    public static final String AUTH_SP = "auth";
+    public static final String AUTH_TOKEN_SP = "auth_token";
+
+    public static final String AUTH_USER_ID_KEY = "auth user id key";
+
+    public static final String AUTH_USER_ID_SP = "auth_user_id_token";
 
     public static String accessToken;
+    public static int authUserId;
 
 
     public static String doGetRequestUrl() {
@@ -91,19 +96,24 @@ public class Auth {
     }
 
     public static void saveAccessToken(Context context, String accessToken) {
-        SharedPreferences sp = context.getSharedPreferences(AUTH_SP, context.MODE_PRIVATE);
+        SharedPreferences sp = context.getSharedPreferences(AUTH_TOKEN_SP, context.MODE_PRIVATE);
         sp.edit().putString(ACCESS_TOKEN_SP_KEY, accessToken).apply();
     }
 
     public static String loadAccessToken(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(AUTH_SP, context.MODE_PRIVATE);
+        SharedPreferences sp = context.getSharedPreferences(AUTH_TOKEN_SP, context.MODE_PRIVATE);
         return sp.getString(ACCESS_TOKEN_SP_KEY, null);
     }
 
     public static void clearAccessToken(Context context) {
         accessToken = null;
-        SharedPreferences sp = context.getSharedPreferences(AUTH_SP, context.MODE_PRIVATE);
+        SharedPreferences sp = context.getSharedPreferences(AUTH_TOKEN_SP, context.MODE_PRIVATE);
         sp.edit().putString(ACCESS_TOKEN_SP_KEY, null).apply();
+    }
+
+    public static void saveAuthUserId(Context context, int authUserid) {
+        SharedPreferences sp = context.getSharedPreferences(AUTH_USER_ID_SP, Context.MODE_PRIVATE);
+        sp.edit().putInt(AUTH_USER_ID_KEY, authUserid).apply();
     }
 
 }
