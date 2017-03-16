@@ -109,6 +109,6 @@ public class ShotFragment extends Fragment {
     public void setResult(Shot shot) {
         Intent resultIntent = new Intent();
         resultIntent.putExtra(SHOT_KEY, ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
-        getActivity().setResult(Activity.RESULT_OK, resultIntent);
+        this.getActivity().setResult(Activity.RESULT_OK, resultIntent);
     }
 }
