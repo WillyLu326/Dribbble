@@ -14,6 +14,7 @@ Using Dribbble API to create this Application
 * Dribbble API
 * Infinite Scrolling View
 * UI Thread & Individual Thread
+* Fresco, Glide
 
 ## Developer
 Willy Lu
