@@ -87,7 +87,9 @@ public class ShotListAdapter extends RecyclerView.Adapter {
             shotViewHolder.cover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    shotListFragment.startAcivity(shot);
+                    Intent intent = new Intent(shotListFragment.getContext(), ShotActivity.class);
+                    intent.putExtra(ShotFragment.SHOT_KEY, ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
+                    shotListFragment.startActivityForResult(intent, ShotListFragment.SHOTLIST_FRAGMENT_REQ_CODE);
                 }
             });
 

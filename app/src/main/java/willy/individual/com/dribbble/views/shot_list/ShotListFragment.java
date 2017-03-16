@@ -33,27 +33,31 @@ import willy.individual.com.dribbble.views.shot_detail.ShotFragment;
 public class ShotListFragment extends Fragment{
 
     public static final int SHOTLIST_FRAGMENT_REQ_CODE = 100;
-
     private static final int COUNT_PER_PAGE = 12;
+    private static final String SHOT_LIST_TYPE = "shot_list_type";
 
     @BindView(R.id.shot_list_recycler_view) RecyclerView shotListRecyclerView;
 
     private ShotListAdapter adapter;
     private Shot updateShot;
 
-    public static ShotListFragment newInstance() {
-        return new ShotListFragment();
+    public static ShotListFragment newInstance(int shotListType) {
+        Bundle args = new Bundle();
+        args.putInt(SHOT_LIST_TYPE, shotListType);
+        ShotListFragment shotListFragment = new ShotListFragment();
+        shotListFragment.setArguments(args);
+        return shotListFragment;
     }
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        System.out.println("=======================");
+        System.out.println("=======================");
+        System.out.println("=======================");
+        System.out.println("=======================");
+        System.out.println("=======================");
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println("=======================");
-        System.out.println("=======================");
-        System.out.println("=======================");
-        System.out.println("=======================");
-        System.out.println("=======================");
         if (requestCode == ShotListFragment.SHOTLIST_FRAGMENT_REQ_CODE && resultCode == Activity.RESULT_OK) {
             Shot updateShot = ModelUtils.convertToObject(data.getStringExtra(ShotFragment.SHOT_KEY), new TypeToken<Shot>(){});
             this.updateShot = updateShot;
@@ -106,7 +110,7 @@ public class ShotListFragment extends Fragment{
         }
     }
 
-    public void startAcivity(Shot shot) {
+    public void startShotListFragmentActivity(Shot shot) {
         Intent intent = new Intent(getContext(), ShotActivity.class);
         intent.putExtra(ShotFragment.SHOT_KEY,
                 ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));

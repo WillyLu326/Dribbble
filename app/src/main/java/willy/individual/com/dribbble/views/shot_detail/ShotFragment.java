@@ -80,7 +80,6 @@ public class ShotFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            recyclerView.getAdapter().notifyDataSetChanged();
             setResult(shot);
         }
     }

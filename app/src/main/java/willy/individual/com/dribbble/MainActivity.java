@@ -32,6 +32,9 @@ import willy.individual.com.dribbble.views.shot_list.ShotListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int SHOT_LIST_POPULAR_TYPE = 0;
+    private static final int SHOT_LIST_LIKE_TYPE = 1;
+
     private ActionBarDrawerToggle drawerToggle;
 
     @BindView(R.id.navigation_drawer) NavigationView navigationView;
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getFragmentManager()
                     .beginTransaction()
-                    .add(R.id.fragment_container, ShotListFragment.newInstance())
+                    .add(R.id.fragment_container, ShotListFragment.newInstance(SHOT_LIST_POPULAR_TYPE))
                     .commit();
         }
     }
@@ -121,11 +124,11 @@ public class MainActivity extends AppCompatActivity {
                 switch(item.getItemId()) {
                     case R.id.drawer_menu_home :
                         setTitle(R.string.home_title);
-                        fragment = ShotListFragment.newInstance();
+                        fragment = ShotListFragment.newInstance(SHOT_LIST_POPULAR_TYPE);
                         break;
                     case R.id.drawer_menu_like :
                         setTitle(R.string.favoriate_title);
-                        fragment = ShotListFragment.newInstance();
+                        fragment = ShotListFragment.newInstance(SHOT_LIST_LIKE_TYPE);
                         break;
                     case R.id.drawer_menu_bucket :
                         setTitle(R.string.bucket_title);
