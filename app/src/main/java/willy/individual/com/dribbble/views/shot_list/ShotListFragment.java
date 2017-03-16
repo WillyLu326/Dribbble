@@ -27,7 +27,6 @@ import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.base.ShotListSpaceItemDecoration;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
-import willy.individual.com.dribbble.views.shot_detail.ShotActivity;
 import willy.individual.com.dribbble.views.shot_detail.ShotFragment;
 
 
@@ -40,7 +39,6 @@ public class ShotListFragment extends Fragment{
     @BindView(R.id.shot_list_recycler_view) RecyclerView shotListRecyclerView;
 
     private ShotListAdapter adapter;
-    private Shot updateShot;
 
     public static ShotListFragment newInstance(int shotListType) {
         Bundle args = new Bundle();
@@ -49,7 +47,6 @@ public class ShotListFragment extends Fragment{
         shotListFragment.setArguments(args);
         return shotListFragment;
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -82,7 +79,7 @@ public class ShotListFragment extends Fragment{
 
         shotListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         shotListRecyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
-        adapter = new ShotListAdapter(new ArrayList<Shot>(), updateShot, this, new OnLoadingMoreListener() {
+        adapter = new ShotListAdapter(new ArrayList<Shot>(), this, new OnLoadingMoreListener() {
                 @Override
                 public void onLoadingMore() {
                 AsyncTaskCompat.executeParallel(new LoadShotTask(adapter.getItemCount() / COUNT_PER_PAGE + 1));
@@ -111,13 +108,5 @@ public class ShotListFragment extends Fragment{
             adapter.append(shotList);
             adapter.toggleSpinner(adapter.getItemCount() / COUNT_PER_PAGE <= page);
         }
-    }
-
-    public void startShotListFragmentActivity(Shot shot) {
-        Intent intent = new Intent(getContext(), ShotActivity.class);
-        intent.putExtra(ShotFragment.SHOT_KEY,
-                ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
-        getActivity().startActivityForResult(intent, ShotListFragment.SHOTLIST_FRAGMENT_REQ_CODE);
-
     }
 }

@@ -26,7 +26,6 @@ public class ShotAdapter extends RecyclerView.Adapter {
     private Shot shot;
     private ShotFragment shotFragment;
 
-    private int likes_count = 0;
 
     public ShotAdapter(Shot shot, @NonNull ShotFragment shotFragment) {
         this.shot = shot;   // come from shotListFragment
@@ -82,7 +81,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
                         shot.isLike = !shot.isLike;
 
                         // do unlike async
-                        shotFragment.unlike(shot);
+                        shotFragment.unlike(shot.id);
                     } else {
                         // like this shot
                         shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_black_24dp, 0, 0);
@@ -91,7 +90,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
                         shot.isLike = !shot.isLike;
 
                         // do like async
-                        shotFragment.like(shot);
+                        shotFragment.like(shot.id);
                     }
 
                     Intent resultIntent = new Intent();

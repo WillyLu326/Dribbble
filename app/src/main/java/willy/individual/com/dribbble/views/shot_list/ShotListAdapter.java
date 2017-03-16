@@ -1,7 +1,5 @@
 package willy.individual.com.dribbble.views.shot_list;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -32,18 +30,15 @@ public class ShotListAdapter extends RecyclerView.Adapter {
     private static final int SPINNER_TYPE = 1;
 
     private List<Shot> shotList;
-    private Shot updateShot;
     private ShotListFragment shotListFragment;
     private OnLoadingMoreListener onLoadingMoreListener;
     private boolean isShowingSpinner;
 
 
     public ShotListAdapter(@NonNull List<Shot> shotList,
-                           Shot updateShot,
                            ShotListFragment shotListFragment,
                            OnLoadingMoreListener onLoadingMoreListener) {
         this.shotList = shotList;
-        this.updateShot = updateShot;
         this.shotListFragment = shotListFragment;
         this.onLoadingMoreListener = onLoadingMoreListener;
         this.isShowingSpinner = true;
@@ -126,7 +121,6 @@ public class ShotListAdapter extends RecyclerView.Adapter {
     public List<Shot> getData() {
         return this.shotList;
     }
-
 
     private class IsLikeShotTask extends AsyncTask<Void, Void, Boolean> {
 

@@ -59,40 +59,40 @@ public class ShotFragment extends Fragment {
     }
 
 
-    public void like(Shot shot) {
-        AsyncTaskCompat.executeParallel(new LikeShotTask(shot));
+    public void like(int id) {
+        AsyncTaskCompat.executeParallel(new LikeShotTask(id));
     }
 
-    public void unlike(Shot shot) {
-        AsyncTaskCompat.executeParallel(new UnlikeShotTask(shot));
+    public void unlike(int id) {
+        AsyncTaskCompat.executeParallel(new UnlikeShotTask(id));
     }
 
     private class LikeShotTask extends AsyncTask<Void, Void, Void> {
 
-        private Shot shot;
+        private int id;
 
-        public LikeShotTask(Shot shot) {
-            this.shot = shot;
+        public LikeShotTask(int id) {
+            this.id = id;
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            Dribbble.likeShot(shot.id);
+            Dribbble.likeShot(id);
             return null;
         }
     }
 
     private class UnlikeShotTask extends AsyncTask<Void, Void, Void> {
 
-        private Shot shot;
+        private int id;
 
-        public UnlikeShotTask(Shot shot) {
-            this.shot = shot;
+        public UnlikeShotTask(int id) {
+            this.id = id;
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            Dribbble.unlikeShot(shot.id);
+            Dribbble.unlikeShot(id);
             return null;
         }
     }
