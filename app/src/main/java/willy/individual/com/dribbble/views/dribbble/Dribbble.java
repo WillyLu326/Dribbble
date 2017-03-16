@@ -13,6 +13,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import willy.individual.com.dribbble.models.Like;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
@@ -57,8 +58,22 @@ public class Dribbble {
     }
 
     public static List<Shot> getLikeShots(int page) {
-        System.out.println(AUTH_USER_ID);
-        return new ArrayList<>();
+        List<Shot> likeShots = new ArrayList<>();
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(BASE_URL + "users/" + AUTH_USER_ID + "/likes?page=" + page)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+//            List<Like> likes = ModelUtils.convertToObject(response.body().toString(), new TypeToken<List<Like>>(){});
+//            for (Like like : likes) {
+//                likeShots.add(like.shot);
+//            }
+            return likeShots;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return likeShots;
+        }
     }
 
     public static User getAuthUser() {
