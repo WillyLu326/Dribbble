@@ -52,13 +52,21 @@ public class ShotListFragment extends Fragment{
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        System.out.println("=======================");
-        System.out.println("=======================");
-        System.out.println("=======================");
-        System.out.println("=======================");
-        System.out.println("=======================");
+        System.out.println("---------------------");
+        System.out.println("---------------------");
+        System.out.println(resultCode);
+        System.out.println(Activity.RESULT_OK);
+        System.out.println("---------------------");
+        System.out.println("---------------------");
+        System.out.println("---------------------");
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ShotListFragment.SHOTLIST_FRAGMENT_REQ_CODE && resultCode == Activity.RESULT_OK) {
+            System.out.println("=======================");
+            System.out.println("=======================");
+            System.out.println("=======================");
+            System.out.println("=======================");
+            System.out.println("=======================");
+
             Shot updateShot = ModelUtils.convertToObject(data.getStringExtra(ShotFragment.SHOT_KEY), new TypeToken<Shot>(){});
             this.updateShot = updateShot;
 
