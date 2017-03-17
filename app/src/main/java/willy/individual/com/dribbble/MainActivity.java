@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,14 +22,18 @@ import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
 import willy.individual.com.dribbble.views.login.LoginActivity;
 import willy.individual.com.dribbble.views.auth.Auth;
 import willy.individual.com.dribbble.views.bucket_list.BucketListFragment;
+import willy.individual.com.dribbble.views.shot_list.ShotListAdapter;
 import willy.individual.com.dribbble.views.shot_list.ShotListFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -172,4 +177,5 @@ public class MainActivity extends AppCompatActivity {
             ((SimpleDraweeView) headerView.findViewById(R.id.drawer_header_image)).setController(controller);
         }
     }
+
 }

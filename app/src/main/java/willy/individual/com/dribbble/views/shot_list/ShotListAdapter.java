@@ -122,6 +122,16 @@ public class ShotListAdapter extends RecyclerView.Adapter {
         return this.shotList;
     }
 
+    public void clearAllShots() {
+        shotList.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addNewShots(List<Shot> newShots) {
+        shotList.addAll(newShots);
+        notifyDataSetChanged();
+    }
+
     private class IsLikeShotTask extends AsyncTask<Void, Void, Boolean> {
 
         private Shot shot;

@@ -46,4 +46,6 @@ dependencies {
     compile 'com.facebook.fresco:webpsupport:1.1.0'
     // Provide the Android support library (you might already have this or a similar dependency)
     compile 'com.android.support:support-core-utils:24.2.1'
+    compile 'com.android.support:support-v4:24.2.1'
+
 }

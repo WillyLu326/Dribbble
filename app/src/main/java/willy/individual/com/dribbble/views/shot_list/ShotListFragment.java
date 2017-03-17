@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.os.AsyncTaskCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -37,6 +38,7 @@ public class ShotListFragment extends Fragment{
     private static final int COUNT_PER_PAGE = 12;
     private static final String SHOT_LIST_TYPE = "shot_list_type";
 
+    @BindView(R.id.shot_list_swipe_container) SwipeRefreshLayout swipeContainer;
     @BindView(R.id.shot_list_recycler_view) RecyclerView shotListRecyclerView;
 
     private ShotListAdapter adapter;
@@ -71,6 +73,7 @@ public class ShotListFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.shot_recycle_list, container, false);
         ButterKnife.bind(this, view);
+        setupSwipeContainer();
         return view;
     }
 
@@ -91,6 +94,16 @@ public class ShotListFragment extends Fragment{
         shotListRecyclerView.setAdapter(adapter);
     }
 
+    private void setupSwipeContainer() {
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                AsyncTaskCompat.executeParallel(new LoadRefreshShotTask());
+            }
+        });
+
+        swipeContainer.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, null));
+    }
 
     private class LoadShotTask extends AsyncTask<Void, Void, List<Shot>> {
 
@@ -113,7 +126,7 @@ public class ShotListFragment extends Fragment{
                 return Dribbble.getPopularShots(page);
             } catch (Exception e) {
                 e.printStackTrace();
-                return null;
+                return new ArrayList<>();
             }
         }
 
@@ -122,6 +135,33 @@ public class ShotListFragment extends Fragment{
             super.onPostExecute(shotList);
             adapter.append(shotList);
             adapter.toggleSpinner(adapter.getItemCount() / COUNT_PER_PAGE >= page);
+        }
+    }
+
+    private class LoadRefreshShotTask extends AsyncTask<Void, Void, List<Shot>> {
+
+        @Override
+        protected List<Shot> doInBackground(Void... params) {
+            try {
+                int listType = getArguments().getInt(SHOT_LIST_TYPE);
+                if (listType == MainActivity.SHOT_LIST_POPULAR_TYPE) {
+                    return Dribbble.getPopularShots(1);
+                } else if (listType == MainActivity.SHOT_LIST_LIKE_TYPE) {
+                    return Dribbble.getLikeShots(1);
+                }
+                return new ArrayList<>();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new ArrayList<>();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(List<Shot> shotList) {
+            super.onPostExecute(shotList);
+            adapter.clearAllShots();
+            adapter.addNewShots(shotList);
+            swipeContainer.setRefreshing(false);
         }
     }
 }
