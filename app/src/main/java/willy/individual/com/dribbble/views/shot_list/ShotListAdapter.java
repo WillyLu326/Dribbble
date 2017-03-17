@@ -13,7 +13,6 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import willy.individual.com.dribbble.R;
@@ -93,8 +92,6 @@ public class ShotListAdapter extends RecyclerView.Adapter {
             });
 
         } else if (getItemViewType(position) == SPINNER_TYPE) {
-            final ShotSpinnerViewHolder shotSpinnerViewHolder = (ShotSpinnerViewHolder) holder;
-
             onLoadingMoreListener.onLoadingMore();
         }
     }
@@ -127,7 +124,7 @@ public class ShotListAdapter extends RecyclerView.Adapter {
     }
 
     public void clearAllShots() {
-        shotList = new ArrayList<>();
+        shotList.clear();
         notifyDataSetChanged();
     }
 

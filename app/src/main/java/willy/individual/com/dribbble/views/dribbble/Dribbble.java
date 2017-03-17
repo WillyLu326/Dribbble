@@ -1,7 +1,5 @@
 package willy.individual.com.dribbble.views.dribbble;
 
-import android.util.Log;
-
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -19,9 +17,6 @@ import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.auth.Auth;
 
-/**
- * Created by zhenglu on 3/14/17.
- */
 
 public class Dribbble {
 
@@ -49,7 +44,6 @@ public class Dribbble {
         try {
             Response response = client.newCall(request).execute();
             String body = response.body().string();
-            Log.i("Shot Json data: ", body);
             return ModelUtils.convertToObject(body, new TypeToken<List<Shot>>(){});
         } catch (IOException e) {
             e.printStackTrace();

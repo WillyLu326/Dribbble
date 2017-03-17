@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -39,8 +40,8 @@ public class ShotListFragment extends Fragment{
 
     private static final String SHOT_LIST_TYPE = "shot_list_type";
 
-    private boolean refresh = false;
     private ShotListAdapter adapter;
+    private int listType;
 
     @BindView(R.id.shot_list_swipe_container) SwipeRefreshLayout swipeContainer;
     @BindView(R.id.shot_list_recycler_view) RecyclerView shotListRecyclerView;
@@ -84,16 +85,16 @@ public class ShotListFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setupSwipeContainer();
+        listType = getArguments().getInt(SHOT_LIST_TYPE);
 
-        final int shotListType = getArguments().getInt(SHOT_LIST_TYPE);
+        //setupSwipeContainer();
 
         shotListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         shotListRecyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
         adapter = new ShotListAdapter(new ArrayList<Shot>(), this, new OnLoadingMoreListener() {
                 @Override
                 public void onLoadingMore() {
-                AsyncTaskCompat.executeParallel(new LoadShotTask(shotListType, adapter.getItemCount() / COUNT_PER_PAGE + 1));
+                AsyncTaskCompat.executeParallel(new LoadShotTask());
             }
         });
         shotListRecyclerView.setAdapter(adapter);
@@ -103,8 +104,7 @@ public class ShotListFragment extends Fragment{
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refresh = true;
-                AsyncTaskCompat.executeParallel(new LoadShotTask(getArguments().getInt(SHOT_LIST_TYPE), refresh));
+                AsyncTaskCompat.executeParallel(new LoadShotTask());
             }
         });
 
@@ -113,27 +113,22 @@ public class ShotListFragment extends Fragment{
 
     private class LoadShotTask extends AsyncTask<Void, Void, List<Shot>> {
 
-        private int shotListType;
         private int page;
-        private boolean refresh = false;
 
-        public LoadShotTask(int shotListType, int page) {
-            this.shotListType = shotListType;
-            this.page = page;
-        }
+        public LoadShotTask() {
+            this.page = adapter.getData().size() / COUNT_PER_PAGE + 1;
 
-        public LoadShotTask(int shotListType, boolean refresh) {
-            this.shotListType = shotListType;
-            this.refresh = refresh;
         }
 
         @Override
         protected List<Shot> doInBackground(Void... params) {
             try {
-                if (shotListType == MainActivity.SHOT_LIST_POPULAR_TYPE) {
-                    return refresh ? Dribbble.getPopularShots(1) : Dribbble.getPopularShots(page);
-                } else if (shotListType == MainActivity.SHOT_LIST_LIKE_TYPE) {
-                    return refresh ? Dribbble.getLikeShots(1) : Dribbble.getLikeShots(page);
+
+
+                if (listType == MainActivity.SHOT_LIST_POPULAR_TYPE) {
+                    return Dribbble.getPopularShots(page);
+                } else if (listType == MainActivity.SHOT_LIST_LIKE_TYPE) {
+                    return Dribbble.getLikeShots(page);
                 }
                 return Dribbble.getPopularShots(page);
             } catch (Exception e) {
@@ -146,17 +141,10 @@ public class ShotListFragment extends Fragment{
         protected void onPostExecute(List<Shot> shotList) {
             super.onPostExecute(shotList);
             if (shotList != null) {
-                if (refresh) {
-                    adapter.clearAllShots();
-                    adapter.append(shotList);
-                    swipeContainer.setRefreshing(false);
-                    refresh = false;
-                } else {
-                    adapter.append(shotList);
-                    adapter.toggleSpinner(adapter.getItemCount() / COUNT_PER_PAGE >= page);
-                }
+                adapter.append(shotList);
+                adapter.toggleSpinner(adapter.getData().size() / COUNT_PER_PAGE >= page);
             } else {
-                swipeContainer.setRefreshing(false);
+                Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
             }
         }
     }
