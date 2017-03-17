@@ -13,6 +13,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import willy.individual.com.dribbble.R;
@@ -126,14 +127,10 @@ public class ShotListAdapter extends RecyclerView.Adapter {
     }
 
     public void clearAllShots() {
-        shotList.clear();
+        shotList = new ArrayList<>();
         notifyDataSetChanged();
     }
 
-    public void addNewShots(List<Shot> newShots) {
-        shotList.addAll(newShots);
-        notifyDataSetChanged();
-    }
 
     private class IsLikeShotTask extends AsyncTask<Void, Void, Boolean> {
 

@@ -136,14 +136,16 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
 
+                drawerLayout.closeDrawers();
+
                 if (fragment != null) {
                     getFragmentManager()
                             .beginTransaction()
                             .replace(R.id.fragment_container, fragment)
                             .commit();
+                    return true;
                 }
-                drawerLayout.closeDrawers();
-                return true;
+                return false;
             }
         });
     }

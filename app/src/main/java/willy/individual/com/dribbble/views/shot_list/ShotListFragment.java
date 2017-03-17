@@ -36,12 +36,14 @@ public class ShotListFragment extends Fragment{
 
     public static final int SHOTLIST_FRAGMENT_REQ_CODE = 100;
     private static final int COUNT_PER_PAGE = 12;
+
     private static final String SHOT_LIST_TYPE = "shot_list_type";
+
+    private boolean refresh = false;
+    private ShotListAdapter adapter;
 
     @BindView(R.id.shot_list_swipe_container) SwipeRefreshLayout swipeContainer;
     @BindView(R.id.shot_list_recycler_view) RecyclerView shotListRecyclerView;
-
-    private ShotListAdapter adapter;
 
     public static ShotListFragment newInstance(int shotListType) {
         Bundle args = new Bundle();
@@ -74,13 +76,15 @@ public class ShotListFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.shot_recycle_list, container, false);
         ButterKnife.bind(this, view);
-        setupSwipeContainer();
+
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        setupSwipeContainer();
 
         final int shotListType = getArguments().getInt(SHOT_LIST_TYPE);
 
@@ -99,7 +103,8 @@ public class ShotListFragment extends Fragment{
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                AsyncTaskCompat.executeParallel(new LoadRefreshShotTask());
+                refresh = true;
+                AsyncTaskCompat.executeParallel(new LoadShotTask(getArguments().getInt(SHOT_LIST_TYPE), refresh));
             }
         });
 
@@ -110,59 +115,49 @@ public class ShotListFragment extends Fragment{
 
         private int shotListType;
         private int page;
+        private boolean refresh = false;
 
         public LoadShotTask(int shotListType, int page) {
             this.shotListType = shotListType;
             this.page = page;
         }
 
+        public LoadShotTask(int shotListType, boolean refresh) {
+            this.shotListType = shotListType;
+            this.refresh = refresh;
+        }
+
         @Override
         protected List<Shot> doInBackground(Void... params) {
             try {
                 if (shotListType == MainActivity.SHOT_LIST_POPULAR_TYPE) {
-                    return Dribbble.getPopularShots(page);
+                    return refresh ? Dribbble.getPopularShots(1) : Dribbble.getPopularShots(page);
                 } else if (shotListType == MainActivity.SHOT_LIST_LIKE_TYPE) {
-                    return Dribbble.getLikeShots(page);
+                    return refresh ? Dribbble.getLikeShots(1) : Dribbble.getLikeShots(page);
                 }
                 return Dribbble.getPopularShots(page);
             } catch (Exception e) {
                 e.printStackTrace();
-                return new ArrayList<>();
+                return null;
             }
         }
 
         @Override
         protected void onPostExecute(List<Shot> shotList) {
             super.onPostExecute(shotList);
-            adapter.append(shotList);
-            adapter.toggleSpinner(adapter.getItemCount() / COUNT_PER_PAGE >= page);
-        }
-    }
-
-    private class LoadRefreshShotTask extends AsyncTask<Void, Void, List<Shot>> {
-
-        @Override
-        protected List<Shot> doInBackground(Void... params) {
-            try {
-                int listType = getArguments().getInt(SHOT_LIST_TYPE);
-                if (listType == MainActivity.SHOT_LIST_POPULAR_TYPE) {
-                    return Dribbble.getPopularShots(1);
-                } else if (listType == MainActivity.SHOT_LIST_LIKE_TYPE) {
-                    return Dribbble.getLikeShots(1);
+            if (shotList != null) {
+                if (refresh) {
+                    adapter.clearAllShots();
+                    adapter.append(shotList);
+                    swipeContainer.setRefreshing(false);
+                    refresh = false;
+                } else {
+                    adapter.append(shotList);
+                    adapter.toggleSpinner(adapter.getItemCount() / COUNT_PER_PAGE >= page);
                 }
-                return new ArrayList<>();
-            } catch (Exception e) {
-                e.printStackTrace();
-                return new ArrayList<>();
+            } else {
+                swipeContainer.setRefreshing(false);
             }
-        }
-
-        @Override
-        protected void onPostExecute(List<Shot> shotList) {
-            super.onPostExecute(shotList);
-            adapter.clearAllShots();
-            adapter.addNewShots(shotList);
-            swipeContainer.setRefreshing(false);
         }
     }
 }
