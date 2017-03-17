@@ -62,7 +62,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
 
             shotInfoViewHolder.shotInfoViewCountTv.setText(String.valueOf(shot.views_count));
             shotInfoViewHolder.shotInfoLikeCountTv.setText(String.valueOf(shot.likes_count));
-            shotInfoViewHolder.shotInfoBucketCountTv.setText(String.valueOf(shot.butckets_count));
+            shotInfoViewHolder.shotInfoBucketCountTv.setText(String.valueOf(shot.buckets_count));
 
             if (shot.isLike) {
                 shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_black_24dp, 0, 0);

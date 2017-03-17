@@ -61,6 +61,7 @@ public class ShotListFragment extends Fragment{
             for (Shot shot : adapter.getData()) {
                 if (TextUtils.equals(shot.id + "", updateShot.id + "")) {
                     shot.likes_count = updateShot.likes_count;
+                    shot.isLike = updateShot.isLike;
                     adapter.notifyDataSetChanged();
                     return ;
                 }

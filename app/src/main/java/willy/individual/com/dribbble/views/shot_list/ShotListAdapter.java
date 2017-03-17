@@ -34,6 +34,8 @@ public class ShotListAdapter extends RecyclerView.Adapter {
     private OnLoadingMoreListener onLoadingMoreListener;
     private boolean isShowingSpinner;
 
+    private ShotViewHolder shotViewHolder;
+
 
     public ShotListAdapter(@NonNull List<Shot> shotList,
                            ShotListFragment shotListFragment,
@@ -63,7 +65,7 @@ public class ShotListAdapter extends RecyclerView.Adapter {
 
         if (getItemViewType(position) == SHOT_TYPE) {
             final Shot shot = shotList.get(position);
-            final ShotViewHolder shotViewHolder = (ShotViewHolder) holder;
+            shotViewHolder = (ShotViewHolder) holder;
 
             AsyncTaskCompat.executeParallel(new IsLikeShotTask(shot));
 
@@ -74,10 +76,11 @@ public class ShotListAdapter extends RecyclerView.Adapter {
                     .build();
             shotViewHolder.image.setController(controller);
 
+            shotViewHolder.gifIv.setVisibility(shot.animated ? View.VISIBLE : View.GONE);
 
             shotViewHolder.viewsCountTv.setText(String.valueOf(shot.views_count));
             shotViewHolder.likesCountTv.setText(String.valueOf(shot.likes_count));
-            shotViewHolder.bucketsCountTv.setText(String.valueOf(shot.butckets_count));
+            shotViewHolder.bucketsCountTv.setText(String.valueOf(shot.buckets_count));
 
             shotViewHolder.cover.setOnClickListener(new View.OnClickListener() {
                 @Override

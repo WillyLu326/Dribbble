@@ -3,9 +3,6 @@ package willy.individual.com.dribbble.models;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by zhenglu on 3/5/17.
- */
 
 public class Shot {
 
@@ -20,7 +17,7 @@ public class Shot {
     public int comments_count;
     public int attachments_count;
     public int rebounds_count;
-    public int butckets_count;
+    public int buckets_count;
     public String created_at;
     public String updated_at;
     public String html_url;
