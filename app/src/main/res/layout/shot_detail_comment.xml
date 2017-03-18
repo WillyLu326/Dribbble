@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/large_space"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/shot_detail_comment_image"
+        android:layout_width="@dimen/header_image_size"
+        android:layout_height="@dimen/header_image_size"
+        android:layout_marginTop="@dimen/small_space"
+        android:layout_alignParentLeft="true"
+        fresco:placeholderImage="@drawable/image_circle"
+        fresco:placeholderImageScaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/shot_detail_comment_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/shot_detail_comment_image"
+        android:layout_marginTop="@dimen/small_space"
+        android:layout_marginLeft="@dimen/small_space"
+        android:textSize="@dimen/large_size"
+        android:textStyle="bold"
+        tools:text="User Name"/>
+
+    <TextView
+        android:id="@+id/shot_detail_comment_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_space"
+        android:layout_toRightOf="@+id/shot_detail_comment_image"
+        android:layout_below="@id/shot_detail_comment_name"
+        android:textSize="@dimen/medium_size"
+        tools:text="Adorable cows for sure!"/>
+
+    <LinearLayout
+        android:id="@+id/shot_detail_comment_time_and_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/small_space"
+        android:layout_toRightOf="@id/shot_detail_comment_image"
+        android:layout_below="@+id/shot_detail_comment_content">
+
+        <TextView
+            android:id="@+id/shot_detail_comment_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/small_space"
+            tools:text="about 9 hours ago | "/>
+
+        <ImageButton
+            android:id="@+id/shot_detail_comment_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_thumb_up_black_18dp"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/small_space"
+        android:layout_below="@+id/shot_detail_comment_time_and_like"
+        android:background="@android:color/darker_gray"/>
+
+</RelativeLayout>
