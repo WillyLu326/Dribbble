@@ -149,7 +149,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
 
             ShotCommentViewHolder shotCommentViewHolder = (ShotCommentViewHolder) holder;
             shotCommentViewHolder.commentNameTv.setText(comment.user.name);
-            shotCommentViewHolder.commentContentTv.setText(comment.body);
+            shotCommentViewHolder.commentContentTv.setText(Html.fromHtml(comment.body, 1));
 
         } else if (viewType == TYPE_SHOT_SPINNER) {
             onLoadingMoreListener.onLoadingMore();
