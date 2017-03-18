@@ -30,7 +30,7 @@ public class ShotFragment extends Fragment {
 
     private Shot shot;
 
-    @BindView(R.id.shot_list_recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.shot_detail_recycler_view) RecyclerView recyclerView;
 
     public static Fragment newInstance(@NonNull Bundle args) {
         ShotFragment fragment = new ShotFragment();
@@ -41,7 +41,7 @@ public class ShotFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.shot_recycle_list, container, false);
+        View view = inflater.inflate(R.layout.shot_detail_recycle, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
