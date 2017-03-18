@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/medium_space"
+    android:layout_marginTop="@dimen/xsmall_space"
     android:layout_marginLeft="@dimen/large_space"
     android:layout_marginRight="@dimen/large_space"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
@@ -15,7 +15,8 @@
         android:layout_marginTop="@dimen/small_space"
         android:layout_alignParentLeft="true"
         fresco:placeholderImage="@drawable/image_circle"
-        fresco:placeholderImageScaleType="centerCrop"/>
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:roundedCornerRadius="50dp"/>
 
     <TextView
         android:id="@+id/shot_detail_comment_name"
@@ -32,7 +33,9 @@
         android:id="@+id/shot_detail_comment_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/small_space"
+        android:layout_marginTop="@dimen/small_space"
+        android:layout_marginLeft="@dimen/small_space"
+        android:layout_marginRight="@dimen/small_space"
         android:layout_toRightOf="@+id/shot_detail_comment_image"
         android:layout_below="@id/shot_detail_comment_name"
         android:textSize="@dimen/medium_size"
@@ -43,6 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/small_space"
+        android:layout_marginTop="-15dp"
         android:layout_toRightOf="@id/shot_detail_comment_image"
         android:layout_below="@+id/shot_detail_comment_content">
 

@@ -150,7 +150,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
             ShotCommentViewHolder shotCommentViewHolder = (ShotCommentViewHolder) holder;
             shotCommentViewHolder.commentNameTv.setText(comment.user.name);
             shotCommentViewHolder.commentContentTv.setText(Html.fromHtml(comment.body, 1));
-            shotCommentViewHolder.commentDateTv.setText(comment.updated_at.toString());
+            shotCommentViewHolder.commentDateTv.setText(comment.updated_at.toString() + "  |  ");
             DraweeController controller = Fresco.newDraweeControllerBuilder()
                     .setUri(comment.user.avatar_url)
                     .setAutoPlayAnimations(true)
