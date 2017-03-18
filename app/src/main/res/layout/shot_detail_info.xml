@@ -114,4 +114,22 @@
         android:textSize="@dimen/small_size"
         tools:text="Patches are in! These will be at the Super Team Deluxe gallery at CS17! Hope to see y'all there! Thanks! " />
 
+    <View
+        android:id="@+id/shot_detail_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/large_size"
+        android:layout_marginRight="@dimen/large_size"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/shot_detail_response"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_space"
+        android:layout_marginLeft="@dimen/large_size"
+        android:layout_marginBottom="@dimen/large_space"
+        android:textSize="@dimen/medium_size"
+        android:textStyle="bold"
+        tools:text="12 Response"/>
 </LinearLayout>
