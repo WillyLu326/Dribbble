@@ -16,11 +16,16 @@ import android.view.ViewGroup;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
+import willy.individual.com.dribbble.models.Comment;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.utils.ModelUtils;
+import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
 
 
@@ -29,6 +34,8 @@ public class ShotFragment extends Fragment {
     public static final String SHOT_KEY = "shot_key";
 
     private Shot shot;
+
+    private ShotAdapter adapter;
 
     @BindView(R.id.shot_detail_recycler_view) RecyclerView recyclerView;
 
@@ -51,7 +58,13 @@ public class ShotFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         shot = ModelUtils.convertToObject(getArguments().getString(SHOT_KEY), new TypeToken<Shot>(){});
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new ShotAdapter(shot, this));
+        adapter = new ShotAdapter(shot, this, new ArrayList<Comment>(), new OnLoadingMoreListener() {
+            @Override
+            public void onLoadingMore() {
+                AsyncTaskCompat.executeParallel(new CommentLoadTask(shot.comments_url));
+            }
+        });
+        recyclerView.setAdapter(adapter);
 
         Intent resultIntent = new Intent();
         resultIntent.putExtra(SHOT_KEY, ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
@@ -107,4 +120,23 @@ public class ShotFragment extends Fragment {
         }
     }
 
+    private class CommentLoadTask extends AsyncTask<Void, Void, List<Comment>> {
+
+        private String comments_url;
+
+        public CommentLoadTask(String comments_url) {
+            this.comments_url = comments_url;
+        }
+
+        @Override
+        protected List<Comment> doInBackground(Void... params) {
+            return Dribbble.getComments(comments_url);
+        }
+
+        @Override
+        protected void onPostExecute(List<Comment> comments) {
+            super.onPostExecute(comments);
+            adapter.append(comments);
+        }
+    }
 }

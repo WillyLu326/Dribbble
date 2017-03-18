@@ -11,6 +11,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import willy.individual.com.dribbble.models.Comment;
 import willy.individual.com.dribbble.models.Like;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.models.User;
@@ -133,6 +134,20 @@ public class Dribbble {
             client.newCall(request).execute();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static List<Comment> getComments(String url) {
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(url)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            return ModelUtils.convertToObject(response.body().string(), new TypeToken<List<Comment>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,23 +14,38 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import willy.individual.com.dribbble.R;
+import willy.individual.com.dribbble.models.Comment;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.utils.ModelUtils;
+import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 
 
 public class ShotAdapter extends RecyclerView.Adapter {
 
     private static final int TYPE_SHOT_IMAGE = 0;
     private static final int TYPE_SHOT_INFO = 1;
+    private static final int TYPE_SHOT_COMMENTS = 2;
+    private static final int TYPE_SHOT_SPINNER = 3;
 
     private Shot shot;
     private ShotFragment shotFragment;
+    private List<Comment> comments;
+    private OnLoadingMoreListener onLoadingMoreListener;
 
 
-    public ShotAdapter(Shot shot, @NonNull ShotFragment shotFragment) {
+    public ShotAdapter(Shot shot,
+                       @NonNull ShotFragment shotFragment,
+                       List<Comment> comments,
+                       OnLoadingMoreListener onLoadingMoreListener) {
         this.shot = shot;   // come from shotListFragment
         this.shotFragment = shotFragment;
+        this.comments = comments;
+        this.onLoadingMoreListener = onLoadingMoreListener;
     }
 
     @Override
@@ -38,11 +54,21 @@ public class ShotAdapter extends RecyclerView.Adapter {
             View view = LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.shot_detail_image, parent, false);
             return new ShotImageViewHolder(view);
-        } else  {
+        } else if (viewType == TYPE_SHOT_INFO) {
             View view = LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.shot_detail_info, parent, false);
             return new ShotInfoViewHolder(view);
+        } else if (viewType == TYPE_SHOT_COMMENTS) {
+            View view = LayoutInflater.from(parent.getContext())
+                            .inflate(R.layout.shot_detail_comment, parent, false);
+            return new ShotCommentViewHolder(view);
+        } else if (viewType == TYPE_SHOT_SPINNER) {
+            View view = LayoutInflater.from(parent.getContext())
+                            .inflate(R.layout.shot_detail_comment_spinner, parent, false);
+            return new ShotCommentSpinnerViewHolder(view);
         }
+
+        return null;
     }
 
     @Override
@@ -103,7 +129,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
             shotInfoViewHolder.shotInfoUsername.setText(shot.user.name);
             shotInfoViewHolder.shotInfoUserInfo.setText(shot.user.username);
             shotInfoViewHolder.shotInfoUserDescription.setText(
-                    Html.fromHtml(shot.description == null ? "" : shot.description, 1));
+                    Html.fromHtml(shot.description == null ? "No Description" : shot.description, 1));
 
             DraweeController controller = Fresco.newDraweeControllerBuilder()
                     .setUri(shot.user.avatar_url)
@@ -118,22 +144,43 @@ public class ShotAdapter extends RecyclerView.Adapter {
             } else {
                 shotInfoViewHolder.commentResponseTv.setText(shot.comments_count + " Response");
             }
+        } else if (viewType == TYPE_SHOT_COMMENTS) {
+            Comment comment = comments.get(position - 2);
+
+            ShotCommentViewHolder shotCommentViewHolder = (ShotCommentViewHolder) holder;
+            shotCommentViewHolder.commentNameTv.setText(comment.user.name);
+            shotCommentViewHolder.commentContentTv.setText(comment.body);
+
+        } else if (viewType == TYPE_SHOT_SPINNER) {
+            onLoadingMoreListener.onLoadingMore();
         }
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 3 + this.getCommentsData().size();
     }
 
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
             return TYPE_SHOT_IMAGE;
-        } else {
+        } else if (position == 1) {
             return TYPE_SHOT_INFO;
+        } else if (position == getItemCount() - 1) {
+            return TYPE_SHOT_SPINNER;
+        } else {
+            return TYPE_SHOT_COMMENTS;
         }
     }
 
+    public void append(List<Comment> comments) {
+        this.comments.addAll(comments);
+        notifyDataSetChanged();
+    }
+
+    public List<Comment> getCommentsData() {
+        return this.comments;
+    }
 
 }
