@@ -5,4 +5,5 @@
     <color name="colorAccent">#3F51B5</color>
 
     <color name="place_holder_bg">#F5F5D5</color>
+    <color name="line_color">#DDDDDD</color>
 </resources>

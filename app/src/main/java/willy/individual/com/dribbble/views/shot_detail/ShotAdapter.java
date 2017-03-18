@@ -110,6 +110,14 @@ public class ShotAdapter extends RecyclerView.Adapter {
                     .setAutoPlayAnimations(true)
                     .build();
             shotInfoViewHolder.shotInfoUserAvatar.setController(controller);
+
+            // Setup Comment Header
+            if (shot.comments_count == 0) {
+                shotInfoViewHolder.line.setVisibility(View.GONE);
+                shotInfoViewHolder.commentResponseTv.setVisibility(View.GONE);
+            } else {
+                shotInfoViewHolder.commentResponseTv.setText(shot.comments_count + " Response");
+            }
         }
     }
 

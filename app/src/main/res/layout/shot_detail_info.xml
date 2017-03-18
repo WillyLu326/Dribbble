@@ -120,7 +120,7 @@
         android:layout_height="1dp"
         android:layout_marginLeft="@dimen/large_size"
         android:layout_marginRight="@dimen/large_size"
-        android:background="@android:color/darker_gray"/>
+        android:background="@color/line_color"/>
 
     <TextView
         android:id="@+id/shot_detail_response"

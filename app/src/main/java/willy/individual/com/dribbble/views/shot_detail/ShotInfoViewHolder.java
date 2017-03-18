@@ -22,6 +22,8 @@ public class ShotInfoViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.shot_detail_info_user_info) TextView shotInfoUserInfo;
     @BindView(R.id.shot_detail_info_user_description) TextView shotInfoUserDescription;
 
+    @BindView(R.id.shot_detail_line) View line;
+    @BindView(R.id.shot_detail_response) TextView commentResponseTv;
 
     public ShotInfoViewHolder(View itemView) {
         super(itemView);
