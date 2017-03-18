@@ -128,7 +128,6 @@ public class ShotListAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-
     private class IsLikeShotTask extends AsyncTask<Void, Void, Boolean> {
 
         private Shot shot;

@@ -87,14 +87,14 @@ public class ShotListFragment extends Fragment{
 
         listType = getArguments().getInt(SHOT_LIST_TYPE);
 
-        //setupSwipeContainer();
+        setupSwipeContainer();
 
         shotListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         shotListRecyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
         adapter = new ShotListAdapter(new ArrayList<Shot>(), this, new OnLoadingMoreListener() {
                 @Override
                 public void onLoadingMore() {
-                AsyncTaskCompat.executeParallel(new LoadShotTask());
+                AsyncTaskCompat.executeParallel(new LoadShotTask(false));
             }
         });
         shotListRecyclerView.setAdapter(adapter);
@@ -104,7 +104,7 @@ public class ShotListFragment extends Fragment{
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                AsyncTaskCompat.executeParallel(new LoadShotTask());
+                AsyncTaskCompat.executeParallel(new LoadShotTask(true));
             }
         });
 
@@ -113,18 +113,18 @@ public class ShotListFragment extends Fragment{
 
     private class LoadShotTask extends AsyncTask<Void, Void, List<Shot>> {
 
+        private boolean refresh;
         private int page;
 
-        public LoadShotTask() {
-            this.page = adapter.getData().size() / COUNT_PER_PAGE + 1;
-
+        public LoadShotTask(boolean refresh) {
+            this.refresh = refresh;
+            this.page = refresh ? 1 : adapter.getData().size() / COUNT_PER_PAGE + 1;
         }
 
         @Override
         protected List<Shot> doInBackground(Void... params) {
+
             try {
-
-
                 if (listType == MainActivity.SHOT_LIST_POPULAR_TYPE) {
                     return Dribbble.getPopularShots(page);
                 } else if (listType == MainActivity.SHOT_LIST_LIKE_TYPE) {
@@ -141,8 +141,14 @@ public class ShotListFragment extends Fragment{
         protected void onPostExecute(List<Shot> shotList) {
             super.onPostExecute(shotList);
             if (shotList != null) {
-                adapter.append(shotList);
-                adapter.toggleSpinner(adapter.getData().size() / COUNT_PER_PAGE >= page);
+                if (refresh) {
+                    adapter.clearAllShots();
+                    adapter.append(shotList);
+                    swipeContainer.setRefreshing(false);
+                } else {
+                    adapter.append(shotList);
+                    adapter.toggleSpinner(adapter.getData().size() / COUNT_PER_PAGE >= page);
+                }
             } else {
                 Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
             }
