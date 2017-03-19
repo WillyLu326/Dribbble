@@ -123,20 +123,23 @@ public class ShotFragment extends Fragment {
     private class CommentLoadTask extends AsyncTask<Void, Void, List<Comment>> {
 
         private String comments_url;
+        private int page;
 
         public CommentLoadTask(String comments_url) {
             this.comments_url = comments_url;
+            this.page = adapter.getCommentsData().size() / 12 + 1;
         }
 
         @Override
         protected List<Comment> doInBackground(Void... params) {
-            return Dribbble.getComments(comments_url);
+            return Dribbble.getComments(comments_url, page);
         }
 
         @Override
         protected void onPostExecute(List<Comment> comments) {
             super.onPostExecute(comments);
             adapter.append(comments);
+            adapter.toggleSpinner(adapter.getCommentsData().size() / 12 >= page);
         }
     }
 }

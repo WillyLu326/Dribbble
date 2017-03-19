@@ -137,10 +137,10 @@ public class Dribbble {
         }
     }
 
-    public static List<Comment> getComments(String url) {
+    public static List<Comment> getComments(String url, int page) {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
-                .url(url)
+                .url(url + "?page=" + page)
                 .build();
         try {
             Response response = client.newCall(request).execute();

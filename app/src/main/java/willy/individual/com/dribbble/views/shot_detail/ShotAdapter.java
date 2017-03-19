@@ -36,6 +36,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
     private ShotFragment shotFragment;
     private List<Comment> comments;
     private OnLoadingMoreListener onLoadingMoreListener;
+    private boolean isShowingSpinner;
 
 
     public ShotAdapter(Shot shot,
@@ -46,6 +47,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
         this.shotFragment = shotFragment;
         this.comments = comments;
         this.onLoadingMoreListener = onLoadingMoreListener;
+        this.isShowingSpinner = true;
     }
 
     @Override
@@ -164,7 +166,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 3 + this.getCommentsData().size();
+        return isShowingSpinner ? 3 + this.getCommentsData().size() : 2 + this.getCommentsData().size();
     }
 
     @Override
@@ -187,6 +189,11 @@ public class ShotAdapter extends RecyclerView.Adapter {
 
     public List<Comment> getCommentsData() {
         return this.comments;
+    }
+
+    public void toggleSpinner(boolean showingSpinner) {
+        this.isShowingSpinner = showingSpinner;
+        notifyDataSetChanged();
     }
 
 }

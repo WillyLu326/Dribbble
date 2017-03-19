@@ -2,9 +2,6 @@ package willy.individual.com.dribbble.models;
 
 import java.util.Date;
 
-/**
- * Created by zhenglu on 3/18/17.
- */
 
 public class Comment {
 
@@ -16,7 +13,4 @@ public class Comment {
     public Date updated_at;
     public User user;
 
-    public Comment(String body) {
-        this.body = body;
-    }
 }
