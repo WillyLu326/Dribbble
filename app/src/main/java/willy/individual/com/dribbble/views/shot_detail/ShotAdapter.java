@@ -21,6 +21,7 @@ import willy.individual.com.dribbble.models.Comment;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
+import willy.individual.com.dribbble.views.shot_imgae_activity.ShotImageActivity;
 
 
 public class ShotAdapter extends RecyclerView.Adapter {
@@ -29,6 +30,8 @@ public class ShotAdapter extends RecyclerView.Adapter {
     private static final int TYPE_SHOT_INFO = 1;
     private static final int TYPE_SHOT_COMMENTS = 2;
     private static final int TYPE_SHOT_SPINNER = 3;
+
+    public static final String IMAGE_URL_KEY = "image_url";
 
     private Shot shot;
     private ShotFragment shotFragment;
@@ -88,7 +91,9 @@ public class ShotAdapter extends RecyclerView.Adapter {
             shotImageViewHolder.shotDetailDv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(shotFragment.getContext(), "Image Click", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(shotFragment.getActivity(), ShotImageActivity.class);
+                    intent.putExtra(IMAGE_URL_KEY, shot.getImageUrl());
+                    shotFragment.startActivity(intent);
                 }
             });
 
