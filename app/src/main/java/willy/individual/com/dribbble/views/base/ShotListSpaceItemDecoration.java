@@ -18,10 +18,12 @@ public class ShotListSpaceItemDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
 
-        outRect.top = space;
+        outRect.left = space;
+        outRect.right = space;
+        outRect.bottom = space;
 
         if (parent.getChildAdapterPosition(view) == 0) {
-            outRect.top = 1;
+            outRect.top = space;
         }
     }
 }
