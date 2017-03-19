@@ -45,11 +45,21 @@
                 tools:text="4" />
 
             <TextView
-                android:id="@+id/shot_item_like"
+                android:id="@+id/shot_item_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/small_space"
                 android:layout_toLeftOf="@+id/shot_item_bucket"
+                android:drawableLeft="@drawable/ic_chat_black_18dp"
+                android:drawablePadding="@dimen/xsmall_space"
+                tools:text="5"/>
+
+            <TextView
+                android:id="@+id/shot_item_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/small_space"
+                android:layout_toLeftOf="@+id/shot_item_comment"
                 android:clickable="true"
                 android:background="?attr/selectableItemBackground"
                 android:contentDescription="@string/shot_item_like"

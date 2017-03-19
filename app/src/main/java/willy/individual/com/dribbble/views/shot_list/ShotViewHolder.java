@@ -18,6 +18,7 @@ public class ShotViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.shot_item_image) SimpleDraweeView image;
     @BindView(R.id.shot_item_view_count) TextView viewsCountTv;
     @BindView(R.id.shot_item_like) TextView likesCountTv;
+    @BindView(R.id.shot_item_comment) TextView commentsCountTv;
     @BindView(R.id.shot_item_bucket) TextView bucketsCountTv;
     @BindView(R.id.shot_item_gif) ImageView gifIv;
 

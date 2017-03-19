@@ -80,6 +80,7 @@ public class ShotListAdapter extends RecyclerView.Adapter {
 
             shotViewHolder.viewsCountTv.setText(String.valueOf(shot.views_count));
             shotViewHolder.likesCountTv.setText(String.valueOf(shot.likes_count));
+            shotViewHolder.commentsCountTv.setText(String.valueOf(shot.comments_count));
             shotViewHolder.bucketsCountTv.setText(String.valueOf(shot.buckets_count));
 
             shotViewHolder.cover.setOnClickListener(new View.OnClickListener() {
