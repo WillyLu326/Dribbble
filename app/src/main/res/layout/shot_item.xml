@@ -63,7 +63,7 @@
                 android:clickable="true"
                 android:background="?attr/selectableItemBackground"
                 android:contentDescription="@string/shot_item_like"
-                android:drawableLeft="@drawable/ic_favorite_border_black_18dp"
+                android:drawableLeft="@drawable/ic_favorite_black_18dp"
                 android:drawablePadding="@dimen/xsmall_space"
                 tools:text="160" />
 
