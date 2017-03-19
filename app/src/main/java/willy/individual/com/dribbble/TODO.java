@@ -4,7 +4,8 @@ package willy.individual.com.dribbble;
 public class TODO {
 
     /**
-     *  TODO ==> Version 2.0.0
+     *  Version 2.0.0
+     *  TODO
      *  1. Share Button Function
      *  2. Bucket Function
      *  3. User Following
