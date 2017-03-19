@@ -10,10 +10,10 @@ public class TODO {
      *  TODO
      *  1. Share Button Function
      *  2. Bucket Function
-     *  3. Comment Function
+     *  3. Comment Function ==> Done
      *  4. User Following
      *  5. User Follower
      *  6. Check User Profile
-     *  7. Pull to Refresh
+     *  7. Pull to Refresh  ==> Done
      */
 }
