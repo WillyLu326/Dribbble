@@ -8,6 +8,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
@@ -83,6 +84,13 @@ public class ShotAdapter extends RecyclerView.Adapter {
                     .setAutoPlayAnimations(true)
                     .build();
             shotImageViewHolder.shotDetailDv.setController(controller);
+
+            shotImageViewHolder.shotDetailDv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(shotFragment.getContext(), "Image Click", Toast.LENGTH_SHORT).show();
+                }
+            });
 
         } else if (viewType == TYPE_SHOT_INFO) {
             final ShotInfoViewHolder shotInfoViewHolder = (ShotInfoViewHolder) holder;
