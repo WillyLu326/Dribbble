@@ -166,7 +166,11 @@ public class ShotAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return isShowingSpinner ? 3 + this.getCommentsData().size() : 2 + this.getCommentsData().size();
+        if (isShowingSpinner) {
+            return 3 + this.comments.size();
+        } else {
+            return this.comments.size() + 2;
+        }
     }
 
     @Override
@@ -175,7 +179,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
             return TYPE_SHOT_IMAGE;
         } else if (position == 1) {
             return TYPE_SHOT_INFO;
-        } else if (position == getItemCount() - 1) {
+        } else if (position == this.comments.size() + 2) {
             return TYPE_SHOT_SPINNER;
         } else {
             return TYPE_SHOT_COMMENTS;
