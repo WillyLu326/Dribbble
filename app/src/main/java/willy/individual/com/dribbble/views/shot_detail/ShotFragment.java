@@ -71,7 +71,6 @@ public class ShotFragment extends Fragment {
         this.getActivity().setResult(Activity.RESULT_OK, resultIntent);
     }
 
-
     public void like(int id) {
         AsyncTaskCompat.executeParallel(new LikeShotTask(id));
     }

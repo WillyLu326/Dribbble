@@ -7,12 +7,10 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
-
 
 
 public class ShotCommentViewHolder extends RecyclerView.ViewHolder {

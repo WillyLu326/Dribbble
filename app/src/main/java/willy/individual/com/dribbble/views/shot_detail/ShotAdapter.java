@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,6 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import willy.individual.com.dribbble.R;
@@ -37,6 +34,8 @@ public class ShotAdapter extends RecyclerView.Adapter {
     private List<Comment> comments;
     private OnLoadingMoreListener onLoadingMoreListener;
     private boolean isShowingSpinner;
+
+    private ShotCommentViewHolder shotCommentViewHolder;
 
 
     public ShotAdapter(Shot shot,
@@ -149,10 +148,11 @@ public class ShotAdapter extends RecyclerView.Adapter {
         } else if (viewType == TYPE_SHOT_COMMENTS) {
             Comment comment = comments.get(position - 2);
 
-            ShotCommentViewHolder shotCommentViewHolder = (ShotCommentViewHolder) holder;
+            shotCommentViewHolder = (ShotCommentViewHolder) holder;
             shotCommentViewHolder.commentNameTv.setText(comment.user.name);
             shotCommentViewHolder.commentContentTv.setText(Html.fromHtml(comment.body, 1));
             shotCommentViewHolder.commentDateTv.setText(comment.updated_at.toString() + "  |  ");
+
             DraweeController controller = Fresco.newDraweeControllerBuilder()
                     .setUri(comment.user.avatar_url)
                     .setAutoPlayAnimations(true)
@@ -169,7 +169,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
         if (isShowingSpinner) {
             return 3 + this.comments.size();
         } else {
-            return this.comments.size() + 2;
+            return 2 + this.comments.size();
         }
     }
 

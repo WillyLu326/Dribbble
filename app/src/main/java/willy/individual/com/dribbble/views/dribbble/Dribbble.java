@@ -151,4 +151,18 @@ public class Dribbble {
         }
     }
 
+    public static boolean isLikeComment(String url, int id) {
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(url + "/" + id + "/like")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            String body = response.body().string();
+            return body.length() != 0;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

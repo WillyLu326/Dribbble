@@ -7,7 +7,6 @@ import com.google.gson.reflect.TypeToken;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.SingleFragmentActivity;
-import willy.individual.com.dribbble.views.shot_list.ShotListFragment;
 
 
 public class ShotActivity extends SingleFragmentActivity {
