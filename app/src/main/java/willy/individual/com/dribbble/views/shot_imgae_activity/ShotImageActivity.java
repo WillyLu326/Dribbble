@@ -1,14 +1,15 @@
 package willy.individual.com.dribbble.views.shot_imgae_activity;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.view.ContextMenu;
-import android.view.MenuItem;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -26,6 +27,8 @@ public class ShotImageActivity extends AppCompatActivity {
     @BindView(R.id.shot_image_linear_layout) View shotImageLinearLayout;
     @BindView(R.id.activity_shot_image) SimpleDraweeView shotImage;
 
+    private PopupWindow popupWindow;
+    private boolean showPopupWindow = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,29 +37,7 @@ public class ShotImageActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setupImageUi();
-        registerForContextMenu(shotImageLinearLayout);
-
         setupShotImageLinearLayout();
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.setHeaderTitle("Select an Action");
-        menu.add(0, v.getId(), 0, "Save");
-        menu.add(0, v.getId(), 0, "Cancel");
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        if (TextUtils.equals(item.getTitle(), "Save")) {
-            Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.equals(item.getTitle(), "Cancel")) {
-            Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
-        } else {
-            return false;
-        }
-        return true;
     }
 
     private void setupImageUi() {
@@ -72,7 +53,26 @@ public class ShotImageActivity extends AppCompatActivity {
         shotImageLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              finish();
+                //finish();
+            }
+        });
+
+        shotImageLinearLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                View view = getLayoutInflater().inflate(R.layout.popup_window, null, false);
+                popupWindow = new PopupWindow(view, ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
+                popupWindow.showAtLocation(shotImageLinearLayout, Gravity.CENTER | Gravity.BOTTOM, 0 ,0 );
+                popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.shot_placeholder, null));
+
+                popupWindow.getContentView().findViewById(R.id.popup_window_save).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                return false;
             }
         });
     }
