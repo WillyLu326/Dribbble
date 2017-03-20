@@ -5,10 +5,15 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionValues;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
@@ -65,10 +70,28 @@ public class ShotImageActivity extends AppCompatActivity {
                 popupWindow.showAtLocation(shotImageLinearLayout, Gravity.CENTER | Gravity.BOTTOM, 0 ,0 );
                 popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.shot_placeholder, null));
 
+                popupWindow.setElevation(4);
+
+                Slide slide = new Slide();
+                slide.setInterpolator(new LinearInterpolator());
+                slide.setSlideEdge(Gravity.TOP);
+                slide.excludeTarget(android.R.id.statusBarBackground, true);
+                slide.excludeTarget(android.R.id.navigationBarBackground, true);
+
+                popupWindow.setEnterTransition(slide);
+                popupWindow.setExitTransition(slide);
+
                 popupWindow.getContentView().findViewById(R.id.popup_window_save).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                popupWindow.getContentView().findViewById(R.id.popup_window_cancel).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popupWindow.dismiss();
                     }
                 });
 
