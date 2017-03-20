@@ -70,8 +70,6 @@ public class ShotImageActivity extends AppCompatActivity {
                 popupWindow.showAtLocation(shotImageLinearLayout, Gravity.CENTER | Gravity.BOTTOM, 0 ,0 );
                 popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.shot_placeholder, null));
 
-                popupWindow.setElevation(4);
-
                 Slide slide = new Slide();
                 slide.setInterpolator(new LinearInterpolator());
                 slide.setSlideEdge(Gravity.TOP);
