@@ -6,4 +6,6 @@
 
     <color name="place_holder_bg">#CCCCCC</color>
     <color name="line_color">#DDDDDD</color>
+    <color name="popup_window_bg_color">#F8F8F8</color>
+    <color name="popup_window_line">#EAEAEA</color>
 </resources>

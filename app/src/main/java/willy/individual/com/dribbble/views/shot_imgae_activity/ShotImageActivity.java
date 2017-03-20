@@ -1,14 +1,20 @@
 package willy.individual.com.dribbble.views.shot_imgae_activity;
 
-import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionValues;
 import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.view.animation.LinearInterpolator;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -23,8 +29,11 @@ import willy.individual.com.dribbble.views.shot_detail.ShotAdapter;
 
 public class ShotImageActivity extends AppCompatActivity {
 
-    @BindView(R.id.shot_image_linear_layout) LinearLayout shotImageLinearLayout;
+    @BindView(R.id.shot_image_linear_layout) View shotImageLinearLayout;
     @BindView(R.id.activity_shot_image) SimpleDraweeView shotImage;
+
+    private PopupWindow popupWindow;
+    private boolean showPopupWindow = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,32 +58,46 @@ public class ShotImageActivity extends AppCompatActivity {
         shotImageLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                //finish();
             }
         });
 
         shotImageLinearLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                PopupMenu popup = new PopupMenu(ShotImageActivity.this, shotImage);
-                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
-                popup.setGravity(Gravity.CENTER);
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                View view = getLayoutInflater().inflate(R.layout.popup_window, null, false);
+                popupWindow = new PopupWindow(view, ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
+                popupWindow.showAtLocation(shotImageLinearLayout, Gravity.CENTER | Gravity.BOTTOM, 0 ,0 );
+                popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.shot_placeholder, null));
+
+                popupWindow.setElevation(4);
+
+                Slide slide = new Slide();
+                slide.setInterpolator(new LinearInterpolator());
+                slide.setSlideEdge(Gravity.TOP);
+                slide.excludeTarget(android.R.id.statusBarBackground, true);
+                slide.excludeTarget(android.R.id.navigationBarBackground, true);
+
+                popupWindow.setEnterTransition(slide);
+                popupWindow.setExitTransition(slide);
+
+                popupWindow.getContentView().findViewById(R.id.popup_window_save).setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.popup_save :
-                                Toast.makeText(getApplicationContext(), "Save Image", Toast.LENGTH_SHORT).show();
-                            case R.id.popup_cancel :
-                                finish();
-                        }
-                        return false;
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                popup.show();
-                return true;
+                popupWindow.getContentView().findViewById(R.id.popup_window_cancel).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popupWindow.dismiss();
+                    }
+                });
+
+                return false;
             }
         });
     }
+
 }

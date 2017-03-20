@@ -17,4 +17,6 @@
     <string name="dribbble_login">Dribbble Login</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="popup_window_save">Save</string>
+    <string name="popup_window_cancel">Cancel</string>
 </resources>
