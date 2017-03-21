@@ -5,12 +5,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,7 @@ import willy.individual.com.dribbble.views.dribbble.Dribbble;
 public class BucketListFragment extends Fragment {
 
     @BindView(R.id.bucket_list_recycler_view) RecyclerView bucketRecyclerView;
+    @BindView(R.id.bucket_fab) FloatingActionButton bucketFab;
 
     private BucketAdapter bucketAdapter;
 
@@ -46,6 +49,8 @@ public class BucketListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setupBucketFab();
+
         bucketRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         bucketRecyclerView.addItemDecoration(new BucketListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
         bucketAdapter = new BucketAdapter(new ArrayList<Bucket>(), new OnLoadingMoreListener() {
@@ -57,6 +62,15 @@ public class BucketListFragment extends Fragment {
         bucketRecyclerView.setAdapter(bucketAdapter);
     }
 
+
+    private void setupBucketFab() {
+        this.bucketFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     private class BucketLoadTask extends AsyncTask<Void, Void, List<Bucket>> {
 
