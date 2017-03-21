@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import willy.individual.com.dribbble.R;
@@ -26,6 +27,7 @@ public class BucketAdapter extends RecyclerView.Adapter {
         this.onLoadingMoreListener = onLoadingMoreListener;
         this.isShowingBucketSpinner = true;
     }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -77,5 +79,9 @@ public class BucketAdapter extends RecyclerView.Adapter {
     public void toggleBucketSpinner(boolean showBucketSpinner) {
         this.isShowingBucketSpinner = showBucketSpinner;
         notifyDataSetChanged();
+    }
+
+    public List<Bucket> getBuckets() {
+        return this.buckets;
     }
 }

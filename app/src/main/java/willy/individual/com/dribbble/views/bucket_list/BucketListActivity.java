@@ -14,7 +14,7 @@ public class BucketListActivity extends SingleFragmentActivity {
 
     @Override
     protected String getActivityTitle() {
-        return "Bucket List";
+        return "Choose Buckets";
     }
 
 }

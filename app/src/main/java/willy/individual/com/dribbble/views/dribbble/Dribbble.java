@@ -11,6 +11,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import willy.individual.com.dribbble.models.Bucket;
 import willy.individual.com.dribbble.models.Comment;
 import willy.individual.com.dribbble.models.Like;
 import willy.individual.com.dribbble.models.Shot;
@@ -28,6 +29,8 @@ public class Dribbble {
     private static final String SHOTS_URL = BASE_URL + "shots";
 
     private static final String AUTH_USER_URL = BASE_URL + "user";
+
+    private static final String BUCKET_AUTH_USER_URL = "https://api.dribbble.com/v1/user/buckets";
 
     private static final String HEADER_CONTENT_TYPE = "Authorization";
 
@@ -163,6 +166,20 @@ public class Dribbble {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public static List<Bucket> getBuckets(int page) {
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(BUCKET_AUTH_USER_URL + "?page=" + page)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            return ModelUtils.convertToObject(response.body().string(), new TypeToken<List<Bucket>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

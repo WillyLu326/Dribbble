@@ -1,9 +1,11 @@
 package willy.individual.com.dribbble.views.bucket_list;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Bucket;
 import willy.individual.com.dribbble.views.base.BucketListSpaceItemDecoration;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
+import willy.individual.com.dribbble.views.dribbble.Dribbble;
 
 
 public class BucketListFragment extends Fragment {
@@ -43,37 +46,37 @@ public class BucketListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final Handler uiThreadHandler = new Handler();
         bucketRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         bucketRecyclerView.addItemDecoration(new BucketListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
-        bucketAdapter = new BucketAdapter(mockData(), new OnLoadingMoreListener() {
+        bucketAdapter = new BucketAdapter(new ArrayList<Bucket>(), new OnLoadingMoreListener() {
             @Override
             public void onLoadingMore() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(2000);
-                            uiThreadHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    bucketAdapter.append(mockData());
-                                    bucketAdapter.toggleBucketSpinner(bucketAdapter.getItemCount() < 21);
-                                }
-                            });
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
+                AsyncTaskCompat.executeParallel(new BucketLoadTask());
             }
         });
         bucketRecyclerView.setAdapter(bucketAdapter);
     }
 
-    private List<Bucket> mockData() {
-        List<Bucket> buckets = new ArrayList<>();
 
-        return buckets;
+    private class BucketLoadTask extends AsyncTask<Void, Void, List<Bucket>> {
+
+        private int page;
+
+        public BucketLoadTask() {
+            this.page = bucketAdapter.getBuckets().size() / 12 + 1;
+        }
+
+        @Override
+        protected List<Bucket> doInBackground(Void... params) {
+            return Dribbble.getBuckets(page);
+        }
+
+        @Override
+        protected void onPostExecute(List<Bucket> buckets) {
+            super.onPostExecute(buckets);
+            bucketAdapter.append(buckets);
+            bucketAdapter.toggleBucketSpinner(bucketAdapter.getBuckets().size() / 12 >= page);
+        }
     }
+
 }
