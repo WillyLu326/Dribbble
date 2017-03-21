@@ -10,9 +10,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
 
-/**
- * Created by zhenglu on 3/21/17.
- */
 
 public class BucketCrudActivity extends AppCompatActivity {
 
@@ -26,6 +23,7 @@ public class BucketCrudActivity extends AppCompatActivity {
 
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Add Bucket");
     }
 
     @Override
