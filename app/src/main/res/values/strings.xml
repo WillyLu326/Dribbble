@@ -13,7 +13,7 @@
     <string name="bucket_title">Buckets</string>
     <string name="open_drawer">open drawer</string>
     <string name="close_drawer">close drawer</string>
-    <string name="drawer_header_logout">Log Out</string>
+    <string name="drawer_menu_logout">Log Out</string>
     <string name="dribbble_login">Dribbble Login</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
@@ -21,4 +21,7 @@
     <string name="popup_window_cancel">Cancel</string>
     <string name="bucket_name">Bucket Name</string>
     <string name="bucket_description">Bucket Description</string>
+    <string name="drawer_menu_about">About</string>
+    <string name="drawer_menu_following">Following</string>
+    <string name="drawer_menu_follower">Follower</string>
 </resources>

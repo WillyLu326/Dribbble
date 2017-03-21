@@ -48,7 +48,7 @@
                 android:layout_marginTop="@dimen/xsmall_space"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
-                android:text="@string/drawer_header_logout"
+                android:text="@string/drawer_menu_logout"
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/drawer_header_logout_text_size" />

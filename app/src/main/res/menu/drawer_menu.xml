@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single" >
+    <group
+        android:id="@+id/drawer_group_functions"
+        android:checkableBehavior="single" >
         <item
             android:id="@+id/drawer_menu_home"
             android:checked="true"
@@ -19,5 +21,28 @@
             android:icon="@drawable/ic_inbox_black_24dp"
             android:title="@string/drawer_menu_bucket">
         </item>
+
+        <item
+            android:id="@+id/drawer_menu_following"
+            android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+            android:title="@string/drawer_menu_following" />
+
+        <item
+            android:id="@+id/drawer_menu_follower"
+            android:icon="@drawable/ic_people_outline_black_24dp"
+            android:title="@string/drawer_menu_follower" />
+    </group>
+
+    <group
+        android:id="@+id/drawer_menu_setting"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_menu_about"
+            android:icon="@drawable/ic_info_outline_black_24dp"
+            android:title="@string/drawer_menu_about" />
+        <item
+            android:id="@+id/drawer_menu_logout"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
+            android:title="@string/drawer_menu_logout" />
     </group>
 </menu>
