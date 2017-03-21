@@ -35,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     public static final int SHOT_LIST_POPULAR_TYPE = 0;
     public static final int SHOT_LIST_LIKE_TYPE = 1;
 
+    public static final int CHOOSE_BUCKET_TYPE = 2;
+    public static final int UNCHOOSE_BUCKET_TYPE = 3;
+
     private ActionBarDrawerToggle drawerToggle;
 
     @BindView(R.id.navigation_drawer) NavigationView navigationView;
@@ -132,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.drawer_menu_bucket :
                         setTitle(R.string.bucket_title);
-                        fragment = BucketListFragment.newInstance();
+                        fragment = BucketListFragment.newInstance(UNCHOOSE_BUCKET_TYPE);
                         break;
                 }
 

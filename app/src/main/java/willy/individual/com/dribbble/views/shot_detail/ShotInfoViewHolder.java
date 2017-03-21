@@ -16,6 +16,8 @@ public class ShotInfoViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.shot_detail_info_view_count) TextView shotInfoViewCountTv;
     @BindView(R.id.shot_detail_info_like_count) TextView shotInfoLikeCountTv;
     @BindView(R.id.shot_detail_info_bucket_count) TextView shotInfoBucketCountTv;
+    @BindView(R.id.shot_detail_info_move_bucket) TextView shotInfoMyBucketTv;
+    @BindView(R.id.shot_detail_info_share) TextView shotInfoShareTv;
 
     @BindView(R.id.shot_detail_info_user_image) SimpleDraweeView shotInfoUserAvatar;
     @BindView(R.id.shot_detail_info_username) TextView shotInfoUsername;

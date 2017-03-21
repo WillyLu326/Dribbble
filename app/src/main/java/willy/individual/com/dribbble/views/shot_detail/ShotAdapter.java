@@ -16,6 +16,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
+import willy.individual.com.dribbble.MainActivity;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Comment;
 import willy.individual.com.dribbble.models.Shot;
@@ -34,6 +35,9 @@ public class ShotAdapter extends RecyclerView.Adapter {
     private static final int TYPE_SHOT_SPINNER = 3;
 
     public static final String IMAGE_URL_KEY = "image_url";
+    public static final String BUCKET_KEY = "bucket_key";
+    public static final String SHOT_BUCKET_URL_KEY = "shot_bucket_url_key";
+
 
     private Shot shot;
     private ShotFragment shotFragment;
@@ -146,6 +150,17 @@ public class ShotAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(shotFragment.getActivity(), BucketListActivity.class);
+                    intent.putExtra(BUCKET_KEY, MainActivity.UNCHOOSE_BUCKET_TYPE);
+                    intent.putExtra(SHOT_BUCKET_URL_KEY, shot.buckets_url);
+                    shotFragment.startActivity(intent);
+                }
+            });
+
+            shotInfoViewHolder.shotInfoMyBucketTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(shotFragment.getActivity(), BucketListActivity.class);
+                    intent.putExtra(BUCKET_KEY, MainActivity.CHOOSE_BUCKET_TYPE);
                     shotFragment.startActivity(intent);
                 }
             });

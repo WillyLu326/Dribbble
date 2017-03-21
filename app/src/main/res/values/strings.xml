@@ -24,4 +24,5 @@
     <string name="drawer_menu_about">About</string>
     <string name="drawer_menu_following">Following</string>
     <string name="drawer_menu_follower">Follower</string>
+    <string name="bucket">Buckets</string>
 </resources>
