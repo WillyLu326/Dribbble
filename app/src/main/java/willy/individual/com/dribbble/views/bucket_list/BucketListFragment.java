@@ -73,9 +73,7 @@ public class BucketListFragment extends Fragment {
 
     private List<Bucket> mockData() {
         List<Bucket> buckets = new ArrayList<>();
-        for (int i = 1; i < 6; ++i) {
-            buckets.add(new Bucket("Bucket #" + i));
-        }
+
         return buckets;
     }
 }
