@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/medium_space"
+        android:layout_marginRight="@dimen/medium_space"
+        android:layout_marginTop="@dimen/medium_space"
+        android:hint="@string/bucket_name"
+        android:inputType="text"
+        android:textSize="@dimen/medium_size" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/medium_space"
+        android:layout_marginRight="@dimen/medium_space"
+        android:layout_marginTop="@dimen/medium_space"
+        android:hint="@string/bucket_description"
+        android:inputType="textMultiLine"
+        android:textSize="@dimen/medium_size" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/medium_space"
+        android:layout_marginRight="@dimen/medium_space"
+        android:layout_marginTop="@dimen/medium_space"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Add"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

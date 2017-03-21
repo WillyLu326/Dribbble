@@ -1,6 +1,7 @@
 package willy.individual.com.dribbble.views.bucket_list;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -67,7 +68,8 @@ public class BucketListFragment extends Fragment {
         this.bucketFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), BucketCrudActivity.class);
+                startActivity(intent);
             }
         });
     }

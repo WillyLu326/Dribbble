@@ -22,6 +22,7 @@
         <activity android:name=".views.shot_detail.ShotActivity" />
         <activity android:name=".views.shot_imgae_activity.ShotImageActivity" />
         <activity android:name=".views.bucket_list.BucketListActivity" />
+        <activity android:name=".views.bucket_list.BucketCrudActivity" />
 
     </application>
 

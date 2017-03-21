@@ -19,4 +19,6 @@
     <string name="cancel">Cancel</string>
     <string name="popup_window_save">Save</string>
     <string name="popup_window_cancel">Cancel</string>
+    <string name="bucket_name">Bucket Name</string>
+    <string name="bucket_description">Bucket Description</string>
 </resources>
