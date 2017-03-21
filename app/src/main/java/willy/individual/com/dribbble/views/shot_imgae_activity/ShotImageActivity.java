@@ -1,16 +1,10 @@
 package willy.individual.com.dribbble.views.shot_imgae_activity;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Slide;
-import android.transition.Transition;
-import android.transition.TransitionValues;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -33,7 +27,6 @@ public class ShotImageActivity extends AppCompatActivity {
     @BindView(R.id.activity_shot_image) SimpleDraweeView shotImage;
 
     private PopupWindow popupWindow;
-    private boolean showPopupWindow = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +51,7 @@ public class ShotImageActivity extends AppCompatActivity {
         shotImageLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //finish();
+                finish();
             }
         });
 
