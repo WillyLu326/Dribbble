@@ -4,9 +4,6 @@ import android.app.Fragment;
 
 import willy.individual.com.dribbble.views.base.SingleFragmentActivity;
 
-/**
- * Created by zhenglu on 3/21/17.
- */
 
 public class BucketListActivity extends SingleFragmentActivity {
 
@@ -17,7 +14,7 @@ public class BucketListActivity extends SingleFragmentActivity {
 
     @Override
     protected String getActivityTitle() {
-        return null;
+        return "Bucket List";
     }
 
 }

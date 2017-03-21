@@ -21,6 +21,7 @@ import willy.individual.com.dribbble.models.Comment;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
+import willy.individual.com.dribbble.views.bucket_list.BucketListActivity;
 import willy.individual.com.dribbble.views.bucket_list.BucketListFragment;
 import willy.individual.com.dribbble.views.shot_imgae_activity.ShotImageActivity;
 
@@ -144,7 +145,8 @@ public class ShotAdapter extends RecyclerView.Adapter {
             shotInfoViewHolder.shotInfoBucketCountTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Intent intent = new Intent(shotFragment.getActivity(), BucketListActivity.class);
+                    shotFragment.startActivity(intent);
                 }
             });
 
