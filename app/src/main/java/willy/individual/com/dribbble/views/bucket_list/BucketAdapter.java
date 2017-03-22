@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -61,7 +60,7 @@ public class BucketAdapter extends RecyclerView.Adapter {
 
             final Bucket bucket = buckets.get(position);
 
-            BucketViewHolder bucketViewHolder = (BucketViewHolder) holder;
+            final BucketViewHolder bucketViewHolder = (BucketViewHolder) holder;
             bucketViewHolder.bucketNameTv.setText(bucket.name);
             bucketViewHolder.bucketShotCountTv.setText(String.valueOf(bucket.shots_count) + " shots");
 
@@ -78,6 +77,12 @@ public class BucketAdapter extends RecyclerView.Adapter {
                 });
             } else {
                 bucketViewHolder.bucketCheckBox.setVisibility(View.VISIBLE);
+                bucketViewHolder.bucketCheckBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bucket.isChoosing = bucketViewHolder.bucketCheckBox.isChecked();
+                    }
+                });
 
                 bucketViewHolder.bucketView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -104,6 +109,10 @@ public class BucketAdapter extends RecyclerView.Adapter {
             return BUCKET_WITH_SPINNER_TYPE;
         }
         return BUCKET_TYPE;
+    }
+
+    public List<Bucket> getData() {
+        return buckets;
     }
 
     public void append(List<Bucket> moreData) {
