@@ -12,7 +12,8 @@ public class BucketListActivity extends SingleFragmentActivity {
     @Override
     protected Fragment newFragment() {
         return BucketListFragment
-                .newInstance(getIntent().getIntExtra(ShotAdapter.BUCKET_KEY, -1));
+                .newInstance(getIntent().getIntExtra(ShotAdapter.BUCKET_KEY, -1),
+                        getIntent().getStringExtra(ShotAdapter.SHOT_BUCKET_URL_KEY));
     }
 
     @Override
@@ -20,8 +21,4 @@ public class BucketListActivity extends SingleFragmentActivity {
         return "Choose Buckets";
     }
 
-
-    public String getShotBucketUrl() {
-        return getIntent().getStringExtra(ShotAdapter.SHOT_BUCKET_URL_KEY);
-    }
 }

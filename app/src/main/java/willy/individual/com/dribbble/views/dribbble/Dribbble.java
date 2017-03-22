@@ -154,21 +154,6 @@ public class Dribbble {
         }
     }
 
-    public static boolean isLikeComment(String url, int id) {
-        Request request = new Request.Builder()
-                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
-                .url(url + "/" + id + "/like")
-                .build();
-        try {
-            Response response = client.newCall(request).execute();
-            String body = response.body().string();
-            return body.length() != 0;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     public static List<Bucket> getBuckets(int page) {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
@@ -184,6 +169,7 @@ public class Dribbble {
     }
 
     public static List<Bucket> getShotBuckets(String url, int page) {
+
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(url + "?page=" + page)
@@ -191,7 +177,9 @@ public class Dribbble {
 
         try {
             Response response = client.newCall(request).execute();
-            return ModelUtils.convertToObject(response.body().string(), new TypeToken<List<Bucket>>(){});
+            String body = response.body().string();
+
+            return ModelUtils.convertToObject(body, new TypeToken<List<Bucket>>(){});
         } catch (IOException e) {
             e.printStackTrace();
             return null;

@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.drawer_menu_bucket :
                         setTitle(R.string.bucket_title);
-                        fragment = BucketListFragment.newInstance(UNCHOOSE_BUCKET_TYPE);
+                        fragment = BucketListFragment.newInstance(UNCHOOSE_BUCKET_TYPE, "");
                         break;
                 }
 
