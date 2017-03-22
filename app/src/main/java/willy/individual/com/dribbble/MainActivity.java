@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int CHOOSE_BUCKET_TYPE = 2;
     public static final int UNCHOOSE_BUCKET_TYPE = 3;
 
+    public static final int BUCKET_SHOT_LIST_TYPE = 4;
+
     public static final String USER_KEY = "user_key";
 
     private ActionBarDrawerToggle drawerToggle;

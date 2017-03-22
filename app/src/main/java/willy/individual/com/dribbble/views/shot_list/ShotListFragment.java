@@ -29,6 +29,7 @@ import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.base.ShotListSpaceItemDecoration;
+import willy.individual.com.dribbble.views.bucket_list.BucketAdapter;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
 import willy.individual.com.dribbble.views.shot_detail.ShotFragment;
 
@@ -49,6 +50,15 @@ public class ShotListFragment extends Fragment{
     public static ShotListFragment newInstance(int shotListType) {
         Bundle args = new Bundle();
         args.putInt(SHOT_LIST_TYPE, shotListType);
+        ShotListFragment shotListFragment = new ShotListFragment();
+        shotListFragment.setArguments(args);
+        return shotListFragment;
+    }
+
+    public static ShotListFragment newBucketInstance(int shotListType, int bucketId) {
+        Bundle args = new Bundle();
+        args.putInt(SHOT_LIST_TYPE, shotListType);
+        args.putInt(BucketAdapter.BUCKET_ID_KEY, bucketId);
         ShotListFragment shotListFragment = new ShotListFragment();
         shotListFragment.setArguments(args);
         return shotListFragment;
@@ -129,6 +139,8 @@ public class ShotListFragment extends Fragment{
                     return Dribbble.getPopularShots(page);
                 } else if (listType == MainActivity.SHOT_LIST_LIKE_TYPE) {
                     return Dribbble.getLikeShots(page);
+                } else if (listType == MainActivity.BUCKET_SHOT_LIST_TYPE) {
+                    return Dribbble.getBucketShots(getArguments().getInt(BucketAdapter.BUCKET_ID_KEY), page);
                 }
                 return Dribbble.getPopularShots(page);
             } catch (Exception e) {

@@ -191,4 +191,18 @@ public class Dribbble {
             return null;
         }
     }
+
+    public static List<Shot> getBucketShots(int id, int page) {
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url("https://api.dribbble.com/v1/buckets/" + id + "/shots?page=" + page)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            return ModelUtils.convertToObject(response.body().string(), new TypeToken<List<Shot>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

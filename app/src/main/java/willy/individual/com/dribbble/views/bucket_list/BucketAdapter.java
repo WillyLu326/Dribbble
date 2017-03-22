@@ -21,6 +21,9 @@ public class BucketAdapter extends RecyclerView.Adapter {
     private static final int BUCKET_TYPE = 0;
     private static final int BUCKET_WITH_SPINNER_TYPE = 1;
 
+    public static final String BUCKET_ID_KEY = "bucket_id";
+    public static final String BUCKET_NAME_KEY = "bucket_name";
+
     private List<Bucket> buckets;
     private BucketListFragment bucketListFragment;
     private OnLoadingMoreListener onLoadingMoreListener;
@@ -57,7 +60,7 @@ public class BucketAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == BUCKET_TYPE) {
 
-            Bucket bucket = buckets.get(position);
+            final Bucket bucket = buckets.get(position);
 
             BucketViewHolder bucketViewHolder = (BucketViewHolder) holder;
             bucketViewHolder.bucketNameTv.setText(bucket.name);
@@ -68,7 +71,10 @@ public class BucketAdapter extends RecyclerView.Adapter {
                 bucketViewHolder.bucketView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //Intent intent = new Intent(bucketListFragment.getActivity(), )
+                        Intent intent = new Intent(bucketListFragment.getActivity(), BucketShotListActivity.class);
+                        intent.putExtra(BUCKET_ID_KEY, bucket.id);
+                        intent.putExtra(BUCKET_NAME_KEY, bucket.name);
+                        bucketListFragment.startActivity(intent);
                     }
                 });
             }
