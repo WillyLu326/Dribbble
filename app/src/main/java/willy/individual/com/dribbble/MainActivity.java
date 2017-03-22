@@ -19,11 +19,13 @@ import android.widget.TextView;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.reflect.TypeToken;
 
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.models.User;
+import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
 import willy.individual.com.dribbble.views.login.LoginActivity;
 import willy.individual.com.dribbble.views.auth.Auth;
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int CHOOSE_BUCKET_TYPE = 2;
     public static final int UNCHOOSE_BUCKET_TYPE = 3;
+
+    public static final String USER_KEY = "user_key";
 
     private ActionBarDrawerToggle drawerToggle;
 
@@ -168,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(User user) {
             super.onPostExecute(user);
+            ModelUtils.save(getApplicationContext(), USER_KEY, new TypeToken<User>(){ });
             ((TextView) headerView.findViewById(R.id.drawer_header_username)).setText(user.name);
             DraweeController controller = Fresco.newDraweeControllerBuilder()
                     .setUri(user.avatar_url)
