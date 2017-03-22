@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import willy.individual.com.dribbble.MainActivity;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Bucket;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
@@ -21,10 +22,12 @@ public class BucketAdapter extends RecyclerView.Adapter {
     private List<Bucket> buckets;
     private OnLoadingMoreListener onLoadingMoreListener;
     private boolean isShowingBucketSpinner;
+    private int bucketType;
 
-    public BucketAdapter(List<Bucket> buckets, OnLoadingMoreListener onLoadingMoreListener) {
+    public BucketAdapter(List<Bucket> buckets, OnLoadingMoreListener onLoadingMoreListener, int bucketType) {
         this.buckets = buckets;
         this.onLoadingMoreListener = onLoadingMoreListener;
+        this.bucketType = bucketType;
         this.isShowingBucketSpinner = true;
     }
 
@@ -32,7 +35,6 @@ public class BucketAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == BUCKET_TYPE) {
-
             View bucketItemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.bucket_item, parent, false);
             return new BucketViewHolder(bucketItemView);
@@ -49,9 +51,14 @@ public class BucketAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == BUCKET_TYPE) {
 
+
             Bucket bucket = buckets.get(position);
             BucketViewHolder bucketViewHolder = (BucketViewHolder) holder;
             bucketViewHolder.bucketNameTv.setText(bucket.name);
+
+            if (bucketType == MainActivity.UNCHOOSE_BUCKET_TYPE) {
+                bucketViewHolder.bucketCheckBox.setVisibility(View.GONE);
+            }
 
         } else if (getItemViewType(position) == BUCKET_WITH_SPINNER_TYPE) {
             onLoadingMoreListener.onLoadingMore();

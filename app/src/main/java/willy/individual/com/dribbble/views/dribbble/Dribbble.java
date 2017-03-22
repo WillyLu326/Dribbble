@@ -30,7 +30,7 @@ public class Dribbble {
 
     private static final String AUTH_USER_URL = BASE_URL + "user";
 
-    private static final String BUCKET_AUTH_USER_URL = "https://api.dribbble.com/v1/user/buckets";
+    public static final String BUCKET_AUTH_USER_URL = "https://api.dribbble.com/v1/user/buckets";
 
     private static final String HEADER_CONTENT_TYPE = "Authorization";
 
