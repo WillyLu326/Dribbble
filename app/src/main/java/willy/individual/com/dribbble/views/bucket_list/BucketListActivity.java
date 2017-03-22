@@ -26,10 +26,4 @@ public class BucketListActivity extends SingleFragmentActivity {
         return "Choose Buckets";
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.drawer_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 }

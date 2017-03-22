@@ -2,9 +2,6 @@ package willy.individual.com.dribbble.models;
 
 import java.util.Date;
 
-/**
- * Created by zhenglu on 3/11/17.
- */
 
 public class Bucket {
 
@@ -15,5 +12,6 @@ public class Bucket {
     public Date created_at;
     public Date updated_at;
     public User user;
+    public boolean isChoosing;
 
 }
