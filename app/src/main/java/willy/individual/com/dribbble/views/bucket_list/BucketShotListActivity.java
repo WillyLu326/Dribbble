@@ -9,8 +9,6 @@ import willy.individual.com.dribbble.views.shot_list.ShotListFragment;
 
 public class BucketShotListActivity extends SingleFragmentActivity {
 
-
-
     @Override
     protected Fragment newFragment() {
         return ShotListFragment.newBucketInstance(MainActivity.BUCKET_SHOT_LIST_TYPE, getIntent().getIntExtra(BucketAdapter.BUCKET_ID_KEY, -1));

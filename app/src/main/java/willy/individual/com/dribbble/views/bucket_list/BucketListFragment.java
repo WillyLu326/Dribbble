@@ -1,10 +1,10 @@
 package willy.individual.com.dribbble.views.bucket_list;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.os.AsyncTaskCompat;
@@ -13,7 +13,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -29,13 +28,14 @@ import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.BucketListSpaceItemDecoration;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
-import willy.individual.com.dribbble.views.shot_detail.ShotAdapter;
 
 
 public class BucketListFragment extends Fragment {
 
     @BindView(R.id.bucket_list_recycler_view) RecyclerView bucketRecyclerView;
     @BindView(R.id.bucket_fab) FloatingActionButton bucketFab;
+
+    private static int BUCKET_CRUD_REQ_CODE = 200;
 
     public static final String TYPE_KEY = "type_key";
     private static final String SHOT_BUCKET_URL_KEY = "shot_bucket_url_key";
@@ -49,6 +49,17 @@ public class BucketListFragment extends Fragment {
         args.putString(SHOT_BUCKET_URL_KEY, shotBucketUrl);
         bucketListFragment.setArguments(args);
         return bucketListFragment;
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == BUCKET_CRUD_REQ_CODE && resultCode == Activity.RESULT_OK) {
+            String bucketName = data.getStringExtra(BucketCrudActivity.BUCKET_NAME_KEY);
+            String bucketDescription = data.getStringExtra(BucketCrudActivity.BUCKET_DESCRIPTION_KEY);
+            AsyncTaskCompat.executeParallel(new BucketCreatedTask(bucketName, bucketDescription));
+        }
     }
 
     @Nullable
@@ -97,7 +108,7 @@ public class BucketListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), BucketCrudActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, BUCKET_CRUD_REQ_CODE);
             }
         });
     }
@@ -138,5 +149,28 @@ public class BucketListFragment extends Fragment {
         }
     }
 
+    private class BucketCreatedTask extends AsyncTask<Void, Void, Bucket> {
+
+        private String bucketName;
+        private String bucketDescription;
+
+        public BucketCreatedTask(String bucketName, String bucketDescription) {
+            this.bucketName = bucketName;
+            this.bucketDescription = bucketDescription;
+        }
+
+        @Override
+        protected Bucket doInBackground(Void... params) {
+            return Dribbble.postNewBucket(bucketName, bucketDescription);
+        }
+
+        @Override
+        protected void onPostExecute(Bucket bucket) {
+            super.onPostExecute(bucket);
+            List<Bucket> list = new ArrayList<>();
+            list.add(bucket);
+            bucketAdapter.append(list);
+        }
+    }
 
 }

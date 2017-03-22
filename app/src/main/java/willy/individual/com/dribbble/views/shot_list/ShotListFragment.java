@@ -64,6 +64,7 @@ public class ShotListFragment extends Fragment{
         return shotListFragment;
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

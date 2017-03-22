@@ -205,4 +205,25 @@ public class Dribbble {
             return null;
         }
     }
+
+    public static Bucket postNewBucket(String bucketName, String bucketDescription) {
+        RequestBody body = new FormBody.Builder()
+                .add("name", bucketName)
+                .add("description", bucketDescription)
+                .build();
+
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(BASE_URL + "buckets")
+                .post(body)
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            return ModelUtils.convertToObject(response.body().string(), new TypeToken<Bucket>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
