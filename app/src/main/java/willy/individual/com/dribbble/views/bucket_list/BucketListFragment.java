@@ -77,7 +77,6 @@ public class BucketListFragment extends Fragment {
                     AsyncTaskCompat.executeParallel(new BucketLoadTask(bucketType));
                 }
             });
-            bucketRecyclerView.setAdapter(bucketAdapter);
 
         } else if (bucketType == MainActivity.UNCHOOSE_BUCKET_TYPE) {
             bucketFab.setVisibility(View.GONE);
@@ -89,6 +88,7 @@ public class BucketListFragment extends Fragment {
             });
         }
 
+        bucketRecyclerView.setAdapter(bucketAdapter);
     }
 
 
