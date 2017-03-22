@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -72,6 +73,16 @@ public class BucketAdapter extends RecyclerView.Adapter {
                         Intent intent = new Intent(bucketListFragment.getActivity(), BucketShotListActivity.class);
                         intent.putExtra(BUCKET_ID_KEY, bucket.id);
                         intent.putExtra(BUCKET_NAME_KEY, bucket.name);
+                        bucketListFragment.startActivity(intent);
+                    }
+                });
+            } else {
+                bucketViewHolder.bucketCheckBox.setVisibility(View.VISIBLE);
+
+                bucketViewHolder.bucketView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(bucketListFragment.getActivity(), BucketCrudActivity.class);
                         bucketListFragment.startActivity(intent);
                     }
                 });

@@ -2,7 +2,6 @@ package willy.individual.com.dribbble.models;
 
 import java.util.Date;
 
-
 public class Bucket {
 
     public int id;
