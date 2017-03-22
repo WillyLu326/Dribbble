@@ -32,6 +32,12 @@ public class Dribbble {
 
     public static final String BUCKET_AUTH_USER_URL = "https://api.dribbble.com/v1/user/buckets";
 
+    /**
+     * BASE_URL + "/buckets/" + bucket_id + "/shots"
+     */
+    private static final String SHOTS_OF_BUCKET = "https://api.dribbble.com/v1/buckets/491275/shots";
+
+
     private static final String HEADER_CONTENT_TYPE = "Authorization";
 
     private static final String HEADER_VALUE = "Bearer " + Auth.accessToken;
