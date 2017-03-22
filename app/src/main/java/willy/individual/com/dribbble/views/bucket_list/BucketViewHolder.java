@@ -15,6 +15,7 @@ public class BucketViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.bucket_item_name) TextView bucketNameTv;
     @BindView(R.id.bucket_shot_count) TextView bucketShotCountTv;
     @BindView(R.id.bucket_item_chosen) CheckBox bucketCheckBox;
+    @BindView(R.id.bucket_layout) View bucketView;
 
     public BucketViewHolder(View itemView) {
         super(itemView);

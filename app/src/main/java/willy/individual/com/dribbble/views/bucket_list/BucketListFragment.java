@@ -71,7 +71,7 @@ public class BucketListFragment extends Fragment {
         if (bucketType == MainActivity.CHOOSE_BUCKET_TYPE) {
             setupBucketFab();
 
-            bucketAdapter = new BucketAdapter(new ArrayList<Bucket>(), new OnLoadingMoreListener() {
+            bucketAdapter = new BucketAdapter(new ArrayList<Bucket>(), this, new OnLoadingMoreListener() {
                 @Override
                 public void onLoadingMore() {
                     AsyncTaskCompat.executeParallel(new BucketLoadTask(bucketType));
@@ -80,7 +80,7 @@ public class BucketListFragment extends Fragment {
 
         } else if (bucketType == MainActivity.UNCHOOSE_BUCKET_TYPE) {
             bucketFab.setVisibility(View.GONE);
-            bucketAdapter = new BucketAdapter(new ArrayList<Bucket>(), new OnLoadingMoreListener() {
+            bucketAdapter = new BucketAdapter(new ArrayList<Bucket>(), this, new OnLoadingMoreListener() {
                 @Override
                 public void onLoadingMore() {
                     AsyncTaskCompat.executeParallel(new BucketLoadTask(bucketType, getArguments().get(SHOT_BUCKET_URL_KEY).toString()));
