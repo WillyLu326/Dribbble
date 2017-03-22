@@ -55,6 +55,7 @@ public class BucketAdapter extends RecyclerView.Adapter {
             Bucket bucket = buckets.get(position);
             BucketViewHolder bucketViewHolder = (BucketViewHolder) holder;
             bucketViewHolder.bucketNameTv.setText(bucket.name);
+            bucketViewHolder.bucketShotCountTv.setText(String.valueOf(bucket.shots_count) + " shots");
 
             if (bucketType == MainActivity.UNCHOOSE_BUCKET_TYPE) {
                 bucketViewHolder.bucketCheckBox.setVisibility(View.GONE);
