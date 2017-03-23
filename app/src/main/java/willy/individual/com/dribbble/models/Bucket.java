@@ -11,6 +11,7 @@ public class Bucket {
     public Date created_at;
     public Date updated_at;
     public User user;
+
     public boolean isChoosing;
 
 }

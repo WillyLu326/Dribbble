@@ -55,7 +55,7 @@ public class BucketAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (getItemViewType(position) == BUCKET_TYPE) {
 
             final Bucket bucket = buckets.get(position);
@@ -77,20 +77,16 @@ public class BucketAdapter extends RecyclerView.Adapter {
                 });
             } else {
                 bucketViewHolder.bucketCheckBox.setVisibility(View.VISIBLE);
-                bucketViewHolder.bucketCheckBox.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        bucket.isChoosing = bucketViewHolder.bucketCheckBox.isChecked();
-                    }
-                });
+                bucketViewHolder.bucketCheckBox.setChecked(bucket.isChoosing);
 
                 bucketViewHolder.bucketView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(bucketListFragment.getActivity(), BucketCrudActivity.class);
-                        bucketListFragment.startActivity(intent);
+                        bucket.isChoosing = !bucket.isChoosing;
+                        notifyItemChanged(position);
                     }
                 });
+
             }
 
         } else if (getItemViewType(position) == BUCKET_WITH_SPINNER_TYPE) {
