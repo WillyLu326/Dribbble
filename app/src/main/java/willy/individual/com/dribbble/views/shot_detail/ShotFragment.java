@@ -22,11 +22,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import willy.individual.com.dribbble.MainActivity;
 import willy.individual.com.dribbble.R;
+import willy.individual.com.dribbble.models.Bucket;
 import willy.individual.com.dribbble.models.Comment;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
+import willy.individual.com.dribbble.views.bucket_list.BucketListActivity;
 import willy.individual.com.dribbble.views.bucket_list.BucketListFragment;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
 
@@ -36,8 +39,8 @@ public class ShotFragment extends Fragment {
     public static final String SHOT_KEY = "shot_key";
 
     private Shot shot;
-
     private ShotAdapter adapter;
+    private List<String> collectedIds;
 
     @BindView(R.id.shot_detail_recycler_view) RecyclerView recyclerView;
 
@@ -83,6 +86,16 @@ public class ShotFragment extends Fragment {
         Intent resultIntent = new Intent();
         resultIntent.putExtra(SHOT_KEY, ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
         this.getActivity().setResult(Activity.RESULT_OK, resultIntent);
+    }
+
+
+    public void bucket() {
+        if (collectedIds != null) {
+            Intent intent = new Intent(getActivity(), BucketListActivity.class);
+            intent.putExtra(ShotAdapter.BUCKET_KEY, MainActivity.UNCHOOSE_BUCKET_TYPE);
+            intent.putExtra(ShotAdapter.SHOT_BUCKET_URL_KEY, shot.buckets_url);
+            startActivity(intent);
+        }
     }
 
     public void like(int id) {
@@ -169,6 +182,16 @@ public class ShotFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             Dribbble.updateBucketShot(bucketId, shotId);
+            return null;
+        }
+    }
+
+    private class GetCollectBucketId extends AsyncTask<Void, Void, List<String>> {
+
+        @Override
+        protected List<String> doInBackground(Void... params) {
+            List<Bucket> buckets = Dribbble.getAllBuckets();
+
             return null;
         }
     }

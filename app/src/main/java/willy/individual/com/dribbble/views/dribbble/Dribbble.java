@@ -244,4 +244,32 @@ public class Dribbble {
             e.printStackTrace();
         }
     }
+
+    public static List<Bucket> getAllBuckets(int shotId) {
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(BASE_URL + "shots/" + shotId + "/buckets?per_page=" + Integer.MAX_VALUE)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            return ModelUtils.convertToObject(response.body().string(), new TypeToken<List<Bucket>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static List<Bucket> getAllUserBuckets() {
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(BASE_URL + "user/buckets?per_page=" + Integer.MAX_VALUE)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            return ModelUtils.convertToObject(response.body().string(), new TypeToken<List<Bucket>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
