@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
-            android:clickable="true"
             android:drawablePadding="@dimen/xsmall_space"
             android:drawableTop="@drawable/ic_visibility_black_24dp"
             android:text="3000"
