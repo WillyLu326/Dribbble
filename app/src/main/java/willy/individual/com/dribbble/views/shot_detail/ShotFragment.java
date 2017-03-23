@@ -18,7 +18,9 @@ import android.widget.Toast;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,7 +42,7 @@ public class ShotFragment extends Fragment {
 
     private Shot shot;
     private ShotAdapter adapter;
-    private List<String> collectedIds;
+    private List<Integer> collectedIds;
 
     @BindView(R.id.shot_detail_recycler_view) RecyclerView recyclerView;
 
@@ -186,13 +188,37 @@ public class ShotFragment extends Fragment {
         }
     }
 
-    private class GetCollectBucketId extends AsyncTask<Void, Void, List<String>> {
+    private class GetCollectBucketId extends AsyncTask<Void, Void, List<Integer>> {
 
         @Override
-        protected List<String> doInBackground(Void... params) {
-            List<Bucket> buckets = Dribbble.getAllBuckets();
+        protected List<Integer> doInBackground(Void... params) {
+            List<Bucket> buckets = Dribbble.getAllBuckets(shot.id);
+            List<Bucket> userBuckets = Dribbble.getAllUserBuckets();
 
-            return null;
+            Set<Integer> userBucketIds = new HashSet<>();
+            for (Bucket userBucket : userBuckets) {
+                userBucketIds.add(userBucket.id);
+            }
+
+            List<Integer> collectedIds = new ArrayList<>();
+
+            for (Bucket bucket : buckets) {
+                if (userBucketIds.contains(bucket.id)) {
+                    collectedIds.add(bucket.id);
+                }
+            }
+            return collectedIds;
+        }
+
+        @Override
+        protected void onPostExecute(List<Integer> collectedIds) {
+            super.onPostExecute(collectedIds);
+            collectedIds = new ArrayList<>(collectedIds);
+
+            if (collectedIds.size() > 0) {
+                shot.bucketed = true;
+                recyclerView.getAdapter().notifyDataSetChanged();
+            }
         }
     }
 }
