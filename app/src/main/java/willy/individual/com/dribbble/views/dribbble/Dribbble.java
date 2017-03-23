@@ -245,10 +245,10 @@ public class Dribbble {
         }
     }
 
-    public static List<Bucket> getAllBuckets(int shotId) {
+    public static List<Bucket> getAllBuckets(String url) {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
-                .url(BASE_URL + "shots/" + shotId + "/buckets?per_page=" + Integer.MAX_VALUE)
+                .url(url + "?per_page=" + Integer.MAX_VALUE)
                 .build();
         try {
             Response response = client.newCall(request).execute();

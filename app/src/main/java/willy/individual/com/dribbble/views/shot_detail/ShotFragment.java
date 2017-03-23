@@ -75,7 +75,11 @@ public class ShotFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         shot = ModelUtils.convertToObject(getArguments().getString(SHOT_KEY), new TypeToken<Shot>(){});
+
+        AsyncTaskCompat.executeParallel(new GetCollectBucketId(shot, collectedIds));
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ShotAdapter(shot, this, new ArrayList<Comment>(), new OnLoadingMoreListener() {
             @Override
@@ -190,9 +194,17 @@ public class ShotFragment extends Fragment {
 
     private class GetCollectBucketId extends AsyncTask<Void, Void, List<Integer>> {
 
+        private Shot shot;
+        private List<Integer> collectedIds;
+
+        public GetCollectBucketId(Shot shot, List<Integer> collectedIds) {
+            this.shot = shot;
+            this.collectedIds = collectedIds;
+        }
+
         @Override
         protected List<Integer> doInBackground(Void... params) {
-            List<Bucket> buckets = Dribbble.getAllBuckets(shot.id);
+            List<Bucket> buckets = Dribbble.getAllBuckets(shot.buckets_url);
             List<Bucket> userBuckets = Dribbble.getAllUserBuckets();
 
             Set<Integer> userBucketIds = new HashSet<>();
