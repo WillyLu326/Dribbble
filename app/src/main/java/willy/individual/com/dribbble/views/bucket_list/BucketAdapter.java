@@ -92,12 +92,23 @@ public class BucketAdapter extends RecyclerView.Adapter {
                 });
             } else {
 
+
+                    System.out.println("===================");
+                    System.out.println("===================");
+                    System.out.println("===================");
+                    System.out.println(collectedBucketIds.size());
+                    System.out.println("===================");
+                    System.out.println("===================");
+                    System.out.println("===================");
+
+
                 if (collectedBucketIds.contains(bucket.id)) {
                     bucket.isChoosing = true;
                 }
 
                 bucketViewHolder.bucketCheckBox.setVisibility(View.VISIBLE);
                 bucketViewHolder.bucketCheckBox.setChecked(bucket.isChoosing);
+
 
                 bucketViewHolder.bucketView.setOnClickListener(new View.OnClickListener() {
                     @Override

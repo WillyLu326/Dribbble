@@ -79,8 +79,6 @@ public class ShotFragment extends Fragment {
 
         shot = ModelUtils.convertToObject(getArguments().getString(SHOT_KEY), new TypeToken<Shot>(){});
 
-        AsyncTaskCompat.executeParallel(new GetCollectBucketId(shot, collectedIds));
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ShotAdapter(shot, this, new ArrayList<Comment>(), new OnLoadingMoreListener() {
             @Override
@@ -90,6 +88,8 @@ public class ShotFragment extends Fragment {
         });
         recyclerView.setAdapter(adapter);
 
+        AsyncTaskCompat.executeParallel(new GetCollectBucketId());
+
         Intent resultIntent = new Intent();
         resultIntent.putExtra(SHOT_KEY, ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
         this.getActivity().setResult(Activity.RESULT_OK, resultIntent);
@@ -97,12 +97,15 @@ public class ShotFragment extends Fragment {
 
 
     public void bucket() {
-        Intent intent = new Intent(getActivity(), BucketListActivity.class);
-        intent.putExtra(ShotAdapter.BUCKET_KEY, MainActivity.CHOOSE_BUCKET_TYPE);
         if (collectedIds != null) {
+            Intent intent = new Intent(getActivity(), BucketListActivity.class);
+            intent.putExtra(ShotAdapter.BUCKET_KEY, MainActivity.CHOOSE_BUCKET_TYPE);
+
             intent.putIntegerArrayListExtra(COLLECTED_BUCKET_IDS_KEY, collectedIds);
+            startActivityForResult(intent, ShotActivity.CHOOSEN_BUCKET_ID_REQ);
+        } else {
+            Toast.makeText(getContext(), "Loading your buckets", Toast.LENGTH_SHORT).show();
         }
-        startActivityForResult(intent, ShotActivity.CHOOSEN_BUCKET_ID_REQ);
     }
 
     public void like(int id) {
@@ -193,18 +196,11 @@ public class ShotFragment extends Fragment {
         }
     }
 
-    private class GetCollectBucketId extends AsyncTask<Void, Void, List<Integer>> {
+    private class GetCollectBucketId extends AsyncTask<Void, Void, ArrayList<Integer>> {
 
-        private Shot shot;
-        private List<Integer> collectedIds;
-
-        public GetCollectBucketId(Shot shot, List<Integer> collectedIds) {
-            this.shot = shot;
-            this.collectedIds = collectedIds;
-        }
 
         @Override
-        protected List<Integer> doInBackground(Void... params) {
+        protected ArrayList<Integer> doInBackground(Void... params) {
             List<Bucket> buckets = Dribbble.getAllBuckets(shot.buckets_url);
             List<Bucket> userBuckets = Dribbble.getAllUserBuckets();
 
@@ -213,7 +209,7 @@ public class ShotFragment extends Fragment {
                 userBucketIds.add(userBucket.id);
             }
 
-            List<Integer> collectedIds = new ArrayList<>();
+            ArrayList<Integer> collectedIds = new ArrayList<>();
 
             for (Bucket bucket : buckets) {
                 if (userBucketIds.contains(bucket.id)) {
@@ -224,9 +220,9 @@ public class ShotFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(List<Integer> collectedIds) {
-            super.onPostExecute(collectedIds);
-            collectedIds = new ArrayList<>(collectedIds);
+        protected void onPostExecute(ArrayList<Integer> ids) {
+            super.onPostExecute(ids);
+            collectedIds = new ArrayList<>(ids);
 
             if (collectedIds.size() > 0) {
                 shot.bucketed = true;
