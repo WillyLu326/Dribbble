@@ -1,10 +1,8 @@
 package willy.individual.com.dribbble.views.bucket_list;
 
 import android.app.Fragment;
-import android.view.Menu;
 
 import willy.individual.com.dribbble.MainActivity;
-import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.views.base.SingleFragmentActivity;
 import willy.individual.com.dribbble.views.shot_detail.ShotAdapter;
 import willy.individual.com.dribbble.views.shot_detail.ShotFragment;

@@ -8,7 +8,6 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
@@ -23,7 +22,6 @@ import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.bucket_list.BucketListActivity;
-import willy.individual.com.dribbble.views.bucket_list.BucketListFragment;
 import willy.individual.com.dribbble.views.shot_imgae_activity.ShotImageActivity;
 
 
