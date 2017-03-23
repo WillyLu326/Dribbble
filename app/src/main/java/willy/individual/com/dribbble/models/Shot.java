@@ -34,6 +34,7 @@ public class Shot {
 
     // customized property
     public boolean isLike;
+    public boolean bucketed;
 
     public String getImageUrl() {
         return images.containsKey("hidpi") ? images.get("hidpi") : images.get("normal");

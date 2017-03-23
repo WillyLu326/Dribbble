@@ -156,6 +156,12 @@ public class ShotAdapter extends RecyclerView.Adapter {
                 }
             });
 
+            if (shot.bucketed) {
+                shotInfoViewHolder.shotInfoMyBucketTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_move_to_inbox_pink_24dp, 0, 0);
+            } else {
+                shotInfoViewHolder.shotInfoMyBucketTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_move_to_inbox_black_24dp, 0, 0);
+            }
+
             shotInfoViewHolder.shotInfoMyBucketTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
