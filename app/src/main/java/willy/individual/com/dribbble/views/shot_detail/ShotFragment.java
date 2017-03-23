@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -26,6 +27,7 @@ import willy.individual.com.dribbble.models.Comment;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
+import willy.individual.com.dribbble.views.bucket_list.BucketListFragment;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
 
 
@@ -43,6 +45,16 @@ public class ShotFragment extends Fragment {
         ShotFragment fragment = new ShotFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ShotActivity.CHOOSEN_BUCKET_ID_REQ && resultCode == Activity.RESULT_OK) {
+            List<Integer> bucketIds = ModelUtils.convertToObject(data.getStringExtra(BucketListFragment.CHOOSEN_BUCKET_IDS_KEY), new TypeToken<List<Integer>>(){});
+            Toast.makeText(getContext(), "HAHAH", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Nullable

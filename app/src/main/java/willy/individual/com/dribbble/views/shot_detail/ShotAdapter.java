@@ -161,7 +161,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     Intent intent = new Intent(shotFragment.getActivity(), BucketListActivity.class);
                     intent.putExtra(BUCKET_KEY, MainActivity.CHOOSE_BUCKET_TYPE);
-                    shotFragment.startActivity(intent);
+                    shotFragment.startActivityForResult(intent, ShotActivity.CHOOSEN_BUCKET_ID_REQ);
                 }
             });
 

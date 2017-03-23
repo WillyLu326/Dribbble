@@ -42,6 +42,8 @@ public class BucketListFragment extends Fragment {
 
     private static int BUCKET_CRUD_REQ_CODE = 200;
 
+
+    public static final String CHOOSEN_BUCKET_IDS_KEY = "choosen_bucket_ids_key";
     public static final String TYPE_KEY = "type_key";
     private static final String SHOT_BUCKET_URL_KEY = "shot_bucket_url_key";
 
@@ -92,8 +94,9 @@ public class BucketListFragment extends Fragment {
                 }
             }
 
-
-
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra(CHOOSEN_BUCKET_IDS_KEY, ModelUtils.convertToString(choosenBucketIds, new TypeToken<List<Integer>>(){}));
+            getActivity().setResult(Activity.RESULT_OK, resultIntent);
             getActivity().finish();
         }
         return super.onOptionsItemSelected(item);
