@@ -5,6 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <!--<color name="colorAccent">#3F51B5</color>-->
 
+    <color name="black">#000000</color>
+
     <color name="place_holder_bg">#CCCCCC</color>
     <color name="line_color">#DDDDDD</color>
     <color name="popup_window_bg_color">#F8F8F8</color>

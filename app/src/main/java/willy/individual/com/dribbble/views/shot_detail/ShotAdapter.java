@@ -112,6 +112,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
 
             if (shot.isLike) {
                 shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_black_24dp, 0, 0);
+                shotInfoViewHolder.shotInfoLikeCountTv.setTextColor(shotFragment.getResources().getColor(R.color.colorAccent, null));
             } else {
                 shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_black_24dp, 0, 0);
             }
@@ -123,6 +124,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
                         // unlike this shot
                         shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_black_24dp, 0, 0);
                         shot.likes_count -= 1;
+                        shotInfoViewHolder.shotInfoLikeCountTv.setTextColor(shotFragment.getResources().getColor(R.color.black, null));
                         shotInfoViewHolder.shotInfoLikeCountTv.setText(String.valueOf(shot.likes_count));
                         shot.isLike = !shot.isLike;
 
@@ -131,6 +133,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
                     } else {
                         // like this shot
                         shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_black_24dp, 0, 0);
+                        shotInfoViewHolder.shotInfoLikeCountTv.setTextColor(shotFragment.getResources().getColor(R.color.colorAccent, null));
                         shot.likes_count += 1;
                         shotInfoViewHolder.shotInfoLikeCountTv.setText(String.valueOf(shot.likes_count));
                         shot.isLike = !shot.isLike;
@@ -158,6 +161,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
 
             if (shot.bucketed) {
                 shotInfoViewHolder.shotInfoMyBucketTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_move_to_inbox_pink_24dp, 0, 0);
+                shotInfoViewHolder.shotInfoMyBucketTv.setTextColor(shotFragment.getResources().getColor(R.color.colorAccent, null));
             } else {
                 shotInfoViewHolder.shotInfoMyBucketTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_move_to_inbox_black_24dp, 0, 0);
             }
