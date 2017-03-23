@@ -53,7 +53,9 @@ public class ShotFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ShotActivity.CHOOSEN_BUCKET_ID_REQ && resultCode == Activity.RESULT_OK) {
             List<Integer> bucketIds = ModelUtils.convertToObject(data.getStringExtra(BucketListFragment.CHOOSEN_BUCKET_IDS_KEY), new TypeToken<List<Integer>>(){});
-            Toast.makeText(getContext(), "HAHAH", Toast.LENGTH_SHORT).show();
+            for (Integer bucketId : bucketIds) {
+                AsyncTaskCompat.executeParallel(new AddShotToBucketTask(bucketId, shot.id));
+            }
         }
     }
 
@@ -151,6 +153,23 @@ public class ShotFragment extends Fragment {
             super.onPostExecute(comments);
             adapter.append(comments);
             adapter.toggleSpinner(adapter.getCommentsData().size() / 12 >= page);
+        }
+    }
+
+    private class AddShotToBucketTask extends AsyncTask<Void, Void, Void> {
+
+        private int bucketId;
+        private int shotId;
+
+        public AddShotToBucketTask(int bucketId, int shotId) {
+            this.bucketId = bucketId;
+            this.shotId = shotId;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Dribbble.updateBucketShot(bucketId, shotId);
+            return null;
         }
     }
 }

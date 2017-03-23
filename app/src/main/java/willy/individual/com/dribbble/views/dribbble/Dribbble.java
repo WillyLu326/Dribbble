@@ -226,4 +226,22 @@ public class Dribbble {
             return null;
         }
     }
+
+    public static void updateBucketShot(int bucketId, int shotId) {
+        RequestBody body = new FormBody.Builder()
+                .add("shot_id", shotId + "")
+                .build();
+
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(BASE_URL + "/buckets/" + bucketId + "/shots")
+                .put(body)
+                .build();
+
+        try {
+            client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
