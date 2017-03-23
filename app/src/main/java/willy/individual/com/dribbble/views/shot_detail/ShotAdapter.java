@@ -152,7 +152,10 @@ public class ShotAdapter extends RecyclerView.Adapter {
             shotInfoViewHolder.shotInfoBucketCountTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    shotFragment.bucket();
+                    Intent intent = new Intent(shotFragment.getActivity(), BucketListActivity.class);
+                    intent.putExtra(ShotAdapter.BUCKET_KEY, MainActivity.UNCHOOSE_BUCKET_TYPE);
+                    intent.putExtra(ShotAdapter.SHOT_BUCKET_URL_KEY, shot.buckets_url);
+                    shotFragment.startActivity(intent);
                 }
             });
 
@@ -167,9 +170,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
             shotInfoViewHolder.shotInfoMyBucketTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(shotFragment.getActivity(), BucketListActivity.class);
-                    intent.putExtra(BUCKET_KEY, MainActivity.CHOOSE_BUCKET_TYPE);
-                    shotFragment.startActivityForResult(intent, ShotActivity.CHOOSEN_BUCKET_ID_REQ);
+                    shotFragment.bucket();
                 }
             });
 

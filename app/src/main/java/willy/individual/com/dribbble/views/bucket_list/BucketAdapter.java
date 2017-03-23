@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import willy.individual.com.dribbble.MainActivity;
@@ -27,6 +28,7 @@ public class BucketAdapter extends RecyclerView.Adapter {
     private OnLoadingMoreListener onLoadingMoreListener;
     private boolean isShowingBucketSpinner;
     private int bucketType;
+    private ArrayList<Integer> collectedBucketIds;
 
     public BucketAdapter(List<Bucket> buckets,
                          BucketListFragment bucketListFragment,
@@ -38,6 +40,19 @@ public class BucketAdapter extends RecyclerView.Adapter {
         this.isShowingBucketSpinner = true;
     }
 
+
+    public BucketAdapter(List<Bucket> buckets,
+                         BucketListFragment bucketListFragment,
+                         OnLoadingMoreListener onLoadingMoreListener,
+                         int bucketType,
+                         ArrayList<Integer> collectedBucketIds) {
+        this.buckets = buckets;
+        this.bucketListFragment = bucketListFragment;
+        this.onLoadingMoreListener = onLoadingMoreListener;
+        this.bucketType = bucketType;
+        this.isShowingBucketSpinner = true;
+        this.collectedBucketIds = collectedBucketIds;
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -76,6 +91,11 @@ public class BucketAdapter extends RecyclerView.Adapter {
                     }
                 });
             } else {
+
+                if (collectedBucketIds.contains(bucket.id)) {
+                    bucket.isChoosing = true;
+                }
+
                 bucketViewHolder.bucketCheckBox.setVisibility(View.VISIBLE);
                 bucketViewHolder.bucketCheckBox.setChecked(bucket.isChoosing);
 

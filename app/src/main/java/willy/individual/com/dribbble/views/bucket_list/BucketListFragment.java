@@ -46,10 +46,21 @@ public class BucketListFragment extends Fragment {
     public static final String CHOOSEN_BUCKET_IDS_KEY = "choosen_bucket_ids_key";
     public static final String TYPE_KEY = "type_key";
     private static final String SHOT_BUCKET_URL_KEY = "shot_bucket_url_key";
+    private static final String COLLECTED_BUCKET_IDS_KEY = "cllected_bucket_ids_key";
 
     private BucketAdapter bucketAdapter;
 
-    public static BucketListFragment newInstance(int type, String shotBucketUrl) {
+    public static BucketListFragment newInstance(int type, String shotBucketUrl, ArrayList<Integer> collectedBucketIds) {
+        BucketListFragment bucketListFragment = new BucketListFragment();
+        Bundle args = new Bundle();
+        args.putInt(TYPE_KEY, type);
+        args.putString(SHOT_BUCKET_URL_KEY, shotBucketUrl);
+        args.putIntegerArrayList(COLLECTED_BUCKET_IDS_KEY, collectedBucketIds);
+        bucketListFragment.setArguments(args);
+        return bucketListFragment;
+    }
+
+    public static BucketListFragment newMainInstance(int type, String shotBucketUrl) {
         BucketListFragment bucketListFragment = new BucketListFragment();
         Bundle args = new Bundle();
         args.putInt(TYPE_KEY, type);
@@ -117,6 +128,8 @@ public class BucketListFragment extends Fragment {
 
         final int bucketType = getArguments().getInt(TYPE_KEY);
 
+        ArrayList<Integer> collectedBucketIds = getArguments().getIntegerArrayList(COLLECTED_BUCKET_IDS_KEY);
+
         bucketRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         bucketRecyclerView.addItemDecoration(new BucketListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
 
@@ -128,7 +141,7 @@ public class BucketListFragment extends Fragment {
                 public void onLoadingMore() {
                     AsyncTaskCompat.executeParallel(new BucketLoadTask(bucketType));
                 }
-            }, bucketType);
+            }, bucketType, collectedBucketIds);
 
         } else if (bucketType == MainActivity.UNCHOOSE_BUCKET_TYPE) {
             bucketFab.setVisibility(View.GONE);

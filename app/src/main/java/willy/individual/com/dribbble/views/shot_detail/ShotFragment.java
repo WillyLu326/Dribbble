@@ -39,10 +39,11 @@ import willy.individual.com.dribbble.views.dribbble.Dribbble;
 public class ShotFragment extends Fragment {
 
     public static final String SHOT_KEY = "shot_key";
+    public static final String COLLECTED_BUCKET_IDS_KEY = "collected bucket ids key";
 
     private Shot shot;
     private ShotAdapter adapter;
-    private List<Integer> collectedIds;
+    private ArrayList<Integer> collectedIds;
 
     @BindView(R.id.shot_detail_recycler_view) RecyclerView recyclerView;
 
@@ -96,12 +97,12 @@ public class ShotFragment extends Fragment {
 
 
     public void bucket() {
+        Intent intent = new Intent(getActivity(), BucketListActivity.class);
+        intent.putExtra(ShotAdapter.BUCKET_KEY, MainActivity.CHOOSE_BUCKET_TYPE);
         if (collectedIds != null) {
-            Intent intent = new Intent(getActivity(), BucketListActivity.class);
-            intent.putExtra(ShotAdapter.BUCKET_KEY, MainActivity.UNCHOOSE_BUCKET_TYPE);
-            intent.putExtra(ShotAdapter.SHOT_BUCKET_URL_KEY, shot.buckets_url);
-            startActivity(intent);
+            intent.putIntegerArrayListExtra(COLLECTED_BUCKET_IDS_KEY, collectedIds);
         }
+        startActivityForResult(intent, ShotActivity.CHOOSEN_BUCKET_ID_REQ);
     }
 
     public void like(int id) {

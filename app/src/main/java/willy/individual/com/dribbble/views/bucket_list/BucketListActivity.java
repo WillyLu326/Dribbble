@@ -7,6 +7,7 @@ import willy.individual.com.dribbble.MainActivity;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.views.base.SingleFragmentActivity;
 import willy.individual.com.dribbble.views.shot_detail.ShotAdapter;
+import willy.individual.com.dribbble.views.shot_detail.ShotFragment;
 
 
 public class BucketListActivity extends SingleFragmentActivity {
@@ -15,7 +16,8 @@ public class BucketListActivity extends SingleFragmentActivity {
     protected Fragment newFragment() {
         return BucketListFragment
                 .newInstance(getIntent().getIntExtra(ShotAdapter.BUCKET_KEY, -1),
-                        getIntent().getStringExtra(ShotAdapter.SHOT_BUCKET_URL_KEY));
+                        getIntent().getStringExtra(ShotAdapter.SHOT_BUCKET_URL_KEY),
+                        getIntent().getIntegerArrayListExtra(ShotFragment.COLLECTED_BUCKET_IDS_KEY));
     }
 
     @Override

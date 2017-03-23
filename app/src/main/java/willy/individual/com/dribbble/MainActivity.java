@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.drawer_menu_bucket :
                         setTitle(R.string.bucket_title);
-                        fragment = BucketListFragment.newInstance(UNCHOOSE_BUCKET_TYPE, Dribbble.BUCKET_AUTH_USER_URL);
+                        fragment = BucketListFragment.newMainInstance(UNCHOOSE_BUCKET_TYPE, Dribbble.BUCKET_AUTH_USER_URL);
                         break;
                 }
 
