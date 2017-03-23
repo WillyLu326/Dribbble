@@ -164,6 +164,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
                 shotInfoViewHolder.shotInfoMyBucketTv.setTextColor(shotFragment.getResources().getColor(R.color.colorAccent, null));
             } else {
                 shotInfoViewHolder.shotInfoMyBucketTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_move_to_inbox_black_24dp, 0, 0);
+                shotInfoViewHolder.shotInfoMyBucketTv.setTextColor(shotFragment.getResources().getColor(R.color.black, null));
             }
 
             shotInfoViewHolder.shotInfoMyBucketTv.setOnClickListener(new View.OnClickListener() {
