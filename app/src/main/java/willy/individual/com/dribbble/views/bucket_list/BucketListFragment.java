@@ -10,9 +10,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -51,6 +56,11 @@ public class BucketListFragment extends Fragment {
         return bucketListFragment;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -60,6 +70,34 @@ public class BucketListFragment extends Fragment {
             String bucketDescription = data.getStringExtra(BucketCrudActivity.BUCKET_DESCRIPTION_KEY);
             AsyncTaskCompat.executeParallel(new BucketCreatedTask(bucketName, bucketDescription));
         }
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        int type = getArguments().getInt(TYPE_KEY, -1);
+        if (type == MainActivity.CHOOSE_BUCKET_TYPE) {
+            inflater.inflate(R.menu.bucket_choosen_menu, menu);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.bucket_choosen_save_btn) {
+            List<Integer> choosenBucketIds = new ArrayList<>();
+            for(Bucket bucket : bucketAdapter.getData()) {
+                if (bucket.isChoosing) {
+                    choosenBucketIds.add(bucket.id);
+                }
+            }
+
+
+
+            getActivity().finish();
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
     @Nullable
