@@ -81,7 +81,7 @@ public class BucketListFragment extends Fragment {
             if (bucket.id == 0) {
                 AsyncTaskCompat.executeParallel(new BucketCreatedTask(bucket.name, bucket.description));
             } else {
-
+                AsyncTaskCompat.executeParallel(new BucketUpdateTask(bucket.id, bucket.name, bucket.description));
             }
         }
     }
@@ -228,6 +228,35 @@ public class BucketListFragment extends Fragment {
         }
     }
 
+    private class BucketUpdateTask extends  AsyncTask<Void, Void, Bucket> {
 
+        private int bucketId;
+        private String bucketName;
+        private String bucketDescription;
+
+        public BucketUpdateTask(int bucketId, String bucketName, String bucketDescription) {
+            this.bucketId = bucketId;
+            this.bucketName = bucketName;
+            this.bucketDescription = bucketDescription;
+        }
+
+        @Override
+        protected Bucket doInBackground(Void... params) {
+            return Dribbble.putExistBucket(bucketId, bucketName, bucketDescription);
+        }
+
+        @Override
+        protected void onPostExecute(Bucket bucket) {
+            super.onPostExecute(bucket);
+            List<Bucket> buckets = bucketAdapter.getData();
+            for (int i = 0; i < buckets.size(); ++i) {
+                if (bucket.id == buckets.get(i).id) {
+                    buckets.set(i, bucket);
+                    break;
+                }
+            }
+            bucketAdapter.notifyDataSetChanged();
+        }
+    }
 
 }
