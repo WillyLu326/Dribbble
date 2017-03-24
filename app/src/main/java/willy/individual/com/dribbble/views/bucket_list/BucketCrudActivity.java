@@ -65,6 +65,10 @@ public class BucketCrudActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void setupEditBucketUI() {}
+
+    private void setupAddBucketUI() {}
+
     private Bucket getBucket() {
         return ModelUtils.convertToObject(getIntent().getStringExtra(BucketAdapter.BUCKET_INFO_KEY), new TypeToken<Bucket>(){});
     }
