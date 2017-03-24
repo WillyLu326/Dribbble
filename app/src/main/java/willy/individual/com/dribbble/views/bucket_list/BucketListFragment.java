@@ -99,13 +99,6 @@ public class BucketListFragment extends Fragment {
             for(Bucket bucket : bucketAdapter.getData()) {
                 if (bucket.isChoosing) {
                     choosenBucketIds.add(bucket.id);
-                    System.out.println("================");
-                    System.out.println("================");
-                    System.out.println("================");
-                    System.out.println(bucket.name);
-                    System.out.println("================");
-                    System.out.println("================");
-                    System.out.println("================");
                 }
             }
 

@@ -58,9 +58,28 @@ public class ShotFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ShotActivity.CHOOSEN_BUCKET_ID_REQ && resultCode == Activity.RESULT_OK) {
-            List<Integer> bucketIds = ModelUtils.convertToObject(data.getStringExtra(BucketListFragment.CHOOSEN_BUCKET_IDS_KEY), new TypeToken<List<Integer>>(){});
-            for (Integer bucketId : bucketIds) {
+            List<Integer> newCollectedBucketIds = ModelUtils.convertToObject(data.getStringExtra(BucketListFragment.CHOOSEN_BUCKET_IDS_KEY), new TypeToken<List<Integer>>(){});
+            // 新的有 旧的没有 add
+            List<Integer> newOne = new ArrayList<>(newCollectedBucketIds);
+            List<Integer> oldOne = new ArrayList<>(collectedIds);
+            newOne.removeAll(oldOne);
+            for (Integer bucketId : newOne) {
+                System.out.println("=================");
+                System.out.println("=================");
+                System.out.println("=================");
+                System.out.println(bucketId);
+                System.out.println("=================");
+                System.out.println("=================");
+                System.out.println("=================");
                 AsyncTaskCompat.executeParallel(new AddShotToBucketTask(bucketId, shot.id));
+            }
+
+            // 新的没有 旧的有 remove
+            newOne = new ArrayList<>(newCollectedBucketIds);
+            oldOne = new ArrayList<>(collectedIds);
+            oldOne.removeAll(newOne);
+            for (Integer bucketId : oldOne) {
+                AsyncTaskCompat.executeParallel(new RemoveShotFromBucketTask(bucketId, shot.id));
             }
         }
     }
@@ -199,14 +218,16 @@ public class ShotFragment extends Fragment {
     private class RemoveShotFromBucketTask extends AsyncTask<Void, Void, Void> {
 
         private int bucketId;
+        private int shotId;
 
-        public RemoveShotFromBucketTask(int bucketId) {
+        public RemoveShotFromBucketTask(int bucketId, int shotId) {
             this.bucketId = bucketId;
+            this.shotId = shotId;
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            Dribbble.deleteShotBucket(bucketId);
+            Dribbble.deleteShotBucket(bucketId, shotId);
             return null;
         }
     }

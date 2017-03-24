@@ -243,10 +243,10 @@ public class Dribbble {
         }
     }
 
-    public static void deleteShotBucket(int bucketId) {
+    public static void deleteShotBucket(int bucketId, int shotId) {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
-                .url(BASE_URL + "/buckets/" + bucketId + "/shots")
+                .url(BASE_URL + "/buckets/" + bucketId + "/shots?shot_id=" + shotId)
                 .delete()
                 .build();
         try {
