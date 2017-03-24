@@ -60,27 +60,14 @@ public class ShotFragment extends Fragment {
         if (requestCode == ShotActivity.CHOOSEN_BUCKET_ID_REQ && resultCode == Activity.RESULT_OK) {
             List<Integer> newCollectedBucketIds = ModelUtils.convertToObject(data.getStringExtra(BucketListFragment.CHOOSEN_BUCKET_IDS_KEY), new TypeToken<List<Integer>>(){});
             // 新的有 旧的没有 add
-            List<Integer> newOne = new ArrayList<>(newCollectedBucketIds);
-            List<Integer> oldOne = new ArrayList<>(collectedIds);
-            newOne.removeAll(oldOne);
-            for (Integer bucketId : newOne) {
-                System.out.println("=================");
-                System.out.println("=================");
-                System.out.println("=================");
-                System.out.println(bucketId);
-                System.out.println("=================");
-                System.out.println("=================");
-                System.out.println("=================");
-                AsyncTaskCompat.executeParallel(new AddShotToBucketTask(bucketId, shot.id));
-            }
+            List<Integer> addedIds = new ArrayList<>(newCollectedBucketIds);
+            addedIds.removeAll(collectedIds);
 
             // 新的没有 旧的有 remove
-            newOne = new ArrayList<>(newCollectedBucketIds);
-            oldOne = new ArrayList<>(collectedIds);
-            oldOne.removeAll(newOne);
-            for (Integer bucketId : oldOne) {
-                AsyncTaskCompat.executeParallel(new RemoveShotFromBucketTask(bucketId, shot.id));
-            }
+            List<Integer> removeIds = new ArrayList<>(collectedIds);
+            removeIds.removeAll(newCollectedBucketIds);
+
+            AsyncTaskCompat.executeParallel(new UpdateShotBucketTask(addedIds, removeIds));
         }
     }
 
@@ -198,37 +185,37 @@ public class ShotFragment extends Fragment {
         }
     }
 
-    private class AddShotToBucketTask extends AsyncTask<Void, Void, Void> {
+    private class UpdateShotBucketTask extends AsyncTask<Void, Void, Void> {
 
-        private int bucketId;
-        private int shotId;
+        private List<Integer> addedIds;
+        private List<Integer> removeIds;
 
-        public AddShotToBucketTask(int bucketId, int shotId) {
-            this.bucketId = bucketId;
-            this.shotId = shotId;
+        public UpdateShotBucketTask(List<Integer> addedIds, List<Integer> removeIds) {
+            this.addedIds = addedIds;
+            this.removeIds = removeIds;
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            Dribbble.updateShotBucket(bucketId, shotId);
+            for (Integer addedId : addedIds) {
+                Dribbble.updateShotBucket(addedId, shot.id);
+            }
+            for (Integer removeId : removeIds) {
+                Dribbble.deleteShotBucket(removeId, shot.id);
+            }
             return null;
-        }
-    }
-
-    private class RemoveShotFromBucketTask extends AsyncTask<Void, Void, Void> {
-
-        private int bucketId;
-        private int shotId;
-
-        public RemoveShotFromBucketTask(int bucketId, int shotId) {
-            this.bucketId = bucketId;
-            this.shotId = shotId;
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
-            Dribbble.deleteShotBucket(bucketId, shotId);
-            return null;
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            collectedIds.addAll(addedIds);
+            collectedIds.removeAll(removeIds);
+
+            shot.bucketed = !collectedIds.isEmpty();
+            shot.buckets_count = shot.buckets_count + addedIds.size() - removeIds.size();
+
+            adapter.notifyDataSetChanged();
         }
     }
 
