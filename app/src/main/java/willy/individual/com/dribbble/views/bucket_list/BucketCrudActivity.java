@@ -11,9 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.gson.reflect.TypeToken;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
+import willy.individual.com.dribbble.models.Bucket;
+import willy.individual.com.dribbble.utils.ModelUtils;
 
 
 public class BucketCrudActivity extends AppCompatActivity {
@@ -26,6 +30,8 @@ public class BucketCrudActivity extends AppCompatActivity {
     public static String BUCKET_NAME_KEY = "bucket_name_key";
     public static String BUCKET_DESCRIPTION_KEY = "bucket_description_key";
 
+    private Bucket bucket;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +40,12 @@ public class BucketCrudActivity extends AppCompatActivity {
 
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("Add Bucket");
+        bucket = getBucket();
+        if (bucket == null) {
+            setTitle("Add Bucket");
+        } else {
+            setTitle("Update Bucket");
+        }
 
         bucketCrudButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +53,6 @@ public class BucketCrudActivity extends AppCompatActivity {
                 saveAndExit();
             }
         });
-
     }
 
     @Override
@@ -53,6 +63,10 @@ public class BucketCrudActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private Bucket getBucket() {
+        return ModelUtils.convertToObject(getIntent().getStringExtra(BucketAdapter.BUCKET_INFO_KEY), new TypeToken<Bucket>(){});
     }
 
     private void saveAndExit() {
