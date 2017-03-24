@@ -183,9 +183,7 @@ public class Dribbble {
 
         try {
             Response response = client.newCall(request).execute();
-            String body = response.body().string();
-
-            return ModelUtils.convertToObject(body, new TypeToken<List<Bucket>>(){});
+            return ModelUtils.convertToObject(response.body().string(), new TypeToken<List<Bucket>>(){});
         } catch (IOException e) {
             e.printStackTrace();
             return null;

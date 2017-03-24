@@ -40,7 +40,6 @@ public class BucketListFragment extends Fragment {
 
     private static int BUCKET_CRUD_REQ_CODE = 200;
 
-
     public static final String CHOOSEN_BUCKET_IDS_KEY = "choosen_bucket_ids_key";
     public static final String TYPE_KEY = "type_key";
     private static final String SHOT_BUCKET_URL_KEY = "shot_bucket_url_key";
@@ -100,6 +99,13 @@ public class BucketListFragment extends Fragment {
             for(Bucket bucket : bucketAdapter.getData()) {
                 if (bucket.isChoosing) {
                     choosenBucketIds.add(bucket.id);
+                    System.out.println("================");
+                    System.out.println("================");
+                    System.out.println("================");
+                    System.out.println(bucket.name);
+                    System.out.println("================");
+                    System.out.println("================");
+                    System.out.println("================");
                 }
             }
 

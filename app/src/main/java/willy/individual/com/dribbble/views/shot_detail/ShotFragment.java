@@ -198,7 +198,6 @@ public class ShotFragment extends Fragment {
 
     private class GetCollectBucketId extends AsyncTask<Void, Void, ArrayList<Integer>> {
 
-
         @Override
         protected ArrayList<Integer> doInBackground(Void... params) {
             List<Bucket> buckets = Dribbble.getAllBuckets(shot.buckets_url);

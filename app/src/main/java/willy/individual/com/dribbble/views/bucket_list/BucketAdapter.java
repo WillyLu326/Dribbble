@@ -91,7 +91,6 @@ public class BucketAdapter extends RecyclerView.Adapter {
                     }
                 });
             } else {
-
                 bucketViewHolder.bucketCheckBox.setVisibility(View.VISIBLE);
 
                 if (collectedBucketIds.contains(bucket.id)) {
@@ -100,15 +99,14 @@ public class BucketAdapter extends RecyclerView.Adapter {
 
                 bucketViewHolder.bucketCheckBox.setChecked(bucket.isChoosing);
 
-                bucketViewHolder.bucketView.setOnClickListener(new View.OnClickListener() {
+                bucketViewHolder.bucketCheckBox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         bucket.isChoosing = !bucket.isChoosing;
-                        notifyItemChanged(position);
+                        bucketViewHolder.bucketCheckBox.setChecked(bucket.isChoosing);
                     }
                 });
             }
-
         } else if (getItemViewType(position) == BUCKET_WITH_SPINNER_TYPE) {
             onLoadingMoreListener.onLoadingMore();
         }
