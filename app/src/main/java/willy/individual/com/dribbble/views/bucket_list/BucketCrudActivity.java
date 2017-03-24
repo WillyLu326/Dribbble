@@ -47,6 +47,7 @@ public class BucketCrudActivity extends AppCompatActivity {
             setTitle("Add Bucket");
         } else {
             setTitle("Update Bucket");
+            setupEditBucketUI();
         }
 
         bucketCrudButton.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +68,11 @@ public class BucketCrudActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupEditBucketUI() {}
+    private void setupEditBucketUI() {
+        bucketNameEt.setText(bucket.name);
+        bucketDescriptionEt.setText(bucket.description);
+        bucketCrudButton.setText("UPDATE");
+    }
 
     private void setupAddBucketUI() {}
 
