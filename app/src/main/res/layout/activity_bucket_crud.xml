@@ -39,4 +39,14 @@
         android:text="Add"
         android:textColor="@android:color/white" />
 
+    <Button
+        android:id="@+id/bucket_delete_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/medium_space"
+        android:layout_marginRight="@dimen/medium_space"
+        android:backgroundTint="@color/cardview_dark_background"
+        android:text="DELETE"
+        android:textColor="@android:color/white"/>
+
 </LinearLayout>
