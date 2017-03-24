@@ -78,7 +78,11 @@ public class BucketListFragment extends Fragment {
         if (requestCode == BUCKET_CRUD_REQ_CODE && resultCode == Activity.RESULT_OK) {
             Bucket bucket = ModelUtils.convertToObject(data.getStringExtra(BucketCrudActivity.BUCKET_KEY), new TypeToken<Bucket>(){});
 
-            //AsyncTaskCompat.executeParallel(new BucketCreatedTask(bucketName, bucketDescription));
+            if (bucket.id == 0) {
+                AsyncTaskCompat.executeParallel(new BucketCreatedTask(bucket.name, bucket.description));
+            } else {
+
+            }
         }
     }
 
@@ -223,5 +227,7 @@ public class BucketListFragment extends Fragment {
             bucketAdapter.append(list);
         }
     }
+
+
 
 }

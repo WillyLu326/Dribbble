@@ -225,6 +225,27 @@ public class Dribbble {
         }
     }
 
+    public static Bucket putExistBucket(int bucketId, String bucketName, String bucketDescription) {
+        RequestBody body = new FormBody.Builder()
+                .add("name", bucketName)
+                .add("description", bucketDescription)
+                .build();
+
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(BASE_URL + "buckets/" + bucketId)
+                .put(body)
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            return ModelUtils.convertToObject(response.body().string(), new TypeToken<Bucket>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static void updateShotBucket(int bucketId, int shotId) {
         RequestBody body = new FormBody.Builder()
                 .add("shot_id", shotId + "")
