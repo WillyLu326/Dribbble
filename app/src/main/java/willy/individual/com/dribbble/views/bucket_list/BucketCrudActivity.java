@@ -28,9 +28,9 @@ public class BucketCrudActivity extends AppCompatActivity {
     @BindView(R.id.bucket_name) EditText bucketNameEt;
     @BindView(R.id.bucket_description) EditText bucketDescriptionEt;
     @BindView(R.id.bucket_curd_btn) Button bucketCrudButton;
+    @BindView(R.id.bucket_delete_btn) Button bucketDeleteButton;
 
-    public static String BUCKET_NAME_KEY = "bucket_name_key";
-    public static String BUCKET_DESCRIPTION_KEY = "bucket_description_key";
+    public static String BUCKET_KEY = "bucket_key";
 
     private Bucket bucket;
 
@@ -45,17 +45,12 @@ public class BucketCrudActivity extends AppCompatActivity {
         bucket = getBucket();
         if (bucket == null) {
             setTitle("Add Bucket");
+            setupAddBucketUI();
         } else {
             setTitle("Update Bucket");
             setupEditBucketUI();
         }
 
-        bucketCrudButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveAndExit();
-            }
-        });
     }
 
     @Override
@@ -72,23 +67,60 @@ public class BucketCrudActivity extends AppCompatActivity {
         bucketNameEt.setText(bucket.name);
         bucketDescriptionEt.setText(bucket.description);
         bucketCrudButton.setText("UPDATE");
+        bucketCrudButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editSaveAndExit();
+            }
+        });
+        bucketDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private void setupAddBucketUI() {}
+    private void setupAddBucketUI() {
+        bucketDeleteButton.setVisibility(View.GONE);
+        bucketCrudButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addSaveAndExit();
+            }
+        });
+    }
 
     private Bucket getBucket() {
         return ModelUtils.convertToObject(getIntent().getStringExtra(BucketAdapter.BUCKET_INFO_KEY), new TypeToken<Bucket>(){});
     }
 
-    private void saveAndExit() {
+    private void addSaveAndExit() {
         String bucketName = bucketNameEt.getText().toString();
         if (TextUtils.equals(bucketName, "")) {
             Toast.makeText(getApplicationContext(), "Please input shot name", Toast.LENGTH_SHORT).show();
         } else {
             String bucketDescription = bucketDescriptionEt.getText().toString();
             Intent resultIntent = new Intent();
-            resultIntent.putExtra(BUCKET_NAME_KEY, bucketName);
-            resultIntent.putExtra(BUCKET_DESCRIPTION_KEY, bucketDescription);
+            bucket = new Bucket();
+            bucket.name = bucketName;
+            bucket.description = bucketDescription;
+            resultIntent.putExtra(BUCKET_KEY, ModelUtils.convertToString(bucket, new TypeToken<Bucket>(){}));
+            setResult(Activity.RESULT_OK, resultIntent);
+            finish();
+        }
+    }
+
+    private void editSaveAndExit() {
+        String bucketName = bucketNameEt.getText().toString();
+        if (TextUtils.equals(bucketName, "")) {
+            Toast.makeText(getApplicationContext(), "Please input shot name", Toast.LENGTH_SHORT).show();
+        } else {
+            String bucketDescription = bucketDescriptionEt.getText().toString();
+            Intent resultIntent = new Intent();
+            bucket.name = bucketName;
+            bucket.description = bucketDescription;
+            resultIntent.putExtra(BUCKET_KEY, ModelUtils.convertToString(bucket, new TypeToken<Bucket>(){}));
             setResult(Activity.RESULT_OK, resultIntent);
             finish();
         }

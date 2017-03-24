@@ -27,7 +27,6 @@ public class BucketAdapter extends RecyclerView.Adapter {
     public static final String BUCKET_NAME_KEY = "bucket_name";
 
     public static final String BUCKET_INFO_KEY = "bucket_info_key";
-    public static final int BUCKET_CURD_REQ_CODE = 241;
 
     private List<Bucket> buckets;
     private BucketListFragment bucketListFragment;
@@ -118,7 +117,7 @@ public class BucketAdapter extends RecyclerView.Adapter {
                     public void onClick(View v) {
                         Intent intent = new Intent(bucketListFragment.getActivity(), BucketCrudActivity.class);
                         intent.putExtra(BUCKET_INFO_KEY, ModelUtils.convertToString(bucket, new TypeToken<Bucket>(){}));
-                        bucketListFragment.startActivityForResult(intent, BUCKET_CURD_REQ_CODE);
+                        bucketListFragment.startActivityForResult(intent, BucketListFragment.BUCKET_CRUD_REQ_CODE);
                     }
                 });
             }

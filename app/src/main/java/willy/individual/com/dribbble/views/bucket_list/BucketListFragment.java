@@ -38,7 +38,7 @@ public class BucketListFragment extends Fragment {
     @BindView(R.id.bucket_list_recycler_view) RecyclerView bucketRecyclerView;
     @BindView(R.id.bucket_fab) FloatingActionButton bucketFab;
 
-    private static int BUCKET_CRUD_REQ_CODE = 200;
+    public static int BUCKET_CRUD_REQ_CODE = 200;
 
     public static final String CHOOSEN_BUCKET_IDS_KEY = "choosen_bucket_ids_key";
     public static final String TYPE_KEY = "type_key";
@@ -76,9 +76,9 @@ public class BucketListFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == BUCKET_CRUD_REQ_CODE && resultCode == Activity.RESULT_OK) {
-            String bucketName = data.getStringExtra(BucketCrudActivity.BUCKET_NAME_KEY);
-            String bucketDescription = data.getStringExtra(BucketCrudActivity.BUCKET_DESCRIPTION_KEY);
-            AsyncTaskCompat.executeParallel(new BucketCreatedTask(bucketName, bucketDescription));
+            Bucket bucket = ModelUtils.convertToObject(data.getStringExtra(BucketCrudActivity.BUCKET_KEY), new TypeToken<Bucket>(){});
+
+            //AsyncTaskCompat.executeParallel(new BucketCreatedTask(bucketName, bucketDescription));
         }
     }
 
