@@ -191,7 +191,22 @@ public class ShotFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            Dribbble.updateBucketShot(bucketId, shotId);
+            Dribbble.updateShotBucket(bucketId, shotId);
+            return null;
+        }
+    }
+
+    private class RemoveShotFromBucketTask extends AsyncTask<Void, Void, Void> {
+
+        private int bucketId;
+
+        public RemoveShotFromBucketTask(int bucketId) {
+            this.bucketId = bucketId;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Dribbble.deleteShotBucket(bucketId);
             return null;
         }
     }
