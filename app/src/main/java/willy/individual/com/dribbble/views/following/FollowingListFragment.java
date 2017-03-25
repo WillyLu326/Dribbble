@@ -34,7 +34,7 @@ public class FollowingListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.user_item, container, false);
+        View view = inflater.inflate(R.layout.following_recycle_list, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
