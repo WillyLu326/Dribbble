@@ -246,6 +246,19 @@ public class Dribbble {
         }
     }
 
+    public static void deleteExistBucket(int bucketId) {
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(BASE_URL + "/buckets/" + bucketId)
+                .delete()
+                .build();
+        try {
+            client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void updateShotBucket(int bucketId, int shotId) {
         RequestBody body = new FormBody.Builder()
                 .add("shot_id", shotId + "")
