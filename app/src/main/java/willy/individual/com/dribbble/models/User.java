@@ -37,4 +37,8 @@ public class User {
     public String teams_url;
     public String created_at;
     public String updated_at;
+
+    public User(String name) {
+        this.name = name;
+    }
 }

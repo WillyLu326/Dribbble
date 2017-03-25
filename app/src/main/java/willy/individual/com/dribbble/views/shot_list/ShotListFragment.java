@@ -88,7 +88,6 @@ public class ShotListFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.shot_recycle_list, container, false);
         ButterKnife.bind(this, view);
-
         return view;
     }
 

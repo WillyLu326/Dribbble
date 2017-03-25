@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/medium_space">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/small_space">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/user_item_image"
+            android:layout_width="@dimen/header_image_size"
+            android:layout_height="@dimen/header_image_size"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@drawable/image_circle"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/small_space"
+            android:layout_marginLeft="@dimen/medium_space">
+            <TextView
+                android:id="@+id/user_item_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/medium_size"
+                android:textStyle="bold"
+                tools:text="Nikefish" />
+            <TextView
+                android:id="@+id/user_item_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/xsmall_size"
+                tools:text="Singapore"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/user_item_following"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/following"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/follow_btn_color" />
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

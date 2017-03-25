@@ -27,6 +27,7 @@ import butterknife.ButterKnife;
 import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
+import willy.individual.com.dribbble.views.following.FollowingListFragment;
 import willy.individual.com.dribbble.views.login.LoginActivity;
 import willy.individual.com.dribbble.views.auth.Auth;
 import willy.individual.com.dribbble.views.bucket_list.BucketListFragment;
@@ -142,6 +143,10 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.drawer_menu_bucket :
                         setTitle(R.string.bucket_title);
                         fragment = BucketListFragment.newMainInstance(UNCHOOSE_BUCKET_TYPE, Dribbble.BUCKET_AUTH_USER_URL);
+                        break;
+                    case R.id.drawer_menu_following :
+                        setTitle(R.string.following_title);
+                        fragment = FollowingListFragment.newInstance();
                         break;
                 }
 
