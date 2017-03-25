@@ -31,6 +31,7 @@ public class BucketCrudActivity extends AppCompatActivity {
     @BindView(R.id.bucket_delete_btn) Button bucketDeleteButton;
 
     public static String BUCKET_KEY = "bucket_key";
+    public static String BUCKET_DEKETE_KEY = "bucket_delete_key";
 
     private Bucket bucket;
 
@@ -76,7 +77,7 @@ public class BucketCrudActivity extends AppCompatActivity {
         bucketDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_SHORT).show();
+                deleteSaveAndExit();
             }
         });
     }
@@ -124,5 +125,12 @@ public class BucketCrudActivity extends AppCompatActivity {
             setResult(Activity.RESULT_OK, resultIntent);
             finish();
         }
+    }
+
+    private void deleteSaveAndExit() {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(BUCKET_DEKETE_KEY, bucket.id);
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish();
     }
 }

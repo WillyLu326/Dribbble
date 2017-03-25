@@ -76,12 +76,17 @@ public class BucketListFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == BUCKET_CRUD_REQ_CODE && resultCode == Activity.RESULT_OK) {
-            Bucket bucket = ModelUtils.convertToObject(data.getStringExtra(BucketCrudActivity.BUCKET_KEY), new TypeToken<Bucket>(){});
-
-            if (bucket.id == 0) {
-                AsyncTaskCompat.executeParallel(new BucketCreatedTask(bucket.name, bucket.description));
+            int bucketId = data.getIntExtra(BucketCrudActivity.BUCKET_DEKETE_KEY, -1);
+            if (bucketId != -1) {
+                AsyncTaskCompat.executeParallel(new BucketDeleteTask(bucketId));
             } else {
-                AsyncTaskCompat.executeParallel(new BucketUpdateTask(bucket.id, bucket.name, bucket.description));
+                Bucket bucket = ModelUtils.convertToObject(data.getStringExtra(BucketCrudActivity.BUCKET_KEY), new TypeToken<Bucket>() {
+                });
+                if (bucket.id == 0) {
+                    AsyncTaskCompat.executeParallel(new BucketCreatedTask(bucket.name, bucket.description));
+                } else {
+                    AsyncTaskCompat.executeParallel(new BucketUpdateTask(bucket.id, bucket.name, bucket.description));
+                }
             }
         }
     }
@@ -156,7 +161,6 @@ public class BucketListFragment extends Fragment {
 
         bucketRecyclerView.setAdapter(bucketAdapter);
     }
-
 
     private void setupBucketFab() {
         this.bucketFab.setOnClickListener(new View.OnClickListener() {
@@ -252,6 +256,34 @@ public class BucketListFragment extends Fragment {
             for (int i = 0; i < buckets.size(); ++i) {
                 if (bucket.id == buckets.get(i).id) {
                     buckets.set(i, bucket);
+                    break;
+                }
+            }
+            bucketAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private class BucketDeleteTask extends AsyncTask<Void, Void, Void> {
+
+        private int bucketId;
+
+        public BucketDeleteTask(int bucketId) {
+            this.bucketId = bucketId;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Dribbble.deleteExistBucket(bucketId);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            List<Bucket> buckets = bucketAdapter.getData();
+            for (Bucket bucket : buckets) {
+                if (bucket.id == bucketId) {
+                    buckets.remove(bucket);
                     break;
                 }
             }
