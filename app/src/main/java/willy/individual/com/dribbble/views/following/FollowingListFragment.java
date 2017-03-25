@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.User;
+import willy.individual.com.dribbble.views.base.ShotListSpaceItemDecoration;
 
 /**
  * Created by zhenglu on 3/25/17.
@@ -43,6 +44,7 @@ public class FollowingListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
         adapter = new FollowingListAdapter(fakeData());
         recyclerView.setAdapter(adapter);
     }
