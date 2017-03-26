@@ -2,6 +2,7 @@ package willy.individual.com.dribbble.views.following;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,11 +17,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.User;
+import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.base.ShotListSpaceItemDecoration;
 
-/**
- * Created by zhenglu on 3/25/17.
- */
 
 public class FollowingListFragment extends Fragment {
 
@@ -45,7 +44,28 @@ public class FollowingListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
-        adapter = new FollowingListAdapter(fakeData());
+        final Handler handler = new Handler();
+        adapter = new FollowingListAdapter(new ArrayList<User>(), new OnLoadingMoreListener() {
+            @Override
+            public void onLoadingMore() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(1000);
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    adapter.append(fakeData());
+                                }
+                            });
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 
