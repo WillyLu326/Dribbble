@@ -20,13 +20,14 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
     private static final int FOLLOWING_LIST_TYPE = 0;
     private static final int FOLLOWING_SPINNER_TYPE = 1;
 
-    private boolean isShowingSpinner = true;
+    private boolean isShowingSpinner;
     private List<User> followingUsers;
     private OnLoadingMoreListener onLoadingMoreListener;
 
     public FollowingListAdapter(List<User> followingUsers, OnLoadingMoreListener onLoadingMoreListener) {
         this.followingUsers = followingUsers;
         this.onLoadingMoreListener = onLoadingMoreListener;
+        this.isShowingSpinner = true;
     }
 
     @Override
@@ -78,6 +79,11 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
 
     public void append(List<User> users) {
         this.followingUsers.addAll(users);
+        notifyDataSetChanged();
+    }
+
+    public void toggleSpinner(boolean isShowingSpinner) {
+        this.isShowingSpinner = isShowingSpinner;
         notifyDataSetChanged();
     }
 }
