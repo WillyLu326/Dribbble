@@ -318,10 +318,10 @@ public class Dribbble {
         }
     }
 
-    public static List<User> getFollowingUsers(String url) {
+    public static List<User> getFollowingUsers(String url, int page) {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
-                .url(url)
+                .url(url + "?page=" + page)
                 .build();
 
         try {

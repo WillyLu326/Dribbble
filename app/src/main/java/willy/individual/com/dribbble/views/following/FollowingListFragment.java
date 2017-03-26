@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.base.ShotListSpaceItemDecoration;
+import willy.individual.com.dribbble.views.dribbble.Dribbble;
 
 
 public class FollowingListFragment extends Fragment {
@@ -49,46 +51,31 @@ public class FollowingListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
-        final Handler handler = new Handler();
         adapter = new FollowingListAdapter(new ArrayList<User>(), new OnLoadingMoreListener() {
             @Override
             public void onLoadingMore() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1000);
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    adapter.append(fakeData());
-                                }
-                            });
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
+                AsyncTaskCompat.executeParallel(new UserFollowingTask());
             }
         });
         recyclerView.setAdapter(adapter);
     }
 
-    private List<User> fakeData() {
-        List<User> users = new ArrayList<>();
-        for (int i = 0; i < 12; ++i) {
-            users.add(new User("User " + i));
-        }
-        return users;
-    }
 
     private class UserFollowingTask extends AsyncTask<Void, Void, List<User>> {
 
-        User user = ModelUtils.read(getContext(), MainActivity.USER_KEY, new TypeToken<User>(){});
+        int page = adapter.followingUsers.size() / 12 + 1;
 
         @Override
         protected List<User> doInBackground(Void... params) {
-            return null;
+            User user = Dribbble.getAuthUser();
+            return Dribbble.getFollowingUsers(user.following_url, page);
+        }
+
+        @Override
+        protected void onPostExecute(List<User> users) {
+            super.onPostExecute(users);
+            adapter.append(users);
+            adapter.toggleSpinner(adapter.followingUsers.size() / 12 >= page);
         }
     }
 }

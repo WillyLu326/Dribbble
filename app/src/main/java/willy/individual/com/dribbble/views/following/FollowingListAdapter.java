@@ -21,7 +21,7 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
     private static final int FOLLOWING_SPINNER_TYPE = 1;
 
     private boolean isShowingSpinner;
-    private List<User> followingUsers;
+    public List<User> followingUsers;
     private OnLoadingMoreListener onLoadingMoreListener;
 
     public FollowingListAdapter(List<User> followingUsers, OnLoadingMoreListener onLoadingMoreListener) {
@@ -75,6 +75,10 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
             return FOLLOWING_SPINNER_TYPE;
         }
         return FOLLOWING_LIST_TYPE;
+    }
+
+    public List<User> getData() {
+        return followingUsers;
     }
 
     public void append(List<User> users) {
