@@ -51,7 +51,7 @@ public class FollowingListFragment extends Fragment {
 
     private List<User> fakeData() {
         List<User> users = new ArrayList<>();
-        for (int i = 0; i < 20; ++i) {
+        for (int i = 0; i < 12; ++i) {
             users.add(new User("User " + i));
         }
         return users;
