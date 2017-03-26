@@ -1,6 +1,7 @@
 package willy.individual.com.dribbble.views.following;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -10,13 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import willy.individual.com.dribbble.MainActivity;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.User;
+import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.base.ShotListSpaceItemDecoration;
 
@@ -75,5 +80,15 @@ public class FollowingListFragment extends Fragment {
             users.add(new User("User " + i));
         }
         return users;
+    }
+
+    private class UserFollowingTask extends AsyncTask<Void, Void, List<User>> {
+
+        User user = ModelUtils.read(getContext(), MainActivity.USER_KEY, new TypeToken<User>(){});
+
+        @Override
+        protected List<User> doInBackground(Void... params) {
+            return null;
+        }
     }
 }
