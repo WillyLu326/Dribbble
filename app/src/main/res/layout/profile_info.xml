@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:layout_margin="@dimen/small_space"
-            android:textSize="@dimen/small_size"
+            android:textSize="@dimen/xsmall_size"
             tools:text="Hi! I am a Freelance Illustrator and Designer, available for hire: savic.a@live.com"/>
 
         <Button
