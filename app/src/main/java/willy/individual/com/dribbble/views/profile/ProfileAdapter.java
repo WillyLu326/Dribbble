@@ -1,6 +1,7 @@
 package willy.individual.com.dribbble.views.profile;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,17 +9,26 @@ import android.view.ViewGroup;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import willy.individual.com.dribbble.R;
+import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.models.User;
 
-/**
- * Created by zhenglu on 3/26/17.
- */
 
 public class ProfileAdapter extends RecyclerView.Adapter {
 
     private static final int PROFILE_INFO_TYPE = 0;
-    private User user = new User("Willy Lu");
+    private static final int PROFILE_SHOT_TYPE = 1;
+    private static final int PROFILE_SPINNER = 2;
+
+    private User user;
+    private List<Shot> profileShots = new ArrayList<>();
+
+    public ProfileAdapter(User user) {
+        this.user = user;
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -36,7 +46,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
             ProfileInfoViewHolder profileInfoViewHolder = (ProfileInfoViewHolder) holder;
             profileInfoViewHolder.profileUsername.setText(user.name);
             profileInfoViewHolder.profileLocation.setText(user.location);
-            profileInfoViewHolder.profileDescription.setText(user.bio);
+            profileInfoViewHolder.profileDescription.setText(Html.fromHtml(user.bio, 0));
             DraweeController controller = Fresco.newDraweeControllerBuilder()
                     .setUri(user.avatar_url)
                     .setAutoPlayAnimations(true)
@@ -47,6 +57,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
+        //return 2 + profileShots.size();
         return 1;
     }
 
@@ -55,6 +66,9 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         if (position == 0) {
             return PROFILE_INFO_TYPE;
         }
-        return 1;
+//        else if (position == profileShots.size() + 1) {
+//            return PROFILE_SPINNER;
+//        }
+        return PROFILE_SHOT_TYPE;
     }
 }

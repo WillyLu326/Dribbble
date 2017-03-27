@@ -15,6 +15,7 @@ import java.util.List;
 
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.User;
+import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.profile.ProfileActivity;
 
@@ -23,6 +24,9 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
 
     private static final int FOLLOWING_LIST_TYPE = 0;
     private static final int FOLLOWING_SPINNER_TYPE = 1;
+
+    public static final String FOLLOWEE_TYPE = "followee_type";
+    public static final int FOLLOWEE_REQ_CODE = 150;
 
     private boolean isShowingSpinner;
     public List<User> followingUsers;
@@ -56,7 +60,7 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == FOLLOWING_LIST_TYPE) {
-            User user = followingUsers.get(position).followee;
+            final User user = followingUsers.get(position).followee;
 
             final FollowingViewHolder followingViewHolder = (FollowingViewHolder) holder;
             followingViewHolder.userItemName.setText(user.name);
@@ -72,8 +76,8 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(followingListFragment.getActivity(), ProfileActivity.class);
-                    followingListFragment.startActivity(intent);
-                    Toast.makeText(followingListFragment.getContext(), "Click", Toast.LENGTH_SHORT).show();
+                    intent.putExtra(FOLLOWEE_TYPE, ModelUtils.convertToString(user, new TypeToken<User>(){}));
+                    followingListFragment.startActivityForResult(intent, FOLLOWEE_REQ_CODE);
                 }
             });
         } else if (getItemViewType(position) == FOLLOWING_SPINNER_TYPE) {
