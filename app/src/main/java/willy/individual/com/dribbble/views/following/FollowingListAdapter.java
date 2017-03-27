@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
@@ -13,7 +14,6 @@ import java.util.List;
 
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.User;
-import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 
 
@@ -24,10 +24,14 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
 
     private boolean isShowingSpinner;
     public List<User> followingUsers;
+    private FollowingListFragment followingListFragment;
     private OnLoadingMoreListener onLoadingMoreListener;
 
-    public FollowingListAdapter(List<User> followingUsers, OnLoadingMoreListener onLoadingMoreListener) {
+    public FollowingListAdapter(List<User> followingUsers,
+                                FollowingListFragment followingListFragment,
+                                OnLoadingMoreListener onLoadingMoreListener) {
         this.followingUsers = followingUsers;
+        this.followingListFragment = followingListFragment;
         this.onLoadingMoreListener = onLoadingMoreListener;
         this.isShowingSpinner = true;
     }
@@ -61,6 +65,13 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
                     .setAutoPlayAnimations(true)
                     .build();
             followingViewHolder.userItemImage.setController(controller);
+
+            followingViewHolder.userItemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(followingListFragment.getContext(), "Click", Toast.LENGTH_SHORT).show();
+                }
+            });
         } else if (getItemViewType(position) == FOLLOWING_SPINNER_TYPE) {
             onLoadingMoreListener.onLoadingMore();
         }

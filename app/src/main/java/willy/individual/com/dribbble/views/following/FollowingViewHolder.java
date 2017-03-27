@@ -21,6 +21,7 @@ public class FollowingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.user_item_name) TextView userItemName;
     @BindView(R.id.user_item_location) TextView userItemLocation;
     @BindView(R.id.user_item_following) Button userItemFollowingBtn;
+    @BindView(R.id.user_item_view) View userItemView;
 
     public FollowingViewHolder(View itemView) {
         super(itemView);

@@ -19,10 +19,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import willy.individual.com.dribbble.MainActivity;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.User;
-import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.base.ShotListSpaceItemDecoration;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
@@ -50,8 +48,8 @@ public class FollowingListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
-        adapter = new FollowingListAdapter(new ArrayList<User>(), new OnLoadingMoreListener() {
+        recyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.xsmall_space)));
+        adapter = new FollowingListAdapter(new ArrayList<User>(), this, new OnLoadingMoreListener() {
             @Override
             public void onLoadingMore() {
                 AsyncTaskCompat.executeParallel(new UserFollowingTask());
