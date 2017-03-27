@@ -47,5 +47,6 @@ dependencies {
     // Provide the Android support library (you might already have this or a similar dependency)
     compile 'com.android.support:support-core-utils:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
+    compile 'jp.wasabeef:blurry:2.1.1'
 
 }
