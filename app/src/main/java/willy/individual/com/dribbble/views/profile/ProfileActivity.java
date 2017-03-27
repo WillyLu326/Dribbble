@@ -5,9 +5,6 @@ import android.app.Fragment;
 import willy.individual.com.dribbble.views.base.SingleFragmentActivity;
 import willy.individual.com.dribbble.views.following.FollowingListAdapter;
 
-/**
- * Created by zhenglu on 3/26/17.
- */
 
 public class ProfileActivity extends SingleFragmentActivity {
 
