@@ -21,7 +21,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/medium_space"
             fresco:actualImageScaleType="centerCrop"
-            fresco:placeholderImage="@drawable/image_circle"/>
+            fresco:placeholderImage="@drawable/image_circle"
+            fresco:roundedCornerRadius="50dp"/>
 
         <TextView
             android:id="@+id/profile_username"
