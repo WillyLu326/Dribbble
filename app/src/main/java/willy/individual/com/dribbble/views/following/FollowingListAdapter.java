@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.User;
+import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 
 
@@ -48,7 +50,7 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == FOLLOWING_LIST_TYPE) {
-            User user = followingUsers.get(position);
+            User user = followingUsers.get(position).followee;
 
             FollowingViewHolder followingViewHolder = (FollowingViewHolder) holder;
             followingViewHolder.userItemName.setText(user.name);

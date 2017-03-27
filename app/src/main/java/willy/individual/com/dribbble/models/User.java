@@ -1,5 +1,6 @@
 package willy.individual.com.dribbble.models;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,6 +17,7 @@ public class User {
     public String bio;
     public String location;
     public Map<String, String> links;
+    public User followee;
     public int buckets_count;
     public int comments_received_count;
     public int followers_count;
