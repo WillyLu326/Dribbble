@@ -1,5 +1,6 @@
 package willy.individual.com.dribbble.views.following;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import java.util.List;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
+import willy.individual.com.dribbble.views.profile.ProfileActivity;
 
 
 public class FollowingListAdapter extends RecyclerView.Adapter {
@@ -56,7 +58,7 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
         if (getItemViewType(position) == FOLLOWING_LIST_TYPE) {
             User user = followingUsers.get(position).followee;
 
-            FollowingViewHolder followingViewHolder = (FollowingViewHolder) holder;
+            final FollowingViewHolder followingViewHolder = (FollowingViewHolder) holder;
             followingViewHolder.userItemName.setText(user.name);
             followingViewHolder.userItemLocation.setText(user.location);
 
@@ -69,6 +71,8 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
             followingViewHolder.userItemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Intent intent = new Intent(followingListFragment.getActivity(), ProfileActivity.class);
+                    followingListFragment.startActivity(intent);
                     Toast.makeText(followingListFragment.getContext(), "Click", Toast.LENGTH_SHORT).show();
                 }
             });

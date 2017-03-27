@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
 
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.User;
@@ -19,7 +18,7 @@ import willy.individual.com.dribbble.models.User;
 public class ProfileAdapter extends RecyclerView.Adapter {
 
     private static final int PROFILE_INFO_TYPE = 0;
-    private User user;
+    private User user = new User("Willy Lu");
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -48,7 +47,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return 1;
     }
 
     @Override
@@ -56,5 +55,6 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         if (position == 0) {
             return PROFILE_INFO_TYPE;
         }
+        return 1;
     }
 }

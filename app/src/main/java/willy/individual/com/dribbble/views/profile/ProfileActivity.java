@@ -12,7 +12,7 @@ public class ProfileActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment newFragment() {
-        return null;
+        return ProfileFragment.newInstance();
     }
 
     @Override
