@@ -31,6 +31,7 @@
             tools:text="Willy Lu"/>
 
         <TextView
+            android:id="@+id/profile_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -39,6 +40,7 @@
             tools:text="Location"/>
 
         <TextView
+            android:id="@+id/profile_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -47,6 +49,7 @@
             tools:text="Hi! I am a Freelance Illustrator and Designer, available for hire: savic.a@live.com"/>
 
         <Button
+            android:id="@+id/profile_status_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
