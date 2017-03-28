@@ -31,6 +31,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
     private List<Shot> profileShots = new ArrayList<>();
     private ProfileFragment profileFragment;
     private OnLoadingMoreListener onLoadingMoreListener;
+    private boolean showingSpinner;
 
     public ProfileAdapter(User user,
                           ProfileFragment profileFragment,
@@ -40,6 +41,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         this.profileFragment = profileFragment;
         this.profileShots = profileShots;
         this.onLoadingMoreListener = onLoadingMoreListener;
+        this.showingSpinner = true;
     }
 
     @Override
@@ -107,7 +109,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 2 + this.profileShots.size();
+        return showingSpinner ? 2 + this.profileShots.size() : 1 + this.profileShots.size();
     }
 
     @Override
@@ -126,7 +128,8 @@ public class ProfileAdapter extends RecyclerView.Adapter {
     }
 
     public void toggleSpinner(boolean isShowingSpinner) {
-
+        this.showingSpinner = isShowingSpinner;
+        notifyDataSetChanged();
     }
 
 }
