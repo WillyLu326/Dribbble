@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/medium_space"
+    android:layout_marginRight="@dimen/medium_space"
+    android:layout_marginBottom="@dimen/medium_space"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/shot_item_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/shot_item_height"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@drawable/shot_placeholder"
+            fresco:placeholderImageScaleType="centerCrop" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/shot_item_gif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/small_space"
+                android:src="@drawable/ic_gif_black_36dp"/>
+
+            <TextView
+                android:id="@+id/shot_item_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/small_space"
+                android:drawableLeft="@drawable/ic_chat_black_18dp"
+                android:drawablePadding="@dimen/xsmall_space"
+                tools:text="5"/>
+
+            <TextView
+                android:id="@+id/shot_item_bucket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/shot_item_comment"
+                android:layout_margin="@dimen/small_space"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="@string/shot_item_bucket"
+                android:drawableLeft="@drawable/ic_inbox_black_18dp"
+                android:drawablePadding="@dimen/xsmall_space"
+                tools:text="4" />
+
+
+            <TextView
+                android:id="@+id/shot_item_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/small_space"
+                android:layout_toLeftOf="@+id/shot_item_bucket"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="@string/shot_item_like"
+                android:drawableLeft="@drawable/ic_favorite_black_18dp"
+                android:drawablePadding="@dimen/xsmall_space"
+                tools:text="160" />
+
+            <TextView
+                android:id="@+id/shot_item_view_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/small_space"
+                android:layout_toLeftOf="@id/shot_item_like"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="@string/shot_item_view_count"
+                android:drawableLeft="@drawable/ic_visibility_black_18dp"
+                android:drawablePadding="@dimen/xsmall_space"
+                tools:text="4800" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/shot_item_cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"/>
+
+</android.support.v7.widget.CardView>

@@ -13,9 +13,13 @@ import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
+import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
@@ -52,7 +56,7 @@ public class ProfileFragment extends Fragment {
         User user = ModelUtils.convertToObject(getArguments().getString(USER_STRING_KEY), new TypeToken<User>(){});
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        profileAdapter = new ProfileAdapter(user, this, new OnLoadingMoreListener() {
+        profileAdapter = new ProfileAdapter(user, this, fakeData(), new OnLoadingMoreListener() {
             @Override
             public void onLoadingMore() {
                 Toast.makeText(getContext(), "CLick", Toast.LENGTH_SHORT).show();
@@ -60,4 +64,13 @@ public class ProfileFragment extends Fragment {
         });
         recyclerView.setAdapter(profileAdapter);
     }
+
+    private List<Shot> fakeData() {
+        List<Shot> shots = new ArrayList<>();
+        for(int i = 0; i < 20; ++i) {
+            shots.add(new Shot());
+        }
+        return shots;
+    }
 }
+

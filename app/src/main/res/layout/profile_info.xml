@@ -6,6 +6,7 @@
     android:id="@+id/profile_info_content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/medium_space"
     android:background="@color/grey">
 
     <ImageView
@@ -111,8 +112,6 @@
                 android:textColor="@android:color/white"
                 tools:text="Followers 3000"/>
         </LinearLayout>
-
-
     </LinearLayout>
 
 </FrameLayout>

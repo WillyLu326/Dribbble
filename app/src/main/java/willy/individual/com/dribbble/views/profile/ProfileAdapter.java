@@ -2,9 +2,11 @@ package willy.individual.com.dribbble.views.profile;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -33,9 +35,11 @@ public class ProfileAdapter extends RecyclerView.Adapter {
 
     public ProfileAdapter(User user,
                           ProfileFragment profileFragment,
+                          List<Shot> profileShots,
                           OnLoadingMoreListener onLoadingMoreListener) {
         this.user = user;
         this.profileFragment = profileFragment;
+        this.profileShots = profileShots;
         this.onLoadingMoreListener = onLoadingMoreListener;
     }
 
@@ -49,6 +53,10 @@ public class ProfileAdapter extends RecyclerView.Adapter {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.profile_spinner, parent, false);
             return new ProfileSpinnerViewHolder(view);
+        } else if (viewType == PROFILE_SHOT_TYPE) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.profile_shot_item, parent, false);
+            return new ProfileShotViewHolder(view);
         }
         return null;
     }
@@ -71,6 +79,28 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                     .centerCrop()
                     .bitmapTransform(new BlurTransformation(profileFragment.getContext()))
                     .into(profileInfoViewHolder.profileIv);
+        } else if (getItemViewType(position) == PROFILE_SHOT_TYPE) {
+            Shot shot = profileShots.get(position - 1);
+
+            ProfileShotViewHolder profileShotViewHolder = (ProfileShotViewHolder) holder;
+            profileShotViewHolder.viewsCountTv.setText(String.valueOf(shot.views_count));
+            profileShotViewHolder.likesCountTv.setText(String.valueOf(shot.likes_count));
+            profileShotViewHolder.bucketsCountTv.setText(String.valueOf(shot.buckets_count));
+            profileShotViewHolder.commentsCountTv.setText(String.valueOf(shot.comments_count));
+
+//            DraweeController controller = Fresco.newDraweeControllerBuilder()
+//                    .setUri(shot.getImageUrl())
+//                    .setAutoPlayAnimations(true)
+//                    .build();
+//            profileShotViewHolder.image.setController(controller);
+
+            profileShotViewHolder.cover.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(profileFragment.getContext(), "Click", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         } else {
             onLoadingMoreListener.onLoadingMore();
         }
@@ -78,18 +108,17 @@ public class ProfileAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 2 + this.profileShots.size();
     }
 
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
             return PROFILE_INFO_TYPE;
+        } else if (position == profileShots.size() + 1) {
+            return PROFILE_SPINNER;
         }
-//        else if (position == profileShots.size() + 1) {
-//            return PROFILE_SPINNER;
-//        }
-        return PROFILE_SPINNER;
+        return PROFILE_SHOT_TYPE;
     }
 
 }
