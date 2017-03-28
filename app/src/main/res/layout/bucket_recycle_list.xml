@@ -15,7 +15,7 @@
         android:id="@+id/bucket_fab"
         android:layout_width="@dimen/fab_size"
         android:layout_height="@dimen/fab_size"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/large_space"
         android:src="@drawable/ic_add_white_24dp"
         app:backgroundTint="@color/colorPrimary"
