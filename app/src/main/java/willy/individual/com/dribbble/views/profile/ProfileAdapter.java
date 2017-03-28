@@ -2,7 +2,6 @@ package willy.individual.com.dribbble.views.profile;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

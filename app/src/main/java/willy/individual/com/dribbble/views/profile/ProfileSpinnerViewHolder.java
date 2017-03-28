@@ -8,9 +8,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
 
-/**
- * Created by zhenglu on 3/28/17.
- */
 
 public class ProfileSpinnerViewHolder extends RecyclerView.ViewHolder {
 
