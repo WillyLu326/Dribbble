@@ -79,9 +79,9 @@
                 android:layout_gravity="center_vertical"
                 android:padding="@dimen/small_space"
                 android:textAlignment="center"
-                android:textSize="@dimen/small_size"
+                android:textSize="@dimen/xsmall_size"
                 android:text="Shot 3000"
-                android:drawableLeft="@drawable/ic_move_to_inbox_pink_24dp"
+                android:drawableLeft="@drawable/ic_inbox_pink_18dp"
                 android:textColor="@color/colorPrimary"
                 tools:text="Shot 3000"/>
 
@@ -92,8 +92,8 @@
                 android:layout_gravity="center_vertical"
                 android:padding="@dimen/small_space"
                 android:textAlignment="center"
-                android:textSize="@dimen/small_size"
-                android:drawableLeft="@drawable/ic_favorite_pink_24dp"
+                android:textSize="@dimen/xsmall_size"
+                android:drawableLeft="@drawable/ic_favorite_black_18dp"
                 android:text="Likes 3000"
                 android:textColor="@color/colorPrimary"
                 tools:text="Likes 3000"/>
@@ -105,8 +105,8 @@
                 android:layout_gravity="center_vertical"
                 android:padding="@dimen/small_space"
                 android:textAlignment="center"
-                android:textSize="@dimen/small_size"
-                android:drawableLeft="@drawable/ic_group_pink_24dp"
+                android:textSize="@dimen/xsmall_size"
+                android:drawableLeft="@drawable/ic_group_pink_18dp"
                 android:text="Followers 3000"
                 android:textColor="@color/colorPrimary"
                 tools:text="Followers 3000"/>
