@@ -82,7 +82,7 @@
                 android:textSize="@dimen/xsmall_size"
                 android:text="Shot 3000"
                 android:drawableLeft="@drawable/ic_inbox_pink_18dp"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@android:color/white"
                 tools:text="Shot 3000"/>
 
             <TextView
@@ -95,7 +95,7 @@
                 android:textSize="@dimen/xsmall_size"
                 android:drawableLeft="@drawable/ic_favorite_pink_18dp"
                 android:text="Likes 3000"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@android:color/white"
                 tools:text="Likes 3000"/>
 
             <TextView
@@ -108,7 +108,7 @@
                 android:textSize="@dimen/xsmall_size"
                 android:drawableLeft="@drawable/ic_group_pink_18dp"
                 android:text="Followers 3000"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@android:color/white"
                 tools:text="Followers 3000"/>
         </LinearLayout>
 
