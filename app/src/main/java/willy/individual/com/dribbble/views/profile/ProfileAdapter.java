@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.URL;
@@ -63,13 +64,14 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                     .build();
             profileInfoViewHolder.profileAvatar.setController(controller);
 
-            Bitmap myImage = getBitmapFromURL(user.avatar_url);
-            Drawable dr = new BitmapDrawable(profileFragment.getResources(), myImage);
-            profileInfoViewHolder.profileContent.setBackground(dr);
+            Picasso.with(profileFragment.getContext())
+                    .load(user.avatar_url)
+                    .centerCrop()
+                    .into(profileInfoViewHolder.profileIv);
 
-            Blurry.with(profileFragment.getActivity())
-                    .radius(25)
-                    .sampling(2)
+            Blurry.with(profileFragment.getContext())
+                    .radius(10)
+                    .sampling(8)
                     .color(Color.argb(66, 255, 255, 0))
                     .async()
                     .animate(500)
