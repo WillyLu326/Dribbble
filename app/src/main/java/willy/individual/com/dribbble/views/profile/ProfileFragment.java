@@ -50,7 +50,7 @@ public class ProfileFragment extends Fragment {
         User user = ModelUtils.convertToObject(getArguments().getString(USER_STRING_KEY), new TypeToken<User>(){});
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        profileAdapter = new ProfileAdapter(user);
+        profileAdapter = new ProfileAdapter(user, this);
         recyclerView.setAdapter(profileAdapter);
     }
 }
