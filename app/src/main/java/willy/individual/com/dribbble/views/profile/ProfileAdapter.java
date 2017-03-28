@@ -1,6 +1,5 @@
 package willy.individual.com.dribbble.views.profile;
 
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import com.facebook.drawee.interfaces.DraweeController;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.wasabeef.blurry.Blurry;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
@@ -64,15 +62,6 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                     .centerCrop()
                     .bitmapTransform(new BlurTransformation(profileFragment.getContext()))
                     .into(profileInfoViewHolder.profileIv);
-
-            Blurry.with(profileFragment.getContext())
-                    .radius(10)
-                    .sampling(8)
-                    .color(Color.argb(66, 255, 255, 0))
-                    .async()
-                    .animate(500)
-                    .onto(profileInfoViewHolder.profileContent);
-
         }
     }
 
