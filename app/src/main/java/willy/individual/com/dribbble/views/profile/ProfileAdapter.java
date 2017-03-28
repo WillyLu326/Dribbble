@@ -3,17 +3,15 @@ package willy.individual.com.dribbble.views.profile;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.blurry.Blurry;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.models.User;
@@ -64,9 +63,10 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                     .build();
             profileInfoViewHolder.profileAvatar.setController(controller);
 
-            Picasso.with(profileFragment.getContext())
+            Glide.with(profileFragment.getContext())
                     .load(user.avatar_url)
                     .centerCrop()
+                    .bitmapTransform(new BlurTransformation(profileFragment.getContext()))
                     .into(profileInfoViewHolder.profileIv);
 
             Blurry.with(profileFragment.getContext())
