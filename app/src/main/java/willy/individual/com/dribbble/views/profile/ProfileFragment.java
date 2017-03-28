@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -17,6 +18,7 @@ import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
+import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 
 
 public class ProfileFragment extends Fragment {
@@ -50,7 +52,12 @@ public class ProfileFragment extends Fragment {
         User user = ModelUtils.convertToObject(getArguments().getString(USER_STRING_KEY), new TypeToken<User>(){});
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        profileAdapter = new ProfileAdapter(user, this);
+        profileAdapter = new ProfileAdapter(user, this, new OnLoadingMoreListener() {
+            @Override
+            public void onLoadingMore() {
+                Toast.makeText(getContext(), "CLick", Toast.LENGTH_SHORT).show();
+            }
+        });
         recyclerView.setAdapter(profileAdapter);
     }
 }

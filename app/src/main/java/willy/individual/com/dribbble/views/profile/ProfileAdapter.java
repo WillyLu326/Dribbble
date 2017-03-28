@@ -17,6 +17,7 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.models.User;
+import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 
 
 public class ProfileAdapter extends RecyclerView.Adapter {
@@ -28,10 +29,14 @@ public class ProfileAdapter extends RecyclerView.Adapter {
     private User user;
     private List<Shot> profileShots = new ArrayList<>();
     private ProfileFragment profileFragment;
+    private OnLoadingMoreListener onLoadingMoreListener;
 
-    public ProfileAdapter(User user, ProfileFragment profileFragment) {
+    public ProfileAdapter(User user,
+                          ProfileFragment profileFragment,
+                          OnLoadingMoreListener onLoadingMoreListener) {
         this.user = user;
         this.profileFragment = profileFragment;
+        this.onLoadingMoreListener = onLoadingMoreListener;
     }
 
     @Override
@@ -40,6 +45,10 @@ public class ProfileAdapter extends RecyclerView.Adapter {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.profile_info, parent, false);
             return new ProfileInfoViewHolder(view);
+        } else if (viewType == PROFILE_SPINNER) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.profile_spinner, parent, false);
+            return new ProfileSpinnerViewHolder(view);
         }
         return null;
     }
@@ -62,13 +71,14 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                     .centerCrop()
                     .bitmapTransform(new BlurTransformation(profileFragment.getContext()))
                     .into(profileInfoViewHolder.profileIv);
+        } else {
+            onLoadingMoreListener.onLoadingMore();
         }
     }
 
     @Override
     public int getItemCount() {
-        //return 2 + profileShots.size();
-        return 1;
+        return 2;
     }
 
     @Override
@@ -79,7 +89,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
 //        else if (position == profileShots.size() + 1) {
 //            return PROFILE_SPINNER;
 //        }
-        return PROFILE_SHOT_TYPE;
+        return PROFILE_SPINNER;
     }
 
 }
