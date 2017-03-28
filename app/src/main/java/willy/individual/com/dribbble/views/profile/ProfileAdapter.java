@@ -1,7 +1,5 @@
 package willy.individual.com.dribbble.views.profile;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -13,8 +11,6 @@ import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,15 +93,4 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         return PROFILE_SHOT_TYPE;
     }
 
-
-    public Bitmap getBitmapFromURL(String imageUrl) {
-        try {
-            URL url = new URL(imageUrl);
-            Bitmap image = BitmapFactory.decodeStream(url.openStream());
-            return image;
-        } catch(IOException e) {
-            System.out.println(e);
-            return null;
-        }
-    }
 }
