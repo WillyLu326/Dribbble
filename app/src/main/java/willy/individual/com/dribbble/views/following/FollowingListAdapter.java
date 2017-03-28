@@ -26,6 +26,7 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
     private static final int FOLLOWING_SPINNER_TYPE = 1;
 
     public static final String FOLLOWEE_TYPE = "followee_type";
+    public static final String FOLLOWEE_NAME = "followee_name";
     public static final int FOLLOWEE_REQ_CODE = 150;
 
     private boolean isShowingSpinner;
@@ -77,6 +78,7 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     Intent intent = new Intent(followingListFragment.getActivity(), ProfileActivity.class);
                     intent.putExtra(FOLLOWEE_TYPE, ModelUtils.convertToString(user, new TypeToken<User>(){}));
+                    intent.putExtra(FOLLOWEE_NAME, user.name);
                     followingListFragment.startActivityForResult(intent, FOLLOWEE_REQ_CODE);
                 }
             });

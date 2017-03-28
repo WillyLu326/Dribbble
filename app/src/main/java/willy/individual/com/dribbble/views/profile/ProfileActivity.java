@@ -15,6 +15,6 @@ public class ProfileActivity extends SingleFragmentActivity {
 
     @Override
     protected String getActivityTitle() {
-        return null;
+        return getIntent().getStringExtra(FollowingListAdapter.FOLLOWEE_NAME);
     }
 }
