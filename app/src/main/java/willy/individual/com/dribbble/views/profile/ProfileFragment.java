@@ -2,6 +2,7 @@ package willy.individual.com.dribbble.views.profile;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -54,11 +55,27 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         User user = ModelUtils.convertToObject(getArguments().getString(USER_STRING_KEY), new TypeToken<User>(){});
 
+        final Handler handler = new Handler();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        profileAdapter = new ProfileAdapter(user, this, fakeData(), new OnLoadingMoreListener() {
+        profileAdapter = new ProfileAdapter(user, this, new ArrayList<Shot>(), new OnLoadingMoreListener() {
             @Override
             public void onLoadingMore() {
-                Toast.makeText(getContext(), "CLick", Toast.LENGTH_SHORT).show();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(1000);
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    profileAdapter.append(fakeData());
+                                }
+                            });
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
             }
         });
         recyclerView.setAdapter(profileAdapter);
@@ -66,7 +83,7 @@ public class ProfileFragment extends Fragment {
 
     private List<Shot> fakeData() {
         List<Shot> shots = new ArrayList<>();
-        for(int i = 0; i < 20; ++i) {
+        for(int i = 0; i < 12; ++i) {
             shots.add(new Shot());
         }
         return shots;

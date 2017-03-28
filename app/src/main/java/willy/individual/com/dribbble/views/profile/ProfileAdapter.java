@@ -120,4 +120,13 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         return PROFILE_SHOT_TYPE;
     }
 
+    public void append(List<Shot> shots) {
+        this.profileShots.addAll(shots);
+        notifyDataSetChanged();
+    }
+
+    public void toggleSpinner(boolean isShowingSpinner) {
+
+    }
+
 }
