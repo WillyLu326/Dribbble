@@ -332,4 +332,19 @@ public class Dribbble {
             return null;
         }
     }
+
+    public static List<Shot> getSpecificUserShots(String username, int page) {
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(BASE_URL + "users/" + username + "/shots?page=" + page)
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            return ModelUtils.convertToObject(response.body().string(), new TypeToken<List<Shot>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -8,7 +8,7 @@ public class TODO {
      *  TODO
      *  1. Share Button Function
      *  2. Bucket Function     ===> Done!!
-     *      2.1 Bucket Unchoosen Pull to Refresh
+     *      2.1 Bucket Unchoosen Pull to Refresh ===> Done!!
      *      2.2 Bucket Choosen CRUD Operations ===> Done!!
      *      2.3 Add Description     ===> Done!!
      *  3. User Following
