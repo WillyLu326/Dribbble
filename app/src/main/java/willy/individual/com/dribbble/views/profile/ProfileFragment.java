@@ -1,9 +1,11 @@
 package willy.individual.com.dribbble.views.profile;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
+import willy.individual.com.dribbble.views.dribbble.Dribbble;
 
 
 public class ProfileFragment extends Fragment {
@@ -52,33 +55,41 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        User user = ModelUtils.convertToObject(getArguments().getString(USER_STRING_KEY), new TypeToken<User>(){});
+        final User user = ModelUtils.convertToObject(getArguments().getString(USER_STRING_KEY), new TypeToken<User>(){});
 
-        final Handler handler = new Handler();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         profileAdapter = new ProfileAdapter(user, this, new ArrayList<Shot>(), new OnLoadingMoreListener() {
             @Override
             public void onLoadingMore() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1000);
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    profileAdapter.append(fakeData());
-                                }
-                            });
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
+                AsyncTaskCompat.executeParallel(new LoadUserShotsTask(user.username));
             }
         });
         recyclerView.setAdapter(profileAdapter);
     }
+
+    private class LoadUserShotsTask extends AsyncTask<Void, Void, List<Shot>> {
+
+        private String username;
+        private int page;
+
+        public LoadUserShotsTask(String username) {
+            this.username = username;
+            this.page = profileAdapter.getData().size() / 12 + 1;
+        }
+
+        @Override
+        protected List<Shot> doInBackground(Void... params) {
+            return Dribbble.getSpecificUserShots(username, page);
+        }
+
+        @Override
+        protected void onPostExecute(List<Shot> shotList) {
+            super.onPostExecute(shotList);
+            profileAdapter.append(shotList);
+            profileAdapter.toggleSpinner(profileAdapter.getData().size() / 12 >= page);
+        }
+    }
+
 
     private List<Shot> fakeData() {
         List<Shot> shots = new ArrayList<>();

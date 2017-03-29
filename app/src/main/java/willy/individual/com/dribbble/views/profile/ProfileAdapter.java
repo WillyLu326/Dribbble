@@ -132,4 +132,8 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+    public List<Shot> getData() {
+        return this.profileShots;
+    }
+
 }
