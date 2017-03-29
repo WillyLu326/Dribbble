@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.os.AsyncTaskCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class BucketListFragment extends Fragment {
 
     @BindView(R.id.bucket_list_recycler_view) RecyclerView bucketRecyclerView;
     @BindView(R.id.bucket_fab) FloatingActionButton bucketFab;
+    @BindView(R.id.bucket_swipe_container) SwipeRefreshLayout swipeContainer;
 
     public static int BUCKET_CRUD_REQ_CODE = 200;
 
@@ -44,6 +46,7 @@ public class BucketListFragment extends Fragment {
     public static final String TYPE_KEY = "type_key";
     private static final String SHOT_BUCKET_URL_KEY = "shot_bucket_url_key";
     private static final String COLLECTED_BUCKET_IDS_KEY = "cllected_bucket_ids_key";
+
 
     private BucketAdapter bucketAdapter;
 
@@ -131,10 +134,10 @@ public class BucketListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         final int bucketType = getArguments().getInt(TYPE_KEY);
-
         ArrayList<Integer> collectedBucketIds = getArguments().getIntegerArrayList(COLLECTED_BUCKET_IDS_KEY);
+
+        setupSwipeContainer(bucketType);
 
         bucketRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         bucketRecyclerView.addItemDecoration(new BucketListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
@@ -145,7 +148,7 @@ public class BucketListFragment extends Fragment {
             bucketAdapter = new BucketAdapter(new ArrayList<Bucket>(), this, new OnLoadingMoreListener() {
                 @Override
                 public void onLoadingMore() {
-                    AsyncTaskCompat.executeParallel(new BucketLoadTask(bucketType));
+                    AsyncTaskCompat.executeParallel(new BucketLoadTask(bucketType, false));
                 }
             }, bucketType, collectedBucketIds);
 
@@ -154,7 +157,7 @@ public class BucketListFragment extends Fragment {
             bucketAdapter = new BucketAdapter(new ArrayList<Bucket>(), this, new OnLoadingMoreListener() {
                 @Override
                 public void onLoadingMore() {
-                    AsyncTaskCompat.executeParallel(new BucketLoadTask(bucketType, getArguments().get(SHOT_BUCKET_URL_KEY).toString()));
+                    AsyncTaskCompat.executeParallel(new BucketLoadTask(bucketType, getArguments().get(SHOT_BUCKET_URL_KEY).toString(), false));
                 }
             }, bucketType);
         }
@@ -172,22 +175,39 @@ public class BucketListFragment extends Fragment {
         });
     }
 
+    private void setupSwipeContainer(final int bucketType) {
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (bucketType == MainActivity.CHOOSE_BUCKET_TYPE) {
+                    AsyncTaskCompat.executeParallel(new BucketLoadTask(bucketType, true));
+                } else {
+                    AsyncTaskCompat.executeParallel(new BucketLoadTask(bucketType, getArguments().get(SHOT_BUCKET_URL_KEY).toString(), true));
+                }
+            }
+        });
+
+        swipeContainer.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, null));
+    }
+
     private class BucketLoadTask extends AsyncTask<Void, Void, List<Bucket>> {
 
         private int page;
         private int bucketType;
         private String url;
+        private boolean refresh;
 
-
-        public BucketLoadTask(int bucketType) {
+        public BucketLoadTask(int bucketType, boolean refresh) {
             this.page = bucketAdapter.getBuckets().size() / 12 + 1;
             this.bucketType = bucketType;
+            this.refresh = refresh;
         }
 
-        public BucketLoadTask(int bucketType, String url) {
+        public BucketLoadTask(int bucketType, String url, boolean refresh) {
             this.page = bucketAdapter.getBuckets().size() / 12 + 1;
             this.bucketType = bucketType;
             this.url = url;
+            this.refresh = refresh;
         }
 
         @Override
@@ -202,9 +222,14 @@ public class BucketListFragment extends Fragment {
         @Override
         protected void onPostExecute(List<Bucket> buckets) {
             super.onPostExecute(buckets);
-            System.out.println(ModelUtils.convertToString(buckets, new TypeToken<List<Bucket>>(){ }));
-            bucketAdapter.append(buckets);
-            bucketAdapter.toggleBucketSpinner(bucketAdapter.getBuckets().size() / 12 >= page);
+            if (refresh) {
+                bucketAdapter.clearAllBuckets();
+                bucketAdapter.append(buckets);
+                swipeContainer.setRefreshing(false);
+            } else {
+                bucketAdapter.append(buckets);
+                bucketAdapter.toggleBucketSpinner(bucketAdapter.getBuckets().size() / 12 >= page);
+            }
         }
     }
 

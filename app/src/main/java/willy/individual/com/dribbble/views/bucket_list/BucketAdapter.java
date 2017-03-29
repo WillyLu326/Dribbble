@@ -156,6 +156,11 @@ public class BucketAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+    public void clearAllBuckets() {
+        this.buckets.clear();
+        notifyDataSetChanged();;
+    }
+
     public List<Bucket> getBuckets() {
         return this.buckets;
     }
