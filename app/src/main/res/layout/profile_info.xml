@@ -74,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/profile_shots_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -87,6 +88,7 @@
                 tools:text="Shot 3000"/>
 
             <TextView
+                android:id="@+id/profile_likes_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -100,6 +102,7 @@
                 tools:text="Likes 3000"/>
 
             <TextView
+                android:id="@+id/profile_followers_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

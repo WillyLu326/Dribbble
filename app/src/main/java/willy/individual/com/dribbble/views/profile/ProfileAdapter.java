@@ -89,6 +89,10 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                     .centerCrop()
                     .bitmapTransform(new BlurTransformation(profileFragment.getContext()))
                     .into(profileInfoViewHolder.profileIv);
+            profileInfoViewHolder.profileShotsCount.setText("Shots " + String.valueOf(user.shots_count));
+            profileInfoViewHolder.profileLikesCount.setText("Likes " + String.valueOf(user.likes_count));
+            profileInfoViewHolder.profileFollowersCount.setText("Followers " + String.valueOf(user.followers_count));
+
         } else if (getItemViewType(position) == PROFILE_SHOT_TYPE) {
             final Shot shot = profileShots.get(position - 1);
             shot.user = user;

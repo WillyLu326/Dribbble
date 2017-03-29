@@ -23,6 +23,9 @@ public class ProfileInfoViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.profile_status_btn) Button profileBtn;
     @BindView(R.id.profile_background) ImageView profileIv;
     @BindView(R.id.profile_info_content) ViewGroup profileContent;
+    @BindView(R.id.profile_shots_count) TextView profileShotsCount;
+    @BindView(R.id.profile_likes_count) TextView profileLikesCount;
+    @BindView(R.id.profile_followers_count) TextView profileFollowersCount;
 
     public ProfileInfoViewHolder(View itemView) {
         super(itemView);
