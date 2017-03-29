@@ -19,7 +19,6 @@ public class ShotCommentViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.shot_detail_comment_name) TextView commentNameTv;
     @BindView(R.id.shot_detail_comment_content) TextView commentContentTv;
     @BindView(R.id.shot_detail_comment_time) TextView commentDateTv;
-    @BindView(R.id.shot_detail_comment_like) ImageView commentLikeIv;
 
     public View itemView;
 
