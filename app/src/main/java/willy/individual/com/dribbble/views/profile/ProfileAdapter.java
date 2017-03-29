@@ -92,7 +92,6 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         } else if (getItemViewType(position) == PROFILE_SHOT_TYPE) {
             final Shot shot = profileShots.get(position - 1);
             shot.user = user;
-            AsyncTaskCompat.executeParallel(new IsLikeShot(shot));
 
             final ProfileShotViewHolder profileShotViewHolder = (ProfileShotViewHolder) holder;
             profileShotViewHolder.viewsCountTv.setText(String.valueOf(shot.views_count));
@@ -147,27 +146,6 @@ public class ProfileAdapter extends RecyclerView.Adapter {
 
     public List<Shot> getData() {
         return this.profileShots;
-    }
-
-
-    private class IsLikeShot extends AsyncTask<Void, Void, Boolean> {
-
-        private Shot shot;
-
-        public IsLikeShot(Shot shot) {
-            this.shot = shot;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            return Dribbble.isLikeShot(shot.id);
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-            shot.isLike = aBoolean;
-        }
     }
 
 }

@@ -2,7 +2,9 @@ package willy.individual.com.dribbble.views.shot_detail;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.bucket_list.BucketListActivity;
+import willy.individual.com.dribbble.views.dribbble.Dribbble;
 import willy.individual.com.dribbble.views.shot_imgae_activity.ShotImageActivity;
 
 
@@ -44,7 +47,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
     private boolean isShowingSpinner;
 
     private ShotCommentViewHolder shotCommentViewHolder;
-
+    private ShotInfoViewHolder shotInfoViewHolder;
 
     public ShotAdapter(Shot shot,
                        @NonNull ShotFragment shotFragment,
@@ -102,49 +105,13 @@ public class ShotAdapter extends RecyclerView.Adapter {
             });
 
         } else if (viewType == TYPE_SHOT_INFO) {
-            final ShotInfoViewHolder shotInfoViewHolder = (ShotInfoViewHolder) holder;
+            shotInfoViewHolder = (ShotInfoViewHolder) holder;
 
             shotInfoViewHolder.shotInfoViewCountTv.setText(String.valueOf(shot.views_count));
             shotInfoViewHolder.shotInfoLikeCountTv.setText(String.valueOf(shot.likes_count));
             shotInfoViewHolder.shotInfoBucketCountTv.setText(String.valueOf(shot.buckets_count));
 
-            if (shot.isLike) {
-                shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_black_24dp, 0, 0);
-                shotInfoViewHolder.shotInfoLikeCountTv.setTextColor(shotFragment.getResources().getColor(R.color.colorAccent, null));
-            } else {
-                shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_black_24dp, 0, 0);
-            }
-
-            shotInfoViewHolder.shotInfoLikeCountTv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (shot.isLike) {
-                        // unlike this shot
-                        shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_black_24dp, 0, 0);
-                        shot.likes_count -= 1;
-                        shotInfoViewHolder.shotInfoLikeCountTv.setTextColor(shotFragment.getResources().getColor(R.color.black, null));
-                        shotInfoViewHolder.shotInfoLikeCountTv.setText(String.valueOf(shot.likes_count));
-                        shot.isLike = !shot.isLike;
-
-                        // do unlike async
-                        shotFragment.unlike(shot.id);
-                    } else {
-                        // like this shot
-                        shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_black_24dp, 0, 0);
-                        shotInfoViewHolder.shotInfoLikeCountTv.setTextColor(shotFragment.getResources().getColor(R.color.colorAccent, null));
-                        shot.likes_count += 1;
-                        shotInfoViewHolder.shotInfoLikeCountTv.setText(String.valueOf(shot.likes_count));
-                        shot.isLike = !shot.isLike;
-
-                        // do like async
-                        shotFragment.like(shot.id);
-                    }
-
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra(ShotFragment.SHOT_KEY, ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
-                    shotFragment.getActivity().setResult(Activity.RESULT_OK, resultIntent);
-                }
-            });
+            AsyncTaskCompat.executeParallel(new IsLikeShot(shot));
 
 
             shotInfoViewHolder.shotInfoBucketCountTv.setOnClickListener(new View.OnClickListener() {
@@ -245,4 +212,61 @@ public class ShotAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+
+    private class IsLikeShot extends AsyncTask<Void, Void, Boolean> {
+
+        private Shot shot;
+
+        public IsLikeShot(Shot shot) {
+            this.shot = shot;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            return Dribbble.isLikeShot(shot.id);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            shot.isLike = aBoolean;
+            if (shot.isLike) {
+                shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_black_24dp, 0, 0);
+                shotInfoViewHolder.shotInfoLikeCountTv.setTextColor(shotFragment.getResources().getColor(R.color.colorAccent, null));
+            } else {
+                shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_black_24dp, 0, 0);
+            }
+
+            shotInfoViewHolder.shotInfoLikeCountTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (shot.isLike) {
+                        // unlike this shot
+                        shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_black_24dp, 0, 0);
+                        shot.likes_count -= 1;
+                        shotInfoViewHolder.shotInfoLikeCountTv.setTextColor(shotFragment.getResources().getColor(R.color.black, null));
+                        shotInfoViewHolder.shotInfoLikeCountTv.setText(String.valueOf(shot.likes_count));
+                        shot.isLike = !shot.isLike;
+
+                        // do unlike async
+                        shotFragment.unlike(shot.id);
+                    } else {
+                        // like this shot
+                        shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_black_24dp, 0, 0);
+                        shotInfoViewHolder.shotInfoLikeCountTv.setTextColor(shotFragment.getResources().getColor(R.color.colorAccent, null));
+                        shot.likes_count += 1;
+                        shotInfoViewHolder.shotInfoLikeCountTv.setText(String.valueOf(shot.likes_count));
+                        shot.isLike = !shot.isLike;
+
+                        // do like async
+                        shotFragment.like(shot.id);
+                    }
+
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra(ShotFragment.SHOT_KEY, ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
+                    shotFragment.getActivity().setResult(Activity.RESULT_OK, resultIntent);
+                }
+            });
+        }
+    }
 }
