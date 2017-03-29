@@ -50,6 +50,16 @@
             android:text="@string/following"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
+            android:backgroundTint="@color/following_btn_color" />
+
+        <Button
+            android:id="@+id/user_item_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/follow"
+            android:textAllCaps="false"
+            android:textColor="@color/follow_btn_text_color"
             android:backgroundTint="@color/follow_btn_color" />
 
     </LinearLayout>

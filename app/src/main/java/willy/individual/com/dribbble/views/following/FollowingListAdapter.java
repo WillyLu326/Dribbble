@@ -82,6 +82,24 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
                     followingListFragment.startActivityForResult(intent, FOLLOWEE_REQ_CODE);
                 }
             });
+
+            followingViewHolder.userItemFollowBtn.setVisibility(View.GONE);
+            followingViewHolder.userItemFollowingBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    followingViewHolder.userItemFollowBtn.setVisibility(View.VISIBLE);
+                    followingViewHolder.userItemFollowingBtn.setVisibility(View.GONE);
+                }
+            });
+
+            followingViewHolder.userItemFollowBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    followingViewHolder.userItemFollowingBtn.setVisibility(View.VISIBLE);
+                    followingViewHolder.userItemFollowBtn.setVisibility(View.GONE);
+                }
+            });
+
         } else if (getItemViewType(position) == FOLLOWING_SPINNER_TYPE) {
             onLoadingMoreListener.onLoadingMore();
         }

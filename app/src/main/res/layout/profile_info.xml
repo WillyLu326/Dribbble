@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/following"
-            android:backgroundTint="@color/follow_btn_color"
+            android:backgroundTint="@color/following_btn_color"
             android:textColor="@android:color/white"/>
 
         <LinearLayout

@@ -11,9 +11,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
 
-/**
- * Created by zhenglu on 3/25/17.
- */
 
 public class FollowingViewHolder extends RecyclerView.ViewHolder {
 
@@ -21,6 +18,7 @@ public class FollowingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.user_item_name) TextView userItemName;
     @BindView(R.id.user_item_location) TextView userItemLocation;
     @BindView(R.id.user_item_following) Button userItemFollowingBtn;
+    @BindView(R.id.user_item_follow) Button userItemFollowBtn;
     @BindView(R.id.user_item_view) View userItemView;
 
     public FollowingViewHolder(View itemView) {
