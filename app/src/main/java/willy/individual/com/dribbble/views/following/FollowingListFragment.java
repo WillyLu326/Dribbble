@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.User;
+import willy.individual.com.dribbble.views.auth.Auth;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.base.ShotListSpaceItemDecoration;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
@@ -65,7 +66,7 @@ public class FollowingListFragment extends Fragment {
 
         @Override
         protected List<User> doInBackground(Void... params) {
-            User user = Dribbble.getAuthUser();
+            User user = Auth.loadAuthUser(getContext());
             return Dribbble.getFollowingUsers(user.following_url, page);
         }
 

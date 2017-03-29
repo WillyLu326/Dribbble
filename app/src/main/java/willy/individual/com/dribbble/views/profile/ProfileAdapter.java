@@ -1,5 +1,8 @@
 package willy.individual.com.dribbble.views.profile;
 
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -10,6 +13,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +22,12 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.models.User;
+import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
+import willy.individual.com.dribbble.views.dribbble.Dribbble;
+import willy.individual.com.dribbble.views.shot_detail.ShotActivity;
+import willy.individual.com.dribbble.views.shot_detail.ShotFragment;
+import willy.individual.com.dribbble.views.shot_list.ShotListFragment;
 
 
 public class ProfileAdapter extends RecyclerView.Adapter {
@@ -81,9 +90,11 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                     .bitmapTransform(new BlurTransformation(profileFragment.getContext()))
                     .into(profileInfoViewHolder.profileIv);
         } else if (getItemViewType(position) == PROFILE_SHOT_TYPE) {
-            Shot shot = profileShots.get(position - 1);
+            final Shot shot = profileShots.get(position - 1);
+            shot.user = user;
+            AsyncTaskCompat.executeParallel(new IsLikeShot(shot));
 
-            ProfileShotViewHolder profileShotViewHolder = (ProfileShotViewHolder) holder;
+            final ProfileShotViewHolder profileShotViewHolder = (ProfileShotViewHolder) holder;
             profileShotViewHolder.viewsCountTv.setText(String.valueOf(shot.views_count));
             profileShotViewHolder.likesCountTv.setText(String.valueOf(shot.likes_count));
             profileShotViewHolder.bucketsCountTv.setText(String.valueOf(shot.buckets_count));
@@ -98,7 +109,9 @@ public class ProfileAdapter extends RecyclerView.Adapter {
             profileShotViewHolder.cover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(profileFragment.getContext(), "Click", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(profileFragment.getContext(), ShotActivity.class);
+                    intent.putExtra(ShotFragment.SHOT_KEY, ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
+                    profileFragment.startActivity(intent);
                 }
             });
 
@@ -134,6 +147,27 @@ public class ProfileAdapter extends RecyclerView.Adapter {
 
     public List<Shot> getData() {
         return this.profileShots;
+    }
+
+
+    private class IsLikeShot extends AsyncTask<Void, Void, Boolean> {
+
+        private Shot shot;
+
+        public IsLikeShot(Shot shot) {
+            this.shot = shot;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            return Dribbble.isLikeShot(shot.id);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            shot.isLike = aBoolean;
+        }
     }
 
 }

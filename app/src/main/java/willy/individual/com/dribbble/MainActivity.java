@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(User user) {
             super.onPostExecute(user);
-            ModelUtils.save(getApplicationContext(), USER_KEY, new TypeToken<User>(){ });
+            Auth.saveAuthUser(getApplicationContext(), user);
             ((TextView) headerView.findViewById(R.id.drawer_header_username)).setText(user.name);
             DraweeController controller = Fresco.newDraweeControllerBuilder()
                     .setUri(user.avatar_url)

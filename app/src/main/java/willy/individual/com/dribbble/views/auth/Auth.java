@@ -3,6 +3,8 @@ package willy.individual.com.dribbble.views.auth;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,6 +15,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import willy.individual.com.dribbble.models.User;
+import willy.individual.com.dribbble.utils.ModelUtils;
 
 public class Auth {
 
@@ -34,6 +38,9 @@ public class Auth {
 
     public static final String AUTH_TOKEN_SP = "auth_token";
 
+    public static final String AUTH_USER_SP = "auth_user";
+
+    public static final String ACCESS_USER_SP_KEY = "access user sp key";
 
     public static String accessToken;
 
@@ -107,4 +114,13 @@ public class Auth {
         sp.edit().putString(ACCESS_TOKEN_SP_KEY, null).apply();
     }
 
+    public static void saveAuthUser(Context context, User user) {
+        SharedPreferences sp = context.getSharedPreferences(AUTH_USER_SP, context.MODE_PRIVATE);
+        sp.edit().putString(ACCESS_USER_SP_KEY, ModelUtils.convertToString(user, new TypeToken<User>(){})).apply();
+    }
+
+    public static User loadAuthUser(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(AUTH_USER_SP, context.MODE_PRIVATE);
+        return ModelUtils.convertToObject(sp.getString(ACCESS_USER_SP_KEY, ""), new TypeToken<User>(){});
+    }
 }
