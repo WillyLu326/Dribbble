@@ -89,11 +89,11 @@ public class ProfileAdapter extends RecyclerView.Adapter {
             profileShotViewHolder.bucketsCountTv.setText(String.valueOf(shot.buckets_count));
             profileShotViewHolder.commentsCountTv.setText(String.valueOf(shot.comments_count));
 
-//            DraweeController controller = Fresco.newDraweeControllerBuilder()
-//                    .setUri(shot.getImageUrl())
-//                    .setAutoPlayAnimations(true)
-//                    .build();
-//            profileShotViewHolder.image.setController(controller);
+            DraweeController controller = Fresco.newDraweeControllerBuilder()
+                    .setUri(shot.getImageUrl())
+                    .setAutoPlayAnimations(true)
+                    .build();
+            profileShotViewHolder.image.setController(controller);
 
             profileShotViewHolder.cover.setOnClickListener(new View.OnClickListener() {
                 @Override
