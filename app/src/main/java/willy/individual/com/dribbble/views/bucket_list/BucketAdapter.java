@@ -2,6 +2,7 @@ package willy.individual.com.dribbble.views.bucket_list;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,7 +82,9 @@ public class BucketAdapter extends RecyclerView.Adapter {
             final Bucket bucket = buckets.get(position);
 
             final BucketViewHolder bucketViewHolder = (BucketViewHolder) holder;
-            bucketViewHolder.bucketNameTv.setText(bucket.name);
+            String bucketDescription = bucket.description == null ? "" :  "(" + bucket.description + ")";
+
+            bucketViewHolder.bucketNameTv.setText(bucket.name + " " + bucketDescription);
             bucketViewHolder.bucketShotCountTv.setText(String.valueOf(bucket.shots_count) + " shots");
 
             if (bucketType == MainActivity.UNCHOOSE_BUCKET_TYPE) {
