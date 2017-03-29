@@ -12,6 +12,7 @@
     <dimen name="xsmall_size">12sp</dimen>
     <dimen name="logo_size">72dp</dimen>
     <dimen name="header_image_size">64dp</dimen>
+    <dimen name="comment_image_size">52dp</dimen>
     <dimen name="drawer_header_text_size">18sp</dimen>
     <dimen name="drawer_header_height">214dp</dimen>
     <dimen name="large_space">24dp</dimen>

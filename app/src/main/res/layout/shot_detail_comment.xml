@@ -10,8 +10,8 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/shot_detail_comment_image"
-        android:layout_width="@dimen/header_image_size"
-        android:layout_height="@dimen/header_image_size"
+        android:layout_width="@dimen/comment_image_size"
+        android:layout_height="@dimen/comment_image_size"
         android:layout_marginTop="@dimen/small_space"
         android:layout_alignParentLeft="true"
         fresco:placeholderImage="@drawable/image_circle"
@@ -56,14 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textSize="@dimen/small_space"
-            tools:text="about 9 hours ago | "/>
-
-        <ImageButton
-            android:id="@+id/shot_detail_comment_like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:src="@drawable/ic_thumb_up_black_18dp"/>
+            tools:text="about 9 hours ago"/>
     </LinearLayout>
 
     <View
