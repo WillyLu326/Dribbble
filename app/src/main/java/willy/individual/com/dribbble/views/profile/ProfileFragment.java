@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -108,13 +107,5 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-
-    private List<Shot> fakeData() {
-        List<Shot> shots = new ArrayList<>();
-        for(int i = 0; i < 12; ++i) {
-            shots.add(new Shot());
-        }
-        return shots;
-    }
 }
 
