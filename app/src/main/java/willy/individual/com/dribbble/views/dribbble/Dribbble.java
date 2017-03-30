@@ -32,17 +32,12 @@ public class Dribbble {
 
     public static final String BUCKET_AUTH_USER_URL = "https://api.dribbble.com/v1/user/buckets";
 
-    /**
-     * BASE_URL + "/buckets/" + bucket_id + "/shots"
-     */
-    private static final String SHOTS_OF_BUCKET = "https://api.dribbble.com/v1/buckets/491275/shots";
-
-
     private static final String HEADER_CONTENT_TYPE = "Authorization";
 
     private static final String HEADER_VALUE = "Bearer " + Auth.accessToken;
 
     private static final int AUTH_USER_ID = getAuthUser().id;
+
 
     // Dribbble Functionality Method Below
     public static List<Shot> getPopularShots(int page) {
@@ -69,15 +64,10 @@ public class Dribbble {
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            //System.out.println(response.body().string());
             List<Like> likes = ModelUtils.convertToObject(response.body().string(), new TypeToken<List<Like>>(){});
             for (Like like : likes) {
                 likeShots.add(like.shot);
             }
-            System.out.println("====================");
-            System.out.println("========= " + likeShots.size() + " ===========");
-            System.out.println("====================");
-
             return likeShots;
         } catch (IOException e) {
             e.printStackTrace();

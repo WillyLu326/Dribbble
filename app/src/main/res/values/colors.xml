@@ -13,6 +13,7 @@
     <color name="popup_window_bg_color">#F8F8F8</color>
     <color name="popup_window_line">#EAEAEA</color>
     <color name="following_btn_color">#5EA0C7</color>
+    <color name="following_btn_text_color">#FFFFFF</color>
     <color name="follow_btn_color">#DDDDDD</color>
     <color name="follow_btn_text_color">#666666</color>
 </resources>

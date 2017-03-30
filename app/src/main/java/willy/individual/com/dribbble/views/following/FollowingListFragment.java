@@ -3,16 +3,14 @@ package willy.individual.com.dribbble.views.following;
 import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.os.AsyncTaskCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +28,7 @@ import willy.individual.com.dribbble.views.dribbble.Dribbble;
 public class FollowingListFragment extends Fragment {
 
     @BindView(R.id.following_recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.following_swipe_container) SwipeRefreshLayout swipeContainer;
 
     private FollowingListAdapter adapter;
 
@@ -48,33 +47,59 @@ public class FollowingListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        setupSwipeContainer();
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.xsmall_space)));
         adapter = new FollowingListAdapter(new ArrayList<User>(), this, new OnLoadingMoreListener() {
             @Override
             public void onLoadingMore() {
-                AsyncTaskCompat.executeParallel(new UserFollowingTask());
+                AsyncTaskCompat.executeParallel(new UserFollowingTask(false));
             }
         });
         recyclerView.setAdapter(adapter);
     }
 
+    private void setupSwipeContainer() {
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                AsyncTaskCompat.executeParallel(new UserFollowingTask(true));
+            }
+        });
+        swipeContainer.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, null));
+    }
 
     private class UserFollowingTask extends AsyncTask<Void, Void, List<User>> {
 
-        int page = adapter.followingUsers.size() / 12 + 1;
+        private int page;
+        private boolean refresh;
+
+        public UserFollowingTask(boolean refresh) {
+            this.refresh = refresh;
+            this.page = adapter.followingUsers.size() / 12 + 1;
+        }
 
         @Override
         protected List<User> doInBackground(Void... params) {
             User user = Auth.loadAuthUser(getContext());
-            return Dribbble.getFollowingUsers(user.following_url, page);
+            return refresh ? Dribbble.getFollowingUsers(user.following_url, 1)
+                            :Dribbble.getFollowingUsers(user.following_url, page);
         }
 
         @Override
         protected void onPostExecute(List<User> users) {
             super.onPostExecute(users);
-            adapter.append(users);
-            adapter.toggleSpinner(adapter.followingUsers.size() / 12 >= page);
+            if (refresh) {
+                adapter.clearAll();
+                adapter.append(users);
+                swipeContainer.setRefreshing(false);
+            } else {
+                adapter.append(users);
+                adapter.toggleSpinner(adapter.followingUsers.size() / 12 >= page);
+            }
         }
     }
+
 }

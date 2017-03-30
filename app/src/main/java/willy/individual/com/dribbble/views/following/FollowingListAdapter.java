@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,25 +87,7 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
                 }
             });
 
-            // Follow & Unfollow
-            followingViewHolder.userItemFollowBtn.setVisibility(View.GONE);
-            followingViewHolder.userItemFollowingBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AsyncTaskCompat.executeParallel(new UnfollowUserTask(user.username));
-                    followingViewHolder.userItemFollowBtn.setVisibility(View.VISIBLE);
-                    followingViewHolder.userItemFollowingBtn.setVisibility(View.GONE);
-                }
-            });
-
-            followingViewHolder.userItemFollowBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AsyncTaskCompat.executeParallel(new FollowUserTask(user.username));
-                    followingViewHolder.userItemFollowingBtn.setVisibility(View.VISIBLE);
-                    followingViewHolder.userItemFollowBtn.setVisibility(View.GONE);
-                }
-            });
+            followingViewHolder.userItemShotsCount.setText(String.valueOf(user.shots_count));
 
         } else if (getItemViewType(position) == FOLLOWING_SPINNER_TYPE) {
             onLoadingMoreListener.onLoadingMore();
@@ -136,6 +119,11 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
     public void toggleSpinner(boolean isShowingSpinner) {
         this.isShowingSpinner = isShowingSpinner;
         notifyDataSetChanged();
+    }
+
+    public void clearAll() {
+        this.followingUsers.clear();
+        notifyDataSetChanged();;
     }
 
     private class FollowUserTask extends AsyncTask<Void, Void, Void> {
