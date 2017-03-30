@@ -1,6 +1,8 @@
 package willy.individual.com.dribbble.views.profile;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +27,7 @@ import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
+import willy.individual.com.dribbble.views.shot_detail.ShotFragment;
 
 
 public class ProfileFragment extends Fragment {
@@ -42,6 +45,22 @@ public class ProfileFragment extends Fragment {
         args.putString(USER_STRING_KEY, userString);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ProfileAdapter.PROFILE_SHOT_REQ && resultCode == Activity.RESULT_OK) {
+            Shot updatedShot = ModelUtils.convertToObject(data.getStringExtra(ShotFragment.SHOT_KEY), new TypeToken<Shot>(){});
+            for (int i = 0; i < profileAdapter.getData().size(); ++i) {
+                Shot shot = profileAdapter.getData().get(i);
+                if (shot.id == updatedShot.id) {
+                    profileAdapter.getData().set(i, updatedShot);
+                    profileAdapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+        }
     }
 
     @Nullable

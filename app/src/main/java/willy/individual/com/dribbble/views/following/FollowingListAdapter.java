@@ -73,6 +73,7 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
                     .build();
             followingViewHolder.userItemImage.setController(controller);
 
+            // Jump to ProfileActivity
             followingViewHolder.userItemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

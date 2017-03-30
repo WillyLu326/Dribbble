@@ -32,6 +32,8 @@ import willy.individual.com.dribbble.views.shot_list.ShotListFragment;
 
 public class ProfileAdapter extends RecyclerView.Adapter {
 
+    public static final int PROFILE_SHOT_REQ = 114;
+
     private static final int PROFILE_INFO_TYPE = 0;
     private static final int PROFILE_SHOT_TYPE = 1;
     private static final int PROFILE_SPINNER = 2;
@@ -114,7 +116,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     Intent intent = new Intent(profileFragment.getContext(), ShotActivity.class);
                     intent.putExtra(ShotFragment.SHOT_KEY, ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
-                    profileFragment.startActivity(intent);
+                    profileFragment.startActivityForResult(intent, PROFILE_SHOT_REQ);
                 }
             });
 
