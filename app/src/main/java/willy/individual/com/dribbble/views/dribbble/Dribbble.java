@@ -347,4 +347,19 @@ public class Dribbble {
             return null;
         }
     }
+
+    public static void followUser(String username) {
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(BASE_URL + "/users/" + username + "/follow")
+                .put(new FormBody.Builder().build())
+                .build();
+        try {
+            client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

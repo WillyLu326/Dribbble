@@ -38,7 +38,6 @@ public class ProfileFragment extends Fragment {
 
     @BindView(R.id.profile_recycler_view) RecyclerView recyclerView;
 
-
     public static ProfileFragment newInstance(String userString) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
