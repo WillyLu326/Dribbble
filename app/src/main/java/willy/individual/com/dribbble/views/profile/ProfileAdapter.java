@@ -1,6 +1,8 @@
 package willy.individual.com.dribbble.views.profile;
 
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
@@ -22,6 +24,7 @@ import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
+import willy.individual.com.dribbble.views.dribbble.Dribbble;
 import willy.individual.com.dribbble.views.shot_detail.ShotActivity;
 import willy.individual.com.dribbble.views.shot_detail.ShotFragment;
 
@@ -39,6 +42,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
     private ProfileFragment profileFragment;
     private OnLoadingMoreListener onLoadingMoreListener;
     private boolean showingSpinner;
+    private ProfileInfoViewHolder profileInfoViewHolder;
 
     public ProfileAdapter(User user,
                           ProfileFragment profileFragment,
@@ -72,10 +76,11 @@ public class ProfileAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == PROFILE_INFO_TYPE) {
-            ProfileInfoViewHolder profileInfoViewHolder = (ProfileInfoViewHolder) holder;
-            profileInfoViewHolder.profileUsername.setText(user.name);
-            profileInfoViewHolder.profileLocation.setText(user.location == null ? "No Location" : user.location);
-            profileInfoViewHolder.profileDescription.setText(Html.fromHtml(user.bio, 0));
+            profileInfoViewHolder = (ProfileInfoViewHolder) holder;
+
+            AsyncTaskCompat.executeParallel(new CheckUserFollowing(user.username));
+
+            // Setup User Avatar
             DraweeController controller = Fresco.newDraweeControllerBuilder()
                     .setUri(user.avatar_url)
                     .setAutoPlayAnimations(true)
@@ -87,6 +92,11 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                     .centerCrop()
                     .bitmapTransform(new BlurTransformation(profileFragment.getContext()))
                     .into(profileInfoViewHolder.profileIv);
+
+            // Setup User Info
+            profileInfoViewHolder.profileUsername.setText(user.name);
+            profileInfoViewHolder.profileLocation.setText(user.location == null ? "No Location" : user.location);
+            profileInfoViewHolder.profileDescription.setText(Html.fromHtml(user.bio, 0));
             profileInfoViewHolder.profileLikesCount.setText("Likes  " + String.valueOf(user.likes_count));
             profileInfoViewHolder.profileFollowersCount.setText("Followers  " + String.valueOf(user.followers_count));
 
@@ -149,5 +159,92 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         return this.profileShots;
     }
 
+    private class FollowUser extends AsyncTask<Void, Void, Void> {
 
+        private String username;
+
+        public FollowUser(String username) {
+            this.username = username;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Dribbble.followUser(username);
+            return null;
+        }
+    }
+
+    private class UnfollowUser extends AsyncTask<Void, Void, Void> {
+
+        private String username;
+
+        public UnfollowUser(String username) {
+            this.username = username;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Dribbble.unfollowUser(username);
+            return null;
+        }
+    }
+
+    private class CheckUserFollowing extends AsyncTask<Void, Void, Boolean> {
+
+        private String username;
+
+        public CheckUserFollowing(String username) {
+            this.username = username;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            return Dribbble.isFollowingUser(username);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean isFollowing) {
+            super.onPostExecute(isFollowing);
+            user.isFollowing = isFollowing;
+            if (user.isFollowing) {
+                profileInfoViewHolder.profileStatusBtn
+                        .setText(profileFragment.getResources().getString(R.string.following));
+                profileInfoViewHolder.profileStatusBtn
+                        .setTextColor(profileFragment.getResources().getColor(R.color.following_btn_text_color, null));
+                profileInfoViewHolder.profileStatusBtn
+                        .setBackground(profileFragment.getResources().getDrawable(R.drawable.following_btn, null));
+            } else {
+                profileInfoViewHolder.profileStatusBtn
+                        .setText(profileFragment.getResources().getString(R.string.follow));
+                profileInfoViewHolder.profileStatusBtn
+                        .setTextColor(profileFragment.getResources().getColor(R.color.follow_btn_text_color, null));
+                profileInfoViewHolder.profileStatusBtn
+                        .setBackground(profileFragment.getResources().getDrawable(R.drawable.follow_btn));
+            }
+
+            profileInfoViewHolder.profileStatusBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    user.isFollowing = !user.isFollowing;
+                    if (user.isFollowing) {
+                        AsyncTaskCompat.executeParallel(new FollowUser(user.username));
+                        profileInfoViewHolder.profileStatusBtn
+                                .setText(profileFragment.getResources().getString(R.string.following));
+                        profileInfoViewHolder.profileStatusBtn
+                                .setTextColor(profileFragment.getResources().getColor(R.color.following_btn_text_color, null));
+                        profileInfoViewHolder.profileStatusBtn
+                                .setBackgroundColor(profileFragment.getResources().getColor(R.color.following_btn_color, null));
+                    } else {
+                        AsyncTaskCompat.executeParallel(new UnfollowUser(user.username));
+                        profileInfoViewHolder.profileStatusBtn
+                                .setText(profileFragment.getResources().getString(R.string.follow));
+                        profileInfoViewHolder.profileStatusBtn
+                                .setTextColor(profileFragment.getResources().getColor(R.color.follow_btn_text_color, null));
+                        profileInfoViewHolder.profileStatusBtn
+                                .setBackgroundColor(profileFragment.getResources().getColor(R.color.follow_btn_color, null));
+                    }
+                }
+            });
+        }
+    }
 }

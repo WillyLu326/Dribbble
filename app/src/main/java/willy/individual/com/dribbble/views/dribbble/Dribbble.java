@@ -389,6 +389,7 @@ public class Dribbble {
             return response.code() == 204;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
     }
 }

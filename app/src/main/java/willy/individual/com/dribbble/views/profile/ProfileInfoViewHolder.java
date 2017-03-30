@@ -20,7 +20,7 @@ public class ProfileInfoViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.profile_username) TextView profileUsername;
     @BindView(R.id.profile_location) TextView profileLocation;
     @BindView(R.id.profile_description) TextView profileDescription;
-    @BindView(R.id.profile_status_btn) Button profileBtn;
+    @BindView(R.id.profile_status_btn) TextView profileStatusBtn;
     @BindView(R.id.profile_background) ImageView profileIv;
     @BindView(R.id.profile_info_content) ViewGroup profileContent;
     @BindView(R.id.profile_likes_count) TextView profileLikesCount;

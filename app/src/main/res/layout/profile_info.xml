@@ -60,13 +60,15 @@
             android:textSize="@dimen/xsmall_size"
             tools:text="Hi! I am a Freelance Illustrator and Designer, available for hire: savic.a@live.com" />
 
-        <Button
+        <TextView
             android:id="@+id/profile_status_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="@dimen/medium_space"
-            android:backgroundTint="@color/following_btn_color"
+            android:clickable="true"
+            android:elevation="@dimen/xsmall_space"
+            android:background="@drawable/following_btn"
             android:text="@string/following"
             android:textAllCaps="false"
             android:textColor="@android:color/white" />

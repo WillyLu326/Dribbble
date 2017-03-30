@@ -41,4 +41,5 @@ public class User {
     public String created_at;
     public String updated_at;
 
+    public boolean isFollowing;
 }
