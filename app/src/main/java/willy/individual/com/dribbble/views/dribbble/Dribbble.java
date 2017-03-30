@@ -361,5 +361,16 @@ public class Dribbble {
         }
     }
 
-
+    public static void unfollowUser(String username) {
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(BASE_URL + "/users/" + username + "/follow")
+                .delete()
+                .build();
+        try {
+            client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
