@@ -66,6 +66,8 @@ public class FollowingListFragment extends Fragment {
             public void onLoadingMore() {
                 if (followType == MainActivity.FOLLOWING_TYPE) {
                     AsyncTaskCompat.executeParallel(new UserFollowingTask(false));
+                } else if (followType == MainActivity.FOLLOWER_TYPE) {
+
                 }
             }
         });
@@ -113,4 +115,34 @@ public class FollowingListFragment extends Fragment {
         }
     }
 
+    private class UserFollowerTask extends AsyncTask<Void, Void, List<User>> {
+
+        private int page;
+        private boolean refresh;
+
+        public UserFollowerTask(boolean refresh) {
+            this.refresh = refresh;
+            this.page = adapter.followingUsers.size() / 12 + 1;
+        }
+
+        @Override
+        protected List<User> doInBackground(Void... params) {
+            User user = Auth.loadAuthUser(getContext());
+            return refresh ? Dribbble.getFollowingUsers(user.following_url, 1)
+                    :Dribbble.getFollowingUsers(user.following_url, page);
+        }
+
+        @Override
+        protected void onPostExecute(List<User> users) {
+            super.onPostExecute(users);
+            if (refresh) {
+                adapter.clearAll();
+                adapter.append(users);
+                swipeContainer.setRefreshing(false);
+            } else {
+                adapter.append(users);
+                adapter.toggleSpinner(adapter.followingUsers.size() / 12 >= page);
+            }
+        }
+    }
 }
