@@ -378,4 +378,17 @@ public class Dribbble {
             e.printStackTrace();
         }
     }
+
+    public static boolean isFollowingUser(String username) {
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(BASE_URL + "/user/following/" + username)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            return response.code() == 204;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

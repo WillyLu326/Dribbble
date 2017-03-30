@@ -149,4 +149,5 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         return this.profileShots;
     }
 
+
 }
