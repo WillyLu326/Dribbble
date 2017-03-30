@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
+import willy.individual.com.dribbble.MainActivity;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
@@ -34,13 +35,16 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
 
     private boolean isShowingSpinner;
     public List<User> followingUsers;
+    private int followType;
     private FollowingListFragment followingListFragment;
     private OnLoadingMoreListener onLoadingMoreListener;
 
     public FollowingListAdapter(List<User> followingUsers,
+                                int followType,
                                 FollowingListFragment followingListFragment,
                                 OnLoadingMoreListener onLoadingMoreListener) {
         this.followingUsers = followingUsers;
+        this.followType = followType;
         this.followingListFragment = followingListFragment;
         this.onLoadingMoreListener = onLoadingMoreListener;
         this.isShowingSpinner = true;
@@ -64,7 +68,15 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == FOLLOWING_LIST_TYPE) {
-            final User user = followingUsers.get(position).followee;
+            final User user;
+
+            if (followType == MainActivity.FOLLOWING_TYPE) {
+                user = followingUsers.get(position).followee;
+            } else if (followType == MainActivity.FOLLOWER_TYPE) {
+                user = followingUsers.get(position).follower;
+            } else {
+                user = new User();
+            }
 
             final FollowingViewHolder followingViewHolder = (FollowingViewHolder) holder;
             followingViewHolder.userItemName.setText(user.name);

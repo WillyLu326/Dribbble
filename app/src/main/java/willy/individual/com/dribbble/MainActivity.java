@@ -151,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.drawer_menu_follower :
                         setTitle(R.string.follower_title);
+                        fragment = FollowingListFragment.newInstance(FOLLOWER_TYPE);
                 }
 
                 drawerLayout.closeDrawers();

@@ -55,50 +55,54 @@ public class FollowingListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setupSwipeContainer();
-
         final int followType = getArguments().getInt(FOLLOW_TYPE_KEY);
+
+        setupSwipeContainer(followType);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.xsmall_space)));
-        adapter = new FollowingListAdapter(new ArrayList<User>(), this, new OnLoadingMoreListener() {
+        adapter = new FollowingListAdapter(new ArrayList<User>(), followType, this, new OnLoadingMoreListener() {
             @Override
             public void onLoadingMore() {
-                if (followType == MainActivity.FOLLOWING_TYPE) {
-                    AsyncTaskCompat.executeParallel(new UserFollowingTask(false));
-                } else if (followType == MainActivity.FOLLOWER_TYPE) {
-
-                }
+                AsyncTaskCompat.executeParallel(new UserFollowUsersTask(followType, false));
             }
         });
         recyclerView.setAdapter(adapter);
     }
 
-    private void setupSwipeContainer() {
+    private void setupSwipeContainer(final int followType) {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                AsyncTaskCompat.executeParallel(new UserFollowingTask(true));
+                AsyncTaskCompat.executeParallel(new UserFollowUsersTask(followType, true));
             }
         });
         swipeContainer.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, null));
     }
 
-    private class UserFollowingTask extends AsyncTask<Void, Void, List<User>> {
+    private class UserFollowUsersTask extends AsyncTask<Void, Void, List<User>> {
 
         private int page;
+        private int followType;
         private boolean refresh;
 
-        public UserFollowingTask(boolean refresh) {
+        public UserFollowUsersTask(int followType, boolean refresh) {
             this.refresh = refresh;
+            this.followType = followType;
             this.page = adapter.followingUsers.size() / 12 + 1;
         }
 
         @Override
         protected List<User> doInBackground(Void... params) {
             User user = Auth.loadAuthUser(getContext());
-            return refresh ? Dribbble.getFollowingUsers(user.following_url, 1)
-                            :Dribbble.getFollowingUsers(user.following_url, page);
+            if (followType == MainActivity.FOLLOWING_TYPE) {
+                return refresh ? Dribbble.getFollowingUsers(user.following_url, 1)
+                        : Dribbble.getFollowingUsers(user.following_url, page);
+            } else if (followType == MainActivity.FOLLOWER_TYPE) {
+                return refresh ? Dribbble.getFollowerUser(user.followers_url, 1)
+                        : Dribbble.getFollowerUser(user.followers_url, page);
+            }
+            return new ArrayList<>();
         }
 
         @Override
@@ -115,34 +119,4 @@ public class FollowingListFragment extends Fragment {
         }
     }
 
-    private class UserFollowerTask extends AsyncTask<Void, Void, List<User>> {
-
-        private int page;
-        private boolean refresh;
-
-        public UserFollowerTask(boolean refresh) {
-            this.refresh = refresh;
-            this.page = adapter.followingUsers.size() / 12 + 1;
-        }
-
-        @Override
-        protected List<User> doInBackground(Void... params) {
-            User user = Auth.loadAuthUser(getContext());
-            return refresh ? Dribbble.getFollowingUsers(user.following_url, 1)
-                    :Dribbble.getFollowingUsers(user.following_url, page);
-        }
-
-        @Override
-        protected void onPostExecute(List<User> users) {
-            super.onPostExecute(users);
-            if (refresh) {
-                adapter.clearAll();
-                adapter.append(users);
-                swipeContainer.setRefreshing(false);
-            } else {
-                adapter.append(users);
-                adapter.toggleSpinner(adapter.followingUsers.size() / 12 >= page);
-            }
-        }
-    }
 }

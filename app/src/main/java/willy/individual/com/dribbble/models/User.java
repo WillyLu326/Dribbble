@@ -18,6 +18,7 @@ public class User {
     public String location;
     public Map<String, String> links;
     public User followee;
+    public User follower;
     public int buckets_count;
     public int comments_received_count;
     public int followers_count;
@@ -40,7 +41,4 @@ public class User {
     public String created_at;
     public String updated_at;
 
-    public User(String name) {
-        this.name = name;
-    }
 }

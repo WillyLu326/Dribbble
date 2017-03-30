@@ -323,6 +323,21 @@ public class Dribbble {
         }
     }
 
+    public static List<User> getFollowerUser(String url, int page) {
+        Request request = new Request.Builder()
+                .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
+                .url(url + "?page=" + page)
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            return ModelUtils.convertToObject(response.body().string(), new TypeToken<List<User>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static List<Shot> getSpecificUserShots(String username, int page) {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
