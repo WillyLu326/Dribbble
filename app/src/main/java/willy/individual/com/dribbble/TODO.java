@@ -11,8 +11,8 @@ public class TODO {
      *      2.1 Bucket Unchoosen Pull to Refresh ===> Done!!
      *      2.2 Bucket Choosen CRUD Operations ===> Done!!
      *      2.3 Add Description     ===> Done!!
-     *  3. User Following
-     *  4. User Follower
+     *  3. User Following       ===> Done!!
+     *  4. User Follower        ===> Done!!
      *  5. Check User Profile
      *  6. Save Image to Phone
      *  7. Navigation Drawer Layout ===> Done!!

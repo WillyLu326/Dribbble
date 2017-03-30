@@ -1,10 +1,7 @@
 package willy.individual.com.dribbble.views.following;
 
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +17,6 @@ import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
-import willy.individual.com.dribbble.views.dribbble.Dribbble;
 import willy.individual.com.dribbble.views.profile.ProfileActivity;
 
 
