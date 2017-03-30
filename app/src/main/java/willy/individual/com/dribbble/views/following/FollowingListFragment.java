@@ -17,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import willy.individual.com.dribbble.MainActivity;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.views.auth.Auth;
@@ -30,10 +31,16 @@ public class FollowingListFragment extends Fragment {
     @BindView(R.id.following_recycler_view) RecyclerView recyclerView;
     @BindView(R.id.following_swipe_container) SwipeRefreshLayout swipeContainer;
 
+    private static final String FOLLOW_TYPE_KEY = "follow_type_key";
+
     private FollowingListAdapter adapter;
 
-    public static FollowingListFragment newInstance() {
-        return new FollowingListFragment();
+    public static FollowingListFragment newInstance(int followType) {
+        Bundle args = new Bundle();
+        args.putInt(FOLLOW_TYPE_KEY, followType);
+        FollowingListFragment fragment = new FollowingListFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Nullable
@@ -50,12 +57,16 @@ public class FollowingListFragment extends Fragment {
 
         setupSwipeContainer();
 
+        final int followType = getArguments().getInt(FOLLOW_TYPE_KEY);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.xsmall_space)));
         adapter = new FollowingListAdapter(new ArrayList<User>(), this, new OnLoadingMoreListener() {
             @Override
             public void onLoadingMore() {
-                AsyncTaskCompat.executeParallel(new UserFollowingTask(false));
+                if (followType == MainActivity.FOLLOWING_TYPE) {
+                    AsyncTaskCompat.executeParallel(new UserFollowingTask(false));
+                }
             }
         });
         recyclerView.setAdapter(adapter);

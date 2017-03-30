@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int BUCKET_SHOT_LIST_TYPE = 4;
 
-    public static final String USER_KEY = "user_key";
+    public static final int FOLLOWING_TYPE = 5;
+    public static final int FOLLOWER_TYPE = 6;
 
     private ActionBarDrawerToggle drawerToggle;
 
@@ -146,8 +147,10 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.drawer_menu_following :
                         setTitle(R.string.following_title);
-                        fragment = FollowingListFragment.newInstance();
+                        fragment = FollowingListFragment.newInstance(FOLLOWING_TYPE);
                         break;
+                    case R.id.drawer_menu_follower :
+                        setTitle(R.string.follower_title);
                 }
 
                 drawerLayout.closeDrawers();

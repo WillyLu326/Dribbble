@@ -125,34 +125,4 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
         this.followingUsers.clear();
         notifyDataSetChanged();;
     }
-
-    private class FollowUserTask extends AsyncTask<Void, Void, Void> {
-
-        private String username;
-
-        public FollowUserTask(String username) {
-            this.username = username;
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            Dribbble.followUser(username);
-            return null;
-        }
-    }
-
-    private class UnfollowUserTask extends AsyncTask<Void, Void, Void> {
-
-        private String username;
-
-        public UnfollowUserTask(String username) {
-            this.username = username;
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            Dribbble.unfollowUser(username);
-            return null;
-        }
-    }
 }
