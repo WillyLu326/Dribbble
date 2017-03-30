@@ -150,4 +150,19 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
             return null;
         }
     }
+
+    private class UnfollowUserTask extends AsyncTask<Void, Void, Void> {
+
+        private String username;
+
+        public UnfollowUserTask(String username) {
+            this.username = username;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Dribbble.unfollowUser(username);
+            return null;
+        }
+    }
 }
