@@ -1,6 +1,7 @@
 package willy.individual.com.dribbble.views.following;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
+import willy.individual.com.dribbble.views.dribbble.Dribbble;
 import willy.individual.com.dribbble.views.profile.ProfileActivity;
 
 
@@ -84,6 +86,7 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
                 }
             });
 
+            // Follow & Unfollow
             followingViewHolder.userItemFollowBtn.setVisibility(View.GONE);
             followingViewHolder.userItemFollowingBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -131,5 +134,20 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
     public void toggleSpinner(boolean isShowingSpinner) {
         this.isShowingSpinner = isShowingSpinner;
         notifyDataSetChanged();
+    }
+
+    private class FollowUserTask extends AsyncTask<Void, Void, Void> {
+
+        private String username;
+
+        public FollowUserTask(String username) {
+            this.username = username;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Dribbble.followUser(username);
+            return null;
+        }
     }
 }
