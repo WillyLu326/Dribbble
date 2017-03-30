@@ -20,13 +20,11 @@ import android.widget.Toast;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.gson.reflect.TypeToken;
 
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.models.User;
-import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
 import willy.individual.com.dribbble.views.following.FollowingListFragment;
 import willy.individual.com.dribbble.views.login.LoginActivity;
