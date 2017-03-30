@@ -83,7 +83,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:padding="@dimen/large_space">
+        android:paddingLeft="@dimen/large_space"
+        android:paddingRight="@dimen/large_space"
+        android:paddingTop="@dimen/medium_space"
+        android:paddingBottom="@dimen/medium_space">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/shot_detail_info_user_image"
@@ -103,7 +106,7 @@
             android:layout_alignTop="@id/shot_detail_info_user_image"
             android:layout_marginLeft="@dimen/medium_space"
             android:layout_toRightOf="@id/shot_detail_info_user_image"
-            android:textSize="@dimen/large_size"
+            android:textSize="@dimen/medium_size"
             android:textStyle="bold"
             tools:text="User Name" />
 
@@ -112,10 +115,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/shot_detail_info_username"
-            android:layout_marginTop="@dimen/large_space"
+            android:layout_marginTop="@dimen/medium_space"
             android:layout="@id/shot_detail_info_user_info"
             android:paddingTop="@dimen/small_space"
-            android:textSize="@dimen/medium_size"
+            android:textSize="@dimen/small_size"
             tools:text="user account name" />
     </RelativeLayout>
 
@@ -123,7 +126,7 @@
         android:id="@+id/shot_detail_info_user_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/medium_space"
+        android:paddingBottom="@dimen/xsmall_space"
         android:paddingLeft="@dimen/large_space"
         android:paddingRight="@dimen/large_space"
         android:textSize="@dimen/small_size"

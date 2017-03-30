@@ -25,7 +25,7 @@
         android:layout_toRightOf="@+id/shot_detail_comment_image"
         android:layout_marginTop="@dimen/small_space"
         android:layout_marginLeft="@dimen/small_space"
-        android:textSize="@dimen/medium_size"
+        android:textSize="@dimen/lmedium_size"
         android:textStyle="bold"
         tools:text="User Name"/>
 
@@ -38,7 +38,7 @@
         android:layout_marginRight="@dimen/small_space"
         android:layout_toRightOf="@+id/shot_detail_comment_image"
         android:layout_below="@id/shot_detail_comment_name"
-        android:textSize="@dimen/small_size"
+        android:textSize="@dimen/lsmall_size"
         tools:text="Adorable cows for sure!"/>
 
     <LinearLayout
