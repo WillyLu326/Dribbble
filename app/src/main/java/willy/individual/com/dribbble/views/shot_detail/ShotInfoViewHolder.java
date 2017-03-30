@@ -27,6 +27,8 @@ public class ShotInfoViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.shot_detail_line) View line;
     @BindView(R.id.shot_detail_response) TextView commentResponseTv;
 
+    @BindView(R.id.shot_detail_info_profile) View profileView;
+
     public ShotInfoViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);

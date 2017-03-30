@@ -21,10 +21,13 @@ import willy.individual.com.dribbble.MainActivity;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Comment;
 import willy.individual.com.dribbble.models.Shot;
+import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.bucket_list.BucketListActivity;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
+import willy.individual.com.dribbble.views.following.FollowingListAdapter;
+import willy.individual.com.dribbble.views.profile.ProfileActivity;
 import willy.individual.com.dribbble.views.shot_imgae_activity.ShotImageActivity;
 
 
@@ -113,7 +116,6 @@ public class ShotAdapter extends RecyclerView.Adapter {
 
             AsyncTaskCompat.executeParallel(new IsLikeShot(shot));
 
-
             shotInfoViewHolder.shotInfoBucketCountTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -136,6 +138,17 @@ public class ShotAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     shotFragment.bucket();
+                }
+            });
+
+
+            shotInfoViewHolder.profileView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(shotFragment.getActivity(), ProfileActivity.class);
+                    intent.putExtra(FollowingListAdapter.FOLLOWEE_TYPE, ModelUtils.convertToString(shot.user, new TypeToken<User>(){}));
+                    intent.putExtra(FollowingListAdapter.FOLLOWEE_NAME, shot.user.name);
+                    shotFragment.startActivity(intent);
                 }
             });
 
