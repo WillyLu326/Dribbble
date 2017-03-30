@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/profile_info_content"
@@ -13,12 +12,12 @@
         android:id="@+id/profile_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/profile_avatar"
@@ -28,92 +27,90 @@
             android:layout_marginTop="@dimen/medium_space"
             fresco:actualImageScaleType="centerCrop"
             fresco:placeholderImage="@drawable/image_circle"
-            fresco:roundedCornerRadius="50dp"/>
+            fresco:roundedCornerRadius="50dp" />
 
         <TextView
             android:id="@+id/profile_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginTop="@dimen/small_space"
+            android:gravity="center"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/large_size"
             android:textStyle="bold"
-            android:textColor="@android:color/white"
-            tools:text="Willy Lu"/>
+            tools:text="Willy Lu" />
 
         <TextView
             android:id="@+id/profile_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginTop="@dimen/small_space"
-            android:textSize="@dimen/xmedium_size"
+            android:gravity="center"
             android:textColor="@android:color/white"
-            tools:text="Location"/>
+            android:textSize="@dimen/xmedium_size"
+            tools:text="Location" />
 
         <TextView
             android:id="@+id/profile_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
             android:layout_margin="@dimen/small_space"
-            android:textSize="@dimen/xsmall_size"
+            android:textAlignment="center"
             android:textColor="@android:color/white"
-            tools:text="Hi! I am a Freelance Illustrator and Designer, available for hire: savic.a@live.com"/>
+            android:textSize="@dimen/xsmall_size"
+            tools:text="Hi! I am a Freelance Illustrator and Designer, available for hire: savic.a@live.com" />
 
         <Button
             android:id="@+id/profile_status_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/following"
+            android:padding="@dimen/medium_space"
             android:backgroundTint="@color/following_btn_color"
-            android:textColor="@android:color/white"/>
+            android:text="@string/following"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/profile_shots_count"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center_vertical"
-                android:padding="@dimen/small_space"
-                android:textAlignment="center"
-                android:textSize="@dimen/xsmall_size"
-                android:text="Shot 3000"
-                android:drawableLeft="@drawable/ic_inbox_pink_18dp"
-                android:textColor="@android:color/white"
-                tools:text="Shot 3000"/>
 
             <TextView
                 android:id="@+id/profile_likes_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/small_space"
+                android:layout_marginBottom="@dimen/small_space"
+                android:layout_marginLeft="@dimen/medium_space"
+                android:layout_marginRight="@dimen/small_space"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_favorite_white_18dp"
+                android:background="@drawable/profile_info_bg"
                 android:padding="@dimen/small_space"
                 android:textAlignment="center"
-                android:textSize="@dimen/xsmall_size"
-                android:drawableLeft="@drawable/ic_favorite_pink_18dp"
-                android:text="Likes 3000"
                 android:textColor="@android:color/white"
-                tools:text="Likes 3000"/>
+                android:textSize="@dimen/xsmall_size"
+                android:textStyle="bold"
+                tools:text="Likes 3" />
 
             <TextView
                 android:id="@+id/profile_followers_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center_vertical"
+                android:layout_marginBottom="@dimen/small_space"
+                android:layout_marginRight="@dimen/medium_space"
+                android:layout_marginTop="@dimen/small_space"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_group_white_18dp"
+                android:background="@drawable/profile_info_bg"
                 android:padding="@dimen/small_space"
                 android:textAlignment="center"
-                android:textSize="@dimen/xsmall_size"
-                android:drawableLeft="@drawable/ic_group_pink_18dp"
-                android:text="Followers 3000"
                 android:textColor="@android:color/white"
-                tools:text="Followers 3000"/>
+                android:textSize="@dimen/xsmall_size"
+                android:textStyle="bold"
+                tools:text="3" />
         </LinearLayout>
     </LinearLayout>
 

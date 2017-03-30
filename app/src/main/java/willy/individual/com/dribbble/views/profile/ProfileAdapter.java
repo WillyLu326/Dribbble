@@ -3,6 +3,7 @@ package willy.individual.com.dribbble.views.profile;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +74,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         if (getItemViewType(position) == PROFILE_INFO_TYPE) {
             ProfileInfoViewHolder profileInfoViewHolder = (ProfileInfoViewHolder) holder;
             profileInfoViewHolder.profileUsername.setText(user.name);
-            profileInfoViewHolder.profileLocation.setText(user.location);
+            profileInfoViewHolder.profileLocation.setText(user.location == null ? "No Location" : user.location);
             profileInfoViewHolder.profileDescription.setText(Html.fromHtml(user.bio, 0));
             DraweeController controller = Fresco.newDraweeControllerBuilder()
                     .setUri(user.avatar_url)
@@ -86,9 +87,8 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                     .centerCrop()
                     .bitmapTransform(new BlurTransformation(profileFragment.getContext()))
                     .into(profileInfoViewHolder.profileIv);
-            profileInfoViewHolder.profileShotsCount.setText("Shots " + String.valueOf(user.shots_count));
-            profileInfoViewHolder.profileLikesCount.setText("Likes " + String.valueOf(user.likes_count));
-            profileInfoViewHolder.profileFollowersCount.setText("Followers " + String.valueOf(user.followers_count));
+            profileInfoViewHolder.profileLikesCount.setText("Likes  " + String.valueOf(user.likes_count));
+            profileInfoViewHolder.profileFollowersCount.setText("Followers  " + String.valueOf(user.followers_count));
 
         } else if (getItemViewType(position) == PROFILE_SHOT_TYPE) {
             final Shot shot = profileShots.get(position - 1);

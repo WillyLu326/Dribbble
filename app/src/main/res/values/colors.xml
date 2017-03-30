@@ -7,6 +7,7 @@
 
     <color name="black">#000000</color>
     <color name="grey">#35363A</color>
+    <color name="profile_info_bg">#94C87C</color>
 
     <color name="place_holder_bg">#CCCCCC</color>
     <color name="line_color">#DDDDDD</color>
