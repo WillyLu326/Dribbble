@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
@@ -152,6 +153,13 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.drawer_menu_follower :
                         setTitle(R.string.follower_title);
                         fragment = FollowingListFragment.newInstance(FOLLOWER_TYPE);
+                        break;
+                    case R.id.drawer_menu_about :
+                        Toast.makeText(getApplicationContext(), "About", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.drawer_menu_logout :
+                        Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
+                        break;
                 }
 
                 drawerLayout.closeDrawers();
