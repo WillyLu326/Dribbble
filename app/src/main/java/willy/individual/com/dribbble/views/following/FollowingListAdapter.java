@@ -2,6 +2,7 @@ package willy.individual.com.dribbble.views.following;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,6 +92,7 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
             followingViewHolder.userItemFollowingBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    AsyncTaskCompat.executeParallel(new UnfollowUserTask(user.username));
                     followingViewHolder.userItemFollowBtn.setVisibility(View.VISIBLE);
                     followingViewHolder.userItemFollowingBtn.setVisibility(View.GONE);
                 }
@@ -99,6 +101,7 @@ public class FollowingListAdapter extends RecyclerView.Adapter {
             followingViewHolder.userItemFollowBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    AsyncTaskCompat.executeParallel(new FollowUserTask(user.username));
                     followingViewHolder.userItemFollowingBtn.setVisibility(View.VISIBLE);
                     followingViewHolder.userItemFollowBtn.setVisibility(View.GONE);
                 }
