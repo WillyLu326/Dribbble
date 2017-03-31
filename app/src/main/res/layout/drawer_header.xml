@@ -53,11 +53,6 @@
                 android:textColor="@android:color/white"
                 android:textStyle="italic"
                 android:textSize="@dimen/xsmall_size" />
-
         </LinearLayout>
-
-
     </RelativeLayout>
-
-
 </RelativeLayout>

@@ -45,6 +45,7 @@ public class Auth {
     public static String accessToken;
 
 
+    // Auth Functions
     public static String doGetRequestUrl() {
         StringBuilder sb = new StringBuilder();
         sb.append(AUTH_GET_URL)
