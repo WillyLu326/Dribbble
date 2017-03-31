@@ -175,8 +175,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupExitDialog() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Do you really want to log out Dribbble?")
+        new AlertDialog.Builder(this).setMessage("Do you really want to log out Dribbble?")
                 .setTitle("Exit")
                 .setPositiveButton("Logout", new DialogInterface.OnClickListener() {
                     @Override
@@ -191,8 +190,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }
-                });
-        builder.show();
+                }).show();
 
     }
 
