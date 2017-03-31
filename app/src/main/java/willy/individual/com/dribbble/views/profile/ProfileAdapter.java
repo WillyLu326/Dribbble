@@ -114,6 +114,10 @@ public class ProfileAdapter extends RecyclerView.Adapter {
             profileShotViewHolder.bucketsCountTv.setText(String.valueOf(shot.buckets_count));
             profileShotViewHolder.commentsCountTv.setText(String.valueOf(shot.comments_count));
 
+            if (!shot.animated) {
+                profileShotViewHolder.gifIv.setVisibility(View.INVISIBLE);
+            }
+
             DraweeController controller = Fresco.newDraweeControllerBuilder()
                     .setUri(shot.getImageUrl())
                     .setAutoPlayAnimations(true)
