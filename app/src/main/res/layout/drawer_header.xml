@@ -38,11 +38,11 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/drawer_header_text_size"
-                android:textStyle="bold|italic"
+                android:textStyle="bold"
                 tools:text="Willy Lu" />
 
             <TextView
-                android:id="@+id/drawer_header_logout"
+                android:id="@+id/drawer_header_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/xsmall_space"
@@ -51,7 +51,8 @@
                 android:text="@string/drawer_menu_logout"
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/drawer_header_logout_text_size" />
+                android:textStyle="italic"
+                android:textSize="@dimen/xsmall_size" />
 
         </LinearLayout>
 

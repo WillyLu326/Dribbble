@@ -105,13 +105,6 @@ public class MainActivity extends AppCompatActivity {
 
         headerView = navigationView.inflateHeaderView(R.layout.drawer_header);
 
-        headerView.findViewById(R.id.drawer_header_logout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
         drawerToggle = new ActionBarDrawerToggle(
                 this,
                 drawerLayout,
@@ -155,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "About", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.drawer_menu_logout :
-                        Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
                         setupExitDialog();
                         break;
                 }
@@ -216,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
                     .setAutoPlayAnimations(true)
                     .build();
             ((SimpleDraweeView) headerView.findViewById(R.id.drawer_header_image)).setController(controller);
+            ((TextView) headerView.findViewById(R.id.drawer_header_profile)).setText(user.location == null ? "No Location" : user.location);
         }
     }
 
