@@ -28,6 +28,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbble.models.User;
+import willy.individual.com.dribbble.views.base.DribbbleException;
+import willy.individual.com.dribbble.views.base.DribbbleTask;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
 import willy.individual.com.dribbble.views.following.FollowingListFragment;
 import willy.individual.com.dribbble.views.login.LoginActivity;
@@ -187,36 +189,32 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private class LoadAuthUser extends AsyncTask<Void, Void, User> {
-
-        private Exception exception;
+    private class LoadAuthUser extends DribbbleTask<Void, Void, User> {
 
         @Override
-        protected User doInBackground(Void... params) {
-            try {
-                return Dribbble.getAuthUser();
-            } catch (Exception e) {
-                e.printStackTrace();
-                this.exception = e;
-                return null;
-            }
+        protected User doJob(Void... params) throws DribbbleException {
+            return Dribbble.getAuthUser();
         }
 
         @Override
-        protected void onPostExecute(User user) {
-            super.onPostExecute(user);
-            if (this.exception == null) {
-                Auth.saveAuthUser(getApplicationContext(), user);
-                ((TextView) headerView.findViewById(R.id.drawer_header_username)).setText(user.name);
-                DraweeController controller = Fresco.newDraweeControllerBuilder()
-                        .setUri(user.avatar_url)
-                        .setAutoPlayAnimations(true)
-                        .build();
-                ((SimpleDraweeView) headerView.findViewById(R.id.drawer_header_image)).setController(controller);
-                ((TextView) headerView.findViewById(R.id.drawer_header_profile)).setText(user.location == null ? "No Location" : user.location);
-            } else {
-                Snackbar.make(getWindow().getDecorView(), this.exception.getMessage(), Snackbar.LENGTH_LONG).show();
+        protected void onSuccess(User user) {
+            if (user == null) {
+                Snackbar.make(getWindow().getDecorView(), "No Internet", Snackbar.LENGTH_LONG).show();
+                return ;
             }
+            Auth.saveAuthUser(getApplicationContext(), user);
+            ((TextView) headerView.findViewById(R.id.drawer_header_username)).setText(user.name);
+            DraweeController controller = Fresco.newDraweeControllerBuilder()
+                    .setUri(user.avatar_url)
+                    .setAutoPlayAnimations(true)
+                    .build();
+            ((SimpleDraweeView) headerView.findViewById(R.id.drawer_header_image)).setController(controller);
+            ((TextView) headerView.findViewById(R.id.drawer_header_profile)).setText(user.location == null ? "No Location" : user.location);
+        }
+
+        @Override
+        protected void onFailed(DribbbleException e) {
+            Snackbar.make(getWindow().getDecorView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
         }
     }
 

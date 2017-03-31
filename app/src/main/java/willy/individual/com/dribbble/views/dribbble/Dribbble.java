@@ -20,6 +20,7 @@ import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.auth.Auth;
+import willy.individual.com.dribbble.views.base.DribbbleException;
 
 
 public class Dribbble {
@@ -38,11 +39,9 @@ public class Dribbble {
 
     private static final String HEADER_VALUE = "Bearer " + Auth.accessToken;
 
-    private static final int AUTH_USER_ID = getAuthUser().id;
-
 
     // Dribbble Functionality Method Below
-    public static List<Shot> getPopularShots(int page) {
+    public static List<Shot> getPopularShots(int page) throws DribbbleException {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(SHOTS_URL + "?page=" + page)
@@ -53,16 +52,15 @@ public class Dribbble {
             String body = response.body().string();
             return ModelUtils.convertToObject(body, new TypeToken<List<Shot>>(){});
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static List<Shot> getLikeShots(int page) {
+    public static List<Shot> getLikeShots(int page) throws DribbbleException {
         List<Shot> likeShots = new ArrayList<>();
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
-                .url(BASE_URL + "users/" + AUTH_USER_ID + "/likes?page=" + page)
+                .url(BASE_URL + "users/" + getAuthUser().id + "/likes?page=" + page)
                 .build();
         try {
             Response response = client.newCall(request).execute();
@@ -72,12 +70,11 @@ public class Dribbble {
             }
             return likeShots;
         } catch (IOException e) {
-            e.printStackTrace();
-            return likeShots;
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static User getAuthUser() {
+    public static User getAuthUser() throws DribbbleException{
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(AUTH_USER_URL)
@@ -87,8 +84,7 @@ public class Dribbble {
             Response response = client.newCall(request).execute();
             return ModelUtils.convertToObject(response.body().string(), new TypeToken<User>(){});
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw new DribbbleException(e.getMessage());
         }
     }
 
@@ -182,7 +178,7 @@ public class Dribbble {
         }
     }
 
-    public static List<Shot> getBucketShots(int id, int page) {
+    public static List<Shot> getBucketShots(int id, int page) throws DribbbleException {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url("https://api.dribbble.com/v1/buckets/" + id + "/shots?page=" + page)

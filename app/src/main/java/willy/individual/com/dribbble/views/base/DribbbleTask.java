@@ -20,7 +20,7 @@ public abstract class DribbbleTask<Params, Progress, Result>
             return doJob(params);
         } catch (DribbbleException e) {
             e.printStackTrace();
-            this.exception = e;
+            exception = e;
             return null;
         }
     }
@@ -28,10 +28,10 @@ public abstract class DribbbleTask<Params, Progress, Result>
     @Override
     protected void onPostExecute(Result result) {
         super.onPostExecute(result);
-        if (this.exception == null) {
-            onSuccess(result);
+        if (exception != null) {
+            onFailed(exception);
         } else {
-            onFailed(this.exception);
+            onSuccess(result);
         }
     }
 }

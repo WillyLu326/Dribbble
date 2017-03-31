@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +28,8 @@ import willy.individual.com.dribbble.MainActivity;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.utils.ModelUtils;
+import willy.individual.com.dribbble.views.base.DribbbleException;
+import willy.individual.com.dribbble.views.base.DribbbleTask;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.base.ShotListSpaceItemDecoration;
 import willy.individual.com.dribbble.views.bucket_list.BucketAdapter;
@@ -121,7 +124,53 @@ public class ShotListFragment extends Fragment{
         swipeContainer.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, null));
     }
 
-    private class LoadShotTask extends AsyncTask<Void, Void, List<Shot>> {
+//    private class LoadShotTask extends AsyncTask<Void, Void, List<Shot>> {
+//
+//        private boolean refresh;
+//        private int page;
+//
+//        public LoadShotTask(boolean refresh) {
+//            this.refresh = refresh;
+//            this.page = refresh ? 1 : adapter.getData().size() / COUNT_PER_PAGE + 1;
+//        }
+//
+//        @Override
+//        protected List<Shot> doInBackground(Void... params) {
+//
+//            try {
+//                if (listType == MainActivity.SHOT_LIST_POPULAR_TYPE) {
+//                    return Dribbble.getPopularShots(page);
+//                } else if (listType == MainActivity.SHOT_LIST_LIKE_TYPE) {
+//                    return Dribbble.getLikeShots(page);
+//                } else if (listType == MainActivity.BUCKET_SHOT_LIST_TYPE) {
+//                    return Dribbble.getBucketShots(getArguments().getInt(BucketAdapter.BUCKET_ID_KEY), page);
+//                }
+//                return Dribbble.getPopularShots(page);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                return null;
+//            }
+//        }
+//
+//        @Override
+//        protected void onPostExecute(List<Shot> shotList) {
+//            super.onPostExecute(shotList);
+//            if (shotList != null) {
+//                if (refresh) {
+//                    adapter.clearAllShots();
+//                    adapter.append(shotList);
+//                    swipeContainer.setRefreshing(false);
+//                } else {
+//                    adapter.append(shotList);
+//                    adapter.toggleSpinner(adapter.getData().size() / COUNT_PER_PAGE >= page);
+//                }
+//            } else {
+//                Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
+//            }
+//        }
+//    }
+
+    private class LoadShotTask extends DribbbleTask<Void, Void, List<Shot>> {
 
         private boolean refresh;
         private int page;
@@ -132,38 +181,33 @@ public class ShotListFragment extends Fragment{
         }
 
         @Override
-        protected List<Shot> doInBackground(Void... params) {
-
-            try {
-                if (listType == MainActivity.SHOT_LIST_POPULAR_TYPE) {
-                    return Dribbble.getPopularShots(page);
-                } else if (listType == MainActivity.SHOT_LIST_LIKE_TYPE) {
-                    return Dribbble.getLikeShots(page);
-                } else if (listType == MainActivity.BUCKET_SHOT_LIST_TYPE) {
-                    return Dribbble.getBucketShots(getArguments().getInt(BucketAdapter.BUCKET_ID_KEY), page);
-                }
+        protected List<Shot> doJob(Void... params) throws DribbbleException {
+            if (listType == MainActivity.SHOT_LIST_POPULAR_TYPE) {
                 return Dribbble.getPopularShots(page);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
+            } else if (listType == MainActivity.SHOT_LIST_LIKE_TYPE) {
+                return Dribbble.getLikeShots(page);
+            } else if (listType == MainActivity.BUCKET_SHOT_LIST_TYPE) {
+                return Dribbble.getBucketShots(getArguments().getInt(BucketAdapter.BUCKET_ID_KEY), page);
+            }
+            return Dribbble.getPopularShots(page);
+        }
+
+        @Override
+        protected void onSuccess(List<Shot> shotList) {
+            if (refresh) {
+                adapter.clearAllShots();
+                adapter.append(shotList);
+                swipeContainer.setRefreshing(false);
+            } else {
+                adapter.append(shotList);
+                adapter.toggleSpinner(adapter.getData().size() / COUNT_PER_PAGE >= page);
             }
         }
 
         @Override
-        protected void onPostExecute(List<Shot> shotList) {
-            super.onPostExecute(shotList);
-            if (shotList != null) {
-                if (refresh) {
-                    adapter.clearAllShots();
-                    adapter.append(shotList);
-                    swipeContainer.setRefreshing(false);
-                } else {
-                    adapter.append(shotList);
-                    adapter.toggleSpinner(adapter.getData().size() / COUNT_PER_PAGE >= page);
-                }
-            } else {
-                Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
-            }
+        protected void onFailed(DribbbleException e) {
+            Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
         }
     }
+
 }
