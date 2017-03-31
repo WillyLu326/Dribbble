@@ -44,6 +44,8 @@ public class Auth {
 
     public static String accessToken;
 
+    public static User authUser;
+
 
     // Auth Functions
     public static String doGetRequestUrl() {
@@ -88,6 +90,7 @@ public class Auth {
 
     public static void init(Context context) {
         accessToken = loadAccessToken(context);
+        authUser = loadAuthUser(context);
     }
 
     public static void login(Context context, String accessToken) {
