@@ -1,6 +1,7 @@
 package willy.individual.com.dribbble;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
@@ -9,6 +10,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -106,10 +108,7 @@ public class MainActivity extends AppCompatActivity {
         headerView.findViewById(R.id.drawer_header_logout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Auth.clearAccessToken(getApplicationContext());
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+
             }
         });
 
@@ -157,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.drawer_menu_logout :
                         Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
+                        setupExitDialog();
                         break;
                 }
 
@@ -172,6 +172,28 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void setupExitDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Do you really want to log out Dribbble?")
+                .setTitle("Exit")
+                .setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Auth.clearAccessToken(getApplicationContext());
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+        builder.show();
+
     }
 
     private class LoadAuthUser extends AsyncTask<Void, Void, User> {
