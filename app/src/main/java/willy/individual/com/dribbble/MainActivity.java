@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -188,12 +189,15 @@ public class MainActivity extends AppCompatActivity {
 
     private class LoadAuthUser extends AsyncTask<Void, Void, User> {
 
+        private Exception exception;
+
         @Override
         protected User doInBackground(Void... params) {
             try {
                 return Dribbble.getAuthUser();
             } catch (Exception e) {
                 e.printStackTrace();
+                this.exception = e;
                 return null;
             }
         }
@@ -201,14 +205,18 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(User user) {
             super.onPostExecute(user);
-            Auth.saveAuthUser(getApplicationContext(), user);
-            ((TextView) headerView.findViewById(R.id.drawer_header_username)).setText(user.name);
-            DraweeController controller = Fresco.newDraweeControllerBuilder()
-                    .setUri(user.avatar_url)
-                    .setAutoPlayAnimations(true)
-                    .build();
-            ((SimpleDraweeView) headerView.findViewById(R.id.drawer_header_image)).setController(controller);
-            ((TextView) headerView.findViewById(R.id.drawer_header_profile)).setText(user.location == null ? "No Location" : user.location);
+            if (this.exception == null) {
+                Auth.saveAuthUser(getApplicationContext(), user);
+                ((TextView) headerView.findViewById(R.id.drawer_header_username)).setText(user.name);
+                DraweeController controller = Fresco.newDraweeControllerBuilder()
+                        .setUri(user.avatar_url)
+                        .setAutoPlayAnimations(true)
+                        .build();
+                ((SimpleDraweeView) headerView.findViewById(R.id.drawer_header_image)).setController(controller);
+                ((TextView) headerView.findViewById(R.id.drawer_header_profile)).setText(user.location == null ? "No Location" : user.location);
+            } else {
+                Snackbar.make(getWindow().getDecorView(), this.exception.getMessage(), Snackbar.LENGTH_LONG).show();
+            }
         }
     }
 

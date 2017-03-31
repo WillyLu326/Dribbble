@@ -1,5 +1,7 @@
 package willy.individual.com.dribbble.views.dribbble;
 
+import android.support.design.widget.Snackbar;
+
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;

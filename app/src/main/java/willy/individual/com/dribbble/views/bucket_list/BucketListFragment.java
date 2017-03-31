@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +31,7 @@ import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Bucket;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.BucketListSpaceItemDecoration;
+import willy.individual.com.dribbble.views.base.DribbbleException;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
 
@@ -196,6 +198,7 @@ public class BucketListFragment extends Fragment {
         private int bucketType;
         private String url;
         private boolean refresh;
+        private Exception exception;
 
         public BucketLoadTask(int bucketType, boolean refresh) {
             this.page = bucketAdapter.getBuckets().size() / 12 + 1;
@@ -212,23 +215,33 @@ public class BucketListFragment extends Fragment {
 
         @Override
         protected List<Bucket> doInBackground(Void... params) {
-            if (bucketType == MainActivity.CHOOSE_BUCKET_TYPE) {
-                return Dribbble.getBuckets(page);
-            } else {
-                return Dribbble.getShotBuckets(url, page);
+            try {
+                if (bucketType == MainActivity.CHOOSE_BUCKET_TYPE) {
+                    return Dribbble.getBuckets(page);
+                } else {
+                    return Dribbble.getShotBuckets(url, page);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                exception = e;
+                return null;
             }
         }
 
         @Override
         protected void onPostExecute(List<Bucket> buckets) {
             super.onPostExecute(buckets);
-            if (refresh) {
-                bucketAdapter.clearAllBuckets();
-                bucketAdapter.append(buckets);
-                swipeContainer.setRefreshing(false);
+            if (exception == null) {
+                if (refresh) {
+                    bucketAdapter.clearAllBuckets();
+                    bucketAdapter.append(buckets);
+                    swipeContainer.setRefreshing(false);
+                } else {
+                    bucketAdapter.append(buckets);
+                    bucketAdapter.toggleBucketSpinner(bucketAdapter.getBuckets().size() / 12 >= page);
+                }
             } else {
-                bucketAdapter.append(buckets);
-                bucketAdapter.toggleBucketSpinner(bucketAdapter.getBuckets().size() / 12 >= page);
+                Snackbar.make(getView(), exception.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         }
     }
