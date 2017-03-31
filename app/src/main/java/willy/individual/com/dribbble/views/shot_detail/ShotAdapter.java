@@ -141,6 +141,12 @@ public class ShotAdapter extends RecyclerView.Adapter {
                 }
             });
 
+            shotInfoViewHolder.shotInfoShareTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    shotFragment.share();
+                }
+            });
 
             shotInfoViewHolder.profileView.setOnClickListener(new View.OnClickListener() {
                 @Override
