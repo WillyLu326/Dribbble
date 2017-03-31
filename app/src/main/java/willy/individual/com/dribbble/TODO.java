@@ -18,7 +18,7 @@ public class TODO {
      *  7. Navigation Drawer Layout ===> Done!!
      *  8. Logout Exit Dialog       ===> Done!!
      *  9. About Dribbble
-     *  10. Exception Handler
+     *  10. Exception Handler       ===> Done!!
      */
 
 }
