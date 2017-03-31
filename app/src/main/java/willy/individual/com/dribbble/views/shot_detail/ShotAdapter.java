@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -23,6 +24,8 @@ import willy.individual.com.dribbble.models.Comment;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
+import willy.individual.com.dribbble.views.base.DribbbleException;
+import willy.individual.com.dribbble.views.base.DribbbleTask;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.bucket_list.BucketListActivity;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
@@ -232,7 +235,7 @@ public class ShotAdapter extends RecyclerView.Adapter {
     }
 
 
-    private class IsLikeShot extends AsyncTask<Void, Void, Boolean> {
+    private class IsLikeShot extends DribbbleTask<Void, Void, Boolean> {
 
         private Shot shot;
 
@@ -241,13 +244,12 @@ public class ShotAdapter extends RecyclerView.Adapter {
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
+        protected Boolean doJob(Void... params) throws DribbbleException {
             return Dribbble.isLikeShot(shot.id);
         }
 
         @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
+        protected void onSuccess(Boolean aBoolean) {
             shot.isLike = aBoolean;
             if (shot.isLike) {
                 shotInfoViewHolder.shotInfoLikeCountTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_black_24dp, 0, 0);
@@ -287,5 +289,11 @@ public class ShotAdapter extends RecyclerView.Adapter {
                 }
             });
         }
+
+        @Override
+        protected void onFailed(DribbbleException e) {
+            Snackbar.make(shotFragment.getView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
+        }
     }
+
 }

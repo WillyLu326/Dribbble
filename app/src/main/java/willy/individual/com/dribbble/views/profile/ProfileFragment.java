@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +25,8 @@ import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
+import willy.individual.com.dribbble.views.base.DribbbleException;
+import willy.individual.com.dribbble.views.base.DribbbleTask;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
 import willy.individual.com.dribbble.views.shot_detail.ShotFragment;
@@ -84,7 +87,7 @@ public class ProfileFragment extends Fragment {
         recyclerView.setAdapter(profileAdapter);
     }
 
-    private class LoadUserShotsTask extends AsyncTask<Void, Void, List<Shot>> {
+    private class LoadUserShotsTask extends DribbbleTask<Void, Void, List<Shot>> {
 
         private String username;
         private int page;
@@ -95,15 +98,19 @@ public class ProfileFragment extends Fragment {
         }
 
         @Override
-        protected List<Shot> doInBackground(Void... params) {
+        protected List<Shot> doJob(Void... params) throws DribbbleException {
             return Dribbble.getSpecificUserShots(username, page);
         }
 
         @Override
-        protected void onPostExecute(List<Shot> shotList) {
-            super.onPostExecute(shotList);
+        protected void onSuccess(List<Shot> shotList) {
             profileAdapter.append(shotList);
             profileAdapter.toggleSpinner(profileAdapter.getData().size() / 12 >= page);
+        }
+
+        @Override
+        protected void onFailed(DribbbleException e) {
+            Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
         }
     }
 

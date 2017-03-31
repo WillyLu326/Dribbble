@@ -32,6 +32,7 @@ import willy.individual.com.dribbble.models.Bucket;
 import willy.individual.com.dribbble.utils.ModelUtils;
 import willy.individual.com.dribbble.views.base.BucketListSpaceItemDecoration;
 import willy.individual.com.dribbble.views.base.DribbbleException;
+import willy.individual.com.dribbble.views.base.DribbbleTask;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
 
@@ -192,13 +193,12 @@ public class BucketListFragment extends Fragment {
         swipeContainer.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, null));
     }
 
-    private class BucketLoadTask extends AsyncTask<Void, Void, List<Bucket>> {
+    private class BucketLoadTask extends DribbbleTask<Void, Void, List<Bucket>> {
 
         private int page;
         private int bucketType;
         private String url;
         private boolean refresh;
-        private Exception exception;
 
         public BucketLoadTask(int bucketType, boolean refresh) {
             this.page = bucketAdapter.getBuckets().size() / 12 + 1;
@@ -214,39 +214,33 @@ public class BucketListFragment extends Fragment {
         }
 
         @Override
-        protected List<Bucket> doInBackground(Void... params) {
-            try {
-                if (bucketType == MainActivity.CHOOSE_BUCKET_TYPE) {
-                    return Dribbble.getBuckets(page);
-                } else {
-                    return Dribbble.getShotBuckets(url, page);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                exception = e;
-                return null;
+        protected List<Bucket> doJob(Void... params) throws DribbbleException {
+            if (bucketType == MainActivity.CHOOSE_BUCKET_TYPE) {
+                return Dribbble.getBuckets(page);
+            } else {
+                return Dribbble.getShotBuckets(url, page);
             }
         }
 
         @Override
-        protected void onPostExecute(List<Bucket> buckets) {
-            super.onPostExecute(buckets);
-            if (exception == null) {
-                if (refresh) {
-                    bucketAdapter.clearAllBuckets();
-                    bucketAdapter.append(buckets);
-                    swipeContainer.setRefreshing(false);
-                } else {
-                    bucketAdapter.append(buckets);
-                    bucketAdapter.toggleBucketSpinner(bucketAdapter.getBuckets().size() / 12 >= page);
-                }
+        protected void onSuccess(List<Bucket> buckets) {
+            if (refresh) {
+                bucketAdapter.clearAllBuckets();
+                bucketAdapter.append(buckets);
+                swipeContainer.setRefreshing(false);
             } else {
-                Snackbar.make(getView(), exception.getMessage(), Snackbar.LENGTH_LONG).show();
+                bucketAdapter.append(buckets);
+                bucketAdapter.toggleBucketSpinner(bucketAdapter.getBuckets().size() / 12 >= page);
             }
+        }
+
+        @Override
+        protected void onFailed(DribbbleException e) {
+            Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
         }
     }
 
-    private class BucketCreatedTask extends AsyncTask<Void, Void, Bucket> {
+    private class BucketCreatedTask extends DribbbleTask<Void, Void, Bucket> {
 
         private String bucketName;
         private String bucketDescription;
@@ -257,20 +251,24 @@ public class BucketListFragment extends Fragment {
         }
 
         @Override
-        protected Bucket doInBackground(Void... params) {
+        protected Bucket doJob(Void... params) throws DribbbleException {
             return Dribbble.postNewBucket(bucketName, bucketDescription);
         }
 
         @Override
-        protected void onPostExecute(Bucket bucket) {
-            super.onPostExecute(bucket);
+        protected void onSuccess(Bucket bucket) {
             List<Bucket> list = new ArrayList<>();
             list.add(bucket);
             bucketAdapter.append(list);
         }
+
+        @Override
+        protected void onFailed(DribbbleException e) {
+            Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
+        }
     }
 
-    private class BucketUpdateTask extends  AsyncTask<Void, Void, Bucket> {
+    private class BucketUpdateTask extends DribbbleTask<Void, Void, Bucket> {
 
         private int bucketId;
         private String bucketName;
@@ -283,13 +281,12 @@ public class BucketListFragment extends Fragment {
         }
 
         @Override
-        protected Bucket doInBackground(Void... params) {
+        protected Bucket doJob(Void... params) throws DribbbleException {
             return Dribbble.putExistBucket(bucketId, bucketName, bucketDescription);
         }
 
         @Override
-        protected void onPostExecute(Bucket bucket) {
-            super.onPostExecute(bucket);
+        protected void onSuccess(Bucket bucket) {
             List<Bucket> buckets = bucketAdapter.getData();
             for (int i = 0; i < buckets.size(); ++i) {
                 if (bucket.id == buckets.get(i).id) {
@@ -299,9 +296,14 @@ public class BucketListFragment extends Fragment {
             }
             bucketAdapter.notifyDataSetChanged();
         }
+
+        @Override
+        protected void onFailed(DribbbleException e) {
+            Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
+        }
     }
 
-    private class BucketDeleteTask extends AsyncTask<Void, Void, Void> {
+    private class BucketDeleteTask extends DribbbleTask<Void, Void, Void> {
 
         private int bucketId;
 
@@ -310,14 +312,13 @@ public class BucketListFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Void doJob(Void... params) throws DribbbleException {
             Dribbble.deleteExistBucket(bucketId);
             return null;
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+        protected void onSuccess(Void aVoid) {
             List<Bucket> buckets = bucketAdapter.getData();
             for (Bucket bucket : buckets) {
                 if (bucket.id == bucketId) {
@@ -326,6 +327,11 @@ public class BucketListFragment extends Fragment {
                 }
             }
             bucketAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        protected void onFailed(DribbbleException e) {
+            Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
         }
     }
 

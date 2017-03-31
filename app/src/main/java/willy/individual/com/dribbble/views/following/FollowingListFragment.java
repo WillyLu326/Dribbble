@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,8 @@ import willy.individual.com.dribbble.MainActivity;
 import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.views.auth.Auth;
+import willy.individual.com.dribbble.views.base.DribbbleException;
+import willy.individual.com.dribbble.views.base.DribbbleTask;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.base.ShotListSpaceItemDecoration;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
@@ -80,7 +83,7 @@ public class FollowingListFragment extends Fragment {
         swipeContainer.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, null));
     }
 
-    private class UserFollowUsersTask extends AsyncTask<Void, Void, List<User>> {
+    private class UserFollowUsersTask extends DribbbleTask<Void, Void, List<User>> {
 
         private int page;
         private int followType;
@@ -93,8 +96,8 @@ public class FollowingListFragment extends Fragment {
         }
 
         @Override
-        protected List<User> doInBackground(Void... params) {
-            User user = Auth.loadAuthUser(getContext());
+        protected List<User> doJob(Void... params) throws DribbbleException {
+            User user = Auth.authUser;
             if (followType == MainActivity.FOLLOWING_TYPE) {
                 return refresh ? Dribbble.getFollowingUsers(user.following_url, 1)
                         : Dribbble.getFollowingUsers(user.following_url, page);
@@ -106,8 +109,7 @@ public class FollowingListFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(List<User> users) {
-            super.onPostExecute(users);
+        protected void onSuccess(List<User> users) {
             if (refresh) {
                 adapter.clearAll();
                 adapter.append(users);
@@ -117,6 +119,10 @@ public class FollowingListFragment extends Fragment {
                 adapter.toggleSpinner(adapter.followingUsers.size() / 12 >= page);
             }
         }
-    }
 
+        @Override
+        protected void onFailed(DribbbleException e) {
+            Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
+        }
+    }
 }

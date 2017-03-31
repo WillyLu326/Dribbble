@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +31,8 @@ import willy.individual.com.dribbble.models.Bucket;
 import willy.individual.com.dribbble.models.Comment;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.utils.ModelUtils;
+import willy.individual.com.dribbble.views.base.DribbbleException;
+import willy.individual.com.dribbble.views.base.DribbbleTask;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.bucket_list.BucketListActivity;
 import willy.individual.com.dribbble.views.bucket_list.BucketListFragment;
@@ -130,7 +133,7 @@ public class ShotFragment extends Fragment {
         AsyncTaskCompat.executeParallel(new UnlikeShotTask(id));
     }
 
-    private class LikeShotTask extends AsyncTask<Void, Void, Void> {
+    private class LikeShotTask extends DribbbleTask<Void, Void, Void> {
 
         private int id;
 
@@ -139,18 +142,23 @@ public class ShotFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                Dribbble.likeShot(id);
-                return null;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
+        protected Void doJob(Void... params) throws DribbbleException {
+            Dribbble.likeShot(id);
+            return null;
+        }
+
+        @Override
+        protected void onSuccess(Void aVoid) {
+
+        }
+
+        @Override
+        protected void onFailed(DribbbleException e) {
+            Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
         }
     }
 
-    private class UnlikeShotTask extends AsyncTask<Void, Void, Void> {
+    private class UnlikeShotTask extends DribbbleTask<Void, Void, Void> {
 
         private int id;
 
@@ -159,18 +167,23 @@ public class ShotFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                Dribbble.unlikeShot(id);
-                return null;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
+        protected Void doJob(Void... params) throws DribbbleException {
+            Dribbble.unlikeShot(id);
+            return null;
+        }
+
+        @Override
+        protected void onSuccess(Void aVoid) {
+
+        }
+
+        @Override
+        protected void onFailed(DribbbleException e) {
+            Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
         }
     }
 
-    private class CommentLoadTask extends AsyncTask<Void, Void, List<Comment>> {
+    private class CommentLoadTask extends DribbbleTask<Void, Void, List<Comment>> {
 
         private String comments_url;
         private int page;
@@ -181,19 +194,23 @@ public class ShotFragment extends Fragment {
         }
 
         @Override
-        protected List<Comment> doInBackground(Void... params) {
+        protected List<Comment> doJob(Void... params) throws DribbbleException {
             return Dribbble.getComments(comments_url, page);
         }
 
         @Override
-        protected void onPostExecute(List<Comment> comments) {
-            super.onPostExecute(comments);
+        protected void onSuccess(List<Comment> comments) {
             adapter.append(comments);
             adapter.toggleSpinner(adapter.getCommentsData().size() / 12 >= page);
         }
+
+        @Override
+        protected void onFailed(DribbbleException e) {
+            Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
+        }
     }
 
-    private class UpdateShotBucketTask extends AsyncTask<Void, Void, Void> {
+    private class UpdateShotBucketTask extends DribbbleTask<Void, Void, Void> {
 
         private List<Integer> addedIds;
         private List<Integer> removeIds;
@@ -204,7 +221,7 @@ public class ShotFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Void doJob(Void... params) throws DribbbleException {
             for (Integer addedId : addedIds) {
                 Dribbble.updateShotBucket(addedId, shot.id);
             }
@@ -215,8 +232,7 @@ public class ShotFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+        protected void onSuccess(Void aVoid) {
             collectedIds.addAll(addedIds);
             collectedIds.removeAll(removeIds);
 
@@ -225,12 +241,17 @@ public class ShotFragment extends Fragment {
 
             adapter.notifyDataSetChanged();
         }
-    }
-
-    private class GetCollectBucketId extends AsyncTask<Void, Void, ArrayList<Integer>> {
 
         @Override
-        protected ArrayList<Integer> doInBackground(Void... params) {
+        protected void onFailed(DribbbleException e) {
+            Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    private class GetCollectBucketId extends DribbbleTask<Void, Void, ArrayList<Integer>> {
+
+        @Override
+        protected ArrayList<Integer> doJob(Void... params) throws DribbbleException {
             List<Bucket> buckets = Dribbble.getAllBuckets(shot.buckets_url);
             List<Bucket> userBuckets = Dribbble.getAllUserBuckets();
 
@@ -250,14 +271,18 @@ public class ShotFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Integer> ids) {
-            super.onPostExecute(ids);
+        protected void onSuccess(ArrayList<Integer> ids) {
             collectedIds = new ArrayList<>(ids);
 
             if (collectedIds.size() > 0) {
                 shot.bucketed = true;
                 recyclerView.getAdapter().notifyDataSetChanged();
             }
+        }
+
+        @Override
+        protected void onFailed(DribbbleException e) {
+            Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
         }
     }
 }

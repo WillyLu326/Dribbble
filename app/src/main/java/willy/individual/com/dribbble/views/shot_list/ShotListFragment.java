@@ -124,52 +124,6 @@ public class ShotListFragment extends Fragment{
         swipeContainer.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, null));
     }
 
-//    private class LoadShotTask extends AsyncTask<Void, Void, List<Shot>> {
-//
-//        private boolean refresh;
-//        private int page;
-//
-//        public LoadShotTask(boolean refresh) {
-//            this.refresh = refresh;
-//            this.page = refresh ? 1 : adapter.getData().size() / COUNT_PER_PAGE + 1;
-//        }
-//
-//        @Override
-//        protected List<Shot> doInBackground(Void... params) {
-//
-//            try {
-//                if (listType == MainActivity.SHOT_LIST_POPULAR_TYPE) {
-//                    return Dribbble.getPopularShots(page);
-//                } else if (listType == MainActivity.SHOT_LIST_LIKE_TYPE) {
-//                    return Dribbble.getLikeShots(page);
-//                } else if (listType == MainActivity.BUCKET_SHOT_LIST_TYPE) {
-//                    return Dribbble.getBucketShots(getArguments().getInt(BucketAdapter.BUCKET_ID_KEY), page);
-//                }
-//                return Dribbble.getPopularShots(page);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                return null;
-//            }
-//        }
-//
-//        @Override
-//        protected void onPostExecute(List<Shot> shotList) {
-//            super.onPostExecute(shotList);
-//            if (shotList != null) {
-//                if (refresh) {
-//                    adapter.clearAllShots();
-//                    adapter.append(shotList);
-//                    swipeContainer.setRefreshing(false);
-//                } else {
-//                    adapter.append(shotList);
-//                    adapter.toggleSpinner(adapter.getData().size() / COUNT_PER_PAGE >= page);
-//                }
-//            } else {
-//                Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
-//            }
-//        }
-//    }
-
     private class LoadShotTask extends DribbbleTask<Void, Void, List<Shot>> {
 
         private boolean refresh;

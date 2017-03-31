@@ -2,6 +2,7 @@ package willy.individual.com.dribbble.views.profile;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -23,6 +25,8 @@ import willy.individual.com.dribbble.R;
 import willy.individual.com.dribbble.models.Shot;
 import willy.individual.com.dribbble.models.User;
 import willy.individual.com.dribbble.utils.ModelUtils;
+import willy.individual.com.dribbble.views.base.DribbbleException;
+import willy.individual.com.dribbble.views.base.DribbbleTask;
 import willy.individual.com.dribbble.views.base.OnLoadingMoreListener;
 import willy.individual.com.dribbble.views.dribbble.Dribbble;
 import willy.individual.com.dribbble.views.shot_detail.ShotActivity;
@@ -120,7 +124,8 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(profileFragment.getContext(), ShotActivity.class);
-                    intent.putExtra(ShotFragment.SHOT_KEY, ModelUtils.convertToString(shot, new TypeToken<Shot>(){}));
+                    intent.putExtra(ShotFragment.SHOT_KEY, ModelUtils.convertToString(shot, new TypeToken<Shot>() {
+                    }));
                     profileFragment.startActivityForResult(intent, PROFILE_SHOT_REQ);
                 }
             });
@@ -159,7 +164,8 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         return this.profileShots;
     }
 
-    private class FollowUser extends AsyncTask<Void, Void, Void> {
+
+    private class FollowUser extends DribbbleTask<Void, Void, Void> {
 
         private String username;
 
@@ -168,13 +174,23 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Void doJob(Void... params) throws DribbbleException {
             Dribbble.followUser(username);
             return null;
         }
+
+        @Override
+        protected void onSuccess(Void aVoid) {
+
+        }
+
+        @Override
+        protected void onFailed(DribbbleException e) {
+            Snackbar.make(profileFragment.getView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
+        }
     }
 
-    private class UnfollowUser extends AsyncTask<Void, Void, Void> {
+    private class UnfollowUser extends  DribbbleTask<Void, Void, Void> {
 
         private String username;
 
@@ -183,13 +199,23 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Void doJob(Void... params) throws DribbbleException {
             Dribbble.unfollowUser(username);
             return null;
         }
+
+        @Override
+        protected void onSuccess(Void aVoid) {
+
+        }
+
+        @Override
+        protected void onFailed(DribbbleException e) {
+            Snackbar.make(profileFragment.getView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
+        }
     }
 
-    private class CheckUserFollowing extends AsyncTask<Void, Void, Boolean> {
+    private class CheckUserFollowing extends DribbbleTask<Void, Void, Boolean> {
 
         private String username;
 
@@ -198,13 +224,12 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
+        protected Boolean doJob(Void... params) throws DribbbleException {
             return Dribbble.isFollowingUser(username);
         }
 
         @Override
-        protected void onPostExecute(Boolean isFollowing) {
-            super.onPostExecute(isFollowing);
+        protected void onSuccess(Boolean isFollowing) {
             user.isFollowing = isFollowing;
             if (user.isFollowing) {
                 profileInfoViewHolder.profileStatusBtn
@@ -253,6 +278,11 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                     }
                 }
             });
+        }
+
+        @Override
+        protected void onFailed(DribbbleException e) {
+            Snackbar.make(profileFragment.getView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
         }
     }
 }

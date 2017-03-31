@@ -88,7 +88,7 @@ public class Dribbble {
         }
     }
 
-    public static boolean isLikeShot(int id) {
+    public static boolean isLikeShot(int id) throws DribbbleException{
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(SHOTS_URL + "/" + id + "/like")
@@ -99,12 +99,11 @@ public class Dribbble {
             String body = response.body().string();
             return body.length() != 0;
         } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static void likeShot(int id) {
+    public static void likeShot(int id) throws DribbbleException{
         RequestBody requestBody = new FormBody.Builder().build();
 
         Request request = new Request.Builder()
@@ -116,11 +115,11 @@ public class Dribbble {
         try {
             client.newCall(request).execute();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static void unlikeShot(int id) {
+    public static void unlikeShot(int id) throws DribbbleException {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(SHOTS_URL + "/" + id + "/like")
@@ -130,11 +129,11 @@ public class Dribbble {
         try {
             client.newCall(request).execute();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static List<Comment> getComments(String url, int page) {
+    public static List<Comment> getComments(String url, int page) throws DribbbleException{
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(url + "?page=" + page)
@@ -143,12 +142,11 @@ public class Dribbble {
             Response response = client.newCall(request).execute();
             return ModelUtils.convertToObject(response.body().string(), new TypeToken<List<Comment>>(){});
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static List<Bucket> getBuckets(int page) {
+    public static List<Bucket> getBuckets(int page) throws DribbbleException {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(BUCKET_AUTH_USER_URL + "?page=" + page)
@@ -157,12 +155,11 @@ public class Dribbble {
             Response response = client.newCall(request).execute();
             return ModelUtils.convertToObject(response.body().string(), new TypeToken<List<Bucket>>(){});
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static List<Bucket> getShotBuckets(String url, int page) {
+    public static List<Bucket> getShotBuckets(String url, int page) throws DribbbleException{
 
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
@@ -173,8 +170,7 @@ public class Dribbble {
             Response response = client.newCall(request).execute();
             return ModelUtils.convertToObject(response.body().string(), new TypeToken<List<Bucket>>(){});
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw new DribbbleException(e.getMessage());
         }
     }
 
@@ -192,7 +188,7 @@ public class Dribbble {
         }
     }
 
-    public static Bucket postNewBucket(String bucketName, String bucketDescription) {
+    public static Bucket postNewBucket(String bucketName, String bucketDescription) throws DribbbleException {
         RequestBody body = new FormBody.Builder()
                 .add("name", bucketName)
                 .add("description", bucketDescription)
@@ -208,12 +204,11 @@ public class Dribbble {
             Response response = client.newCall(request).execute();
             return ModelUtils.convertToObject(response.body().string(), new TypeToken<Bucket>(){});
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static Bucket putExistBucket(int bucketId, String bucketName, String bucketDescription) {
+    public static Bucket putExistBucket(int bucketId, String bucketName, String bucketDescription) throws DribbbleException {
         RequestBody body = new FormBody.Builder()
                 .add("name", bucketName)
                 .add("description", bucketDescription)
@@ -229,12 +224,11 @@ public class Dribbble {
             Response response = client.newCall(request).execute();
             return ModelUtils.convertToObject(response.body().string(), new TypeToken<Bucket>(){});
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static void deleteExistBucket(int bucketId) {
+    public static void deleteExistBucket(int bucketId) throws DribbbleException {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(BASE_URL + "/buckets/" + bucketId)
@@ -243,11 +237,11 @@ public class Dribbble {
         try {
             client.newCall(request).execute();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static void updateShotBucket(int bucketId, int shotId) {
+    public static void updateShotBucket(int bucketId, int shotId) throws DribbbleException {
         RequestBody body = new FormBody.Builder()
                 .add("shot_id", shotId + "")
                 .build();
@@ -261,11 +255,11 @@ public class Dribbble {
         try {
             client.newCall(request).execute();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static void deleteShotBucket(int bucketId, int shotId) {
+    public static void deleteShotBucket(int bucketId, int shotId) throws DribbbleException {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(BASE_URL + "/buckets/" + bucketId + "/shots?shot_id=" + shotId)
@@ -274,11 +268,11 @@ public class Dribbble {
         try {
             client.newCall(request).execute();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static List<Bucket> getAllBuckets(String url) {
+    public static List<Bucket> getAllBuckets(String url) throws DribbbleException {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(url + "?per_page=" + Integer.MAX_VALUE)
@@ -287,12 +281,11 @@ public class Dribbble {
             Response response = client.newCall(request).execute();
             return ModelUtils.convertToObject(response.body().string(), new TypeToken<List<Bucket>>(){});
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static List<Bucket> getAllUserBuckets() {
+    public static List<Bucket> getAllUserBuckets() throws DribbbleException {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(BASE_URL + "user/buckets?per_page=" + Integer.MAX_VALUE)
@@ -301,12 +294,11 @@ public class Dribbble {
             Response response = client.newCall(request).execute();
             return ModelUtils.convertToObject(response.body().string(), new TypeToken<List<Bucket>>(){});
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static List<User> getFollowingUsers(String url, int page) {
+    public static List<User> getFollowingUsers(String url, int page) throws DribbbleException {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(url + "?page=" + page)
@@ -316,12 +308,11 @@ public class Dribbble {
             Response response = client.newCall(request).execute();
             return ModelUtils.convertToObject(response.body().string(), new TypeToken<List<User>>(){});
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static List<User> getFollowerUser(String url, int page) {
+    public static List<User> getFollowerUser(String url, int page) throws DribbbleException {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(url + "?page=" + page)
@@ -331,12 +322,11 @@ public class Dribbble {
             Response response = client.newCall(request).execute();
             return ModelUtils.convertToObject(response.body().string(), new TypeToken<List<User>>(){});
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static List<Shot> getSpecificUserShots(String username, int page) {
+    public static List<Shot> getSpecificUserShots(String username, int page) throws DribbbleException {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(BASE_URL + "users/" + username + "/shots?page=" + page)
@@ -346,12 +336,11 @@ public class Dribbble {
             Response response = client.newCall(request).execute();
             return ModelUtils.convertToObject(response.body().string(), new TypeToken<List<Shot>>(){});
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+           throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static void followUser(String username) {
+    public static void followUser(String username) throws DribbbleException {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(BASE_URL + "/users/" + username + "/follow")
@@ -360,11 +349,11 @@ public class Dribbble {
         try {
             client.newCall(request).execute();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static void unfollowUser(String username) {
+    public static void unfollowUser(String username) throws DribbbleException {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(BASE_URL + "/users/" + username + "/follow")
@@ -373,11 +362,11 @@ public class Dribbble {
         try {
             client.newCall(request).execute();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DribbbleException(e.getMessage());
         }
     }
 
-    public static boolean isFollowingUser(String username) {
+    public static boolean isFollowingUser(String username) throws DribbbleException {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
                 .url(BASE_URL + "/user/following/" + username)
@@ -386,8 +375,7 @@ public class Dribbble {
             Response response = client.newCall(request).execute();
             return response.code() == 204;
         } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+            throw new DribbbleException(e.getMessage());
         }
     }
 }
