@@ -15,6 +15,8 @@ Using Dribbble API to create this Application
 * Infinite Scrolling View
 * UI Thread & Individual Thread
 * Fresco, Glide
+* okHttp 
+* RecyclerView with different type of view
 
 ## Developer
 Willy Lu
