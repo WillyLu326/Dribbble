@@ -32,4 +32,13 @@
     <string name="share_shot">Share Shot</string>
     <string name="dribbble">Dribbble</string>
     <string name="about_dribbble">About Dribbble</string>
+    <string name="dribbble_introduction">
+        <b>What are you working on?</b> Dribbble is a community of designers answering that question each day. Web designers, graphic designers, illustrators, icon artists, typographers, logo designers, and other creative types share small screenshots (shots) that show their work, process, and current projects.\n
+        \n <b>Dribbble is a place to show and tell, promote, discover, and explore design.</b> \n
+        \n Founded in 2009, Dribbble began as a side project and is now a Tiny, bootstrapped and profitable company <b>helping the world’s design talent share their creations and get hired</b>. Dribbble has become a go-to resource for discovering and connecting with designers around the globe.</string>
+    <string name="dribbble_slogan">
+        <b>“Dribbble is the single most important social network for anyone that cares about design. It’s done more to help us build our team and brand than Facebook, Twitter and Instagram combined.”</b>
+        \n\n             <i>—Dave Traver, Sticker Mule | More testimonials</i>
+    </string>
+    <string name="copyright">Copyright © 2009–2017 Dribbble Holdings Ltd. All screenshots © their respective owners.</string>
 </resources>
