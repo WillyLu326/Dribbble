@@ -30,4 +30,6 @@
     <string name="follow">Follow</string>
     <string name="follower_title">Followers</string>
     <string name="share_shot">Share Shot</string>
+    <string name="dribbble">Dribbble</string>
+    <string name="about_dribbble">About Dribbble</string>
 </resources>

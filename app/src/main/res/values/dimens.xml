@@ -26,4 +26,5 @@
     <dimen name="circle_radius">50dp</dimen>
     <dimen name="xlarge_space">36dp</dimen>
     <dimen name="fab_size">56dp</dimen>
+    <dimen name="about_size">32sp</dimen>
 </resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/about_dribbble"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/shot_item_height"
+        android:gravity="center"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/about_size"
+        android:textStyle="bold"
+        tools:text="About Dribbble"/>
+
+    <TextView
+        android:id="@+id/introduction_dribbble"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/medium_space"
+        android:background="@color/about_card_bg"
+        tools:text="What are you working on? Dribbble is a community of designers answering that question each day. Web designers, graphic designers, illustrators, icon artists, typographers, logo designers, and other creative types share small screenshots (shots) that show their work, process, and current projects."/>
+
+    <TextView
+        android:id="@+id/slogan_dribbble"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_space"
+        android:gravity="center"
+        tools:text="“Dribbble is the single most important social network for anyone that cares about design. It’s done more to help us build our team and brand than Facebook, Twitter and Instagram combined.”
+—Dave Traver, Sticker Mule | More testimonials"/>
+
+</LinearLayout>
