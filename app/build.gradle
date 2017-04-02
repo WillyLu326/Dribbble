@@ -2,6 +2,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'willylu'
+            keyPassword 'Lzhqueen0219'
+            storeFile file('/Users/zhenglu/Documents/AndroidDevelopment/keystores/android.jks')
+            storePassword 'Lzhqueen0219'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion '25.0.0'
     defaultConfig {
@@ -16,12 +24,21 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            debuggable true
+        }
+    }
+    productFlavors {
+        free {
+            signingConfig signingConfigs.config
         }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -33,7 +50,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:25.2.0'
     compile 'com.android.support:recyclerview-v7:25.2.0'
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
-    compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
+    compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.facebook.fresco:fresco:1.1.0'
     // If your app supports Android versions before Ice Cream Sandwich (API level 14)
     compile 'com.facebook.fresco:animated-base-support:1.1.0'
@@ -50,5 +67,4 @@ dependencies {
     compile 'jp.wasabeef:blurry:2.1.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'jp.wasabeef:glide-transformations:2.0.2'
-
 }

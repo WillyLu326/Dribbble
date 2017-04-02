@@ -68,7 +68,6 @@
             android:padding="@dimen/medium_space"
             android:clickable="true"
             android:drawableLeft="@drawable/ic_group_white_18dp"
-            android:elevation="@dimen/xsmall_space"
             android:drawablePadding="@dimen/xsmall_space"
             android:background="@drawable/following_btn"
             android:text="@string/following"

@@ -97,6 +97,8 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                     .bitmapTransform(new BlurTransformation(profileFragment.getContext()))
                     .into(profileInfoViewHolder.profileIv);
 
+            profileInfoViewHolder.profileStatusBtn.setElevation(20);
+
             // Setup User Info
             profileInfoViewHolder.profileUsername.setText(user.name);
             profileInfoViewHolder.profileLocation.setText(user.location == null ? "No Location" : user.location);
