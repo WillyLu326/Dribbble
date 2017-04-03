@@ -6,7 +6,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="willy.individual.com.dribbble.MainActivity">
+    tools:context="willy.individual.com.dribbbow.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -17,6 +17,11 @@
         </item>
 
         <item
+            android:id="@+id/drawer_menu_animation"
+            android:icon="@drawable/ic_gif_48dp"
+            android:title="@string/drawer_menu_about" />
+
+        <item
             android:id="@+id/drawer_menu_bucket"
             android:icon="@drawable/ic_inbox_black_24dp"
             android:title="@string/drawer_menu_bucket">
@@ -36,10 +41,6 @@
     <group
         android:id="@+id/drawer_menu_setting"
         android:checkableBehavior="single">
-        <item
-            android:id="@+id/drawer_menu_about"
-            android:icon="@drawable/ic_info_outline_black_24dp"
-            android:title="@string/drawer_menu_about" />
         <item
             android:id="@+id/drawer_menu_logout"
             android:icon="@drawable/ic_exit_to_app_black_24dp"

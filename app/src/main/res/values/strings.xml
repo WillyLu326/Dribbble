@@ -5,11 +5,11 @@
     <string name="shot_item_like">shotItemLike</string>
     <string name="shot_item_view_count">shotItemViewCount</string>
     <string name="login_btn_text">Log Into Dribbble</string>
-    <string name="drawer_menu_home">Home</string>
+    <string name="drawer_menu_home">Popular</string>
     <string name="drawer_menu_like">Favoriate</string>
     <string name="drawer_menu_bucket">Bucket</string>
-    <string name="home_title">Dribbble</string>
-    <string name="favoriate_title">Favoriates</string>
+    <string name="home_title">Popular</string>
+    <string name="favoriate_title">Likes</string>
     <string name="bucket_title">Buckets</string>
     <string name="open_drawer">open drawer</string>
     <string name="close_drawer">close drawer</string>
@@ -21,7 +21,7 @@
     <string name="popup_window_cancel">Cancel</string>
     <string name="bucket_name">Bucket Name</string>
     <string name="bucket_description">Bucket Description</string>
-    <string name="drawer_menu_about">About</string>
+    <string name="drawer_menu_about">Animation</string>
     <string name="drawer_menu_following">Following</string>
     <string name="drawer_menu_follower">Follower</string>
     <string name="bucket">Buckets</string>
@@ -41,4 +41,6 @@
         \n\n             <i>—Dave Traver, Sticker Mule | More testimonials</i>
     </string>
     <string name="copyright">Copyright © 2009–2017 Dribbble Holdings Ltd. All screenshots © their respective owners.</string>
+    <string name="popular">Popular</string>
+    <string name="animation">Animation</string>
 </resources>

@@ -14,11 +14,19 @@ android {
     buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "willy.individual.com.dribbble"
-        minSdkVersion 16
+        minSdkVersion 23
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        config {
+            keyAlias 'willylu'
+            keyPassword 'Lzhqueen0219'
+            storeFile file('/Users/zhenglu/Documents/AndroidDevelopment/keystores/android.jks')
+            storePassword 'Lzhqueen0219'
+        }
     }
     buildTypes {
         release {
