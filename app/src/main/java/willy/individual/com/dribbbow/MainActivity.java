@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int SHOT_LIST_POPULAR_TYPE = 0;
     public static final int SHOT_LIST_LIKE_TYPE = 1;
     public static final int SHOT_LIST_ANIMATION_TYPE = 10;
+    public static final int SHOT_LIST_RECENT_VIEW_TYPE = 11;
 
     public static final int CHOOSE_BUCKET_TYPE = 2;
     public static final int UNCHOOSE_BUCKET_TYPE = 3;
@@ -134,6 +135,10 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.drawer_menu_like :
                         setTitle(R.string.favoriate_title);
                         fragment = ShotListFragment.newInstance(SHOT_LIST_LIKE_TYPE);
+                        break;
+                    case R.id.drawer_header_view :
+                        setTitle(R.string.recent_view);
+                        fragment = ShotListFragment.newInstance(SHOT_LIST_RECENT_VIEW_TYPE);
                         break;
                     case R.id.drawer_menu_animation :
                         setTitle(R.string.animation);

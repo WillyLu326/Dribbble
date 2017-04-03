@@ -75,7 +75,7 @@ public class Dribbble {
     public static List<Shot> getAnimationShots(int page) throws DribbbleException {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
-                .url(BASE_URL + "/shots?list=animated?page=" + page)
+                .url(BASE_URL + "/shots?list=animated&page=" + page)
                 .build();
         try {
             Response response = client.newCall(request).execute();
@@ -88,7 +88,7 @@ public class Dribbble {
     public static List<Shot> getRecentViewedShots(int page) throws DribbbleException {
         Request request = new Request.Builder()
                 .addHeader(HEADER_CONTENT_TYPE, HEADER_VALUE)
-                .url(BASE_URL + "shots?sort=recent&views?page=" + page)
+                .url(BASE_URL + "shots?sort=views&page=" + page)
                 .build();
         try {
             Response response = client.newCall(request).execute();

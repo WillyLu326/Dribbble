@@ -140,6 +140,8 @@ public class ShotListFragment extends Fragment{
                 return Dribbble.getLikeShots(page);
             } else if (listType == MainActivity.SHOT_LIST_ANIMATION_TYPE) {
                 return Dribbble.getAnimationShots(page);
+            } else if (listType == MainActivity.SHOT_LIST_RECENT_VIEW_TYPE)  {
+                return Dribbble.getRecentViewedShots(page);
             } else if (listType == MainActivity.BUCKET_SHOT_LIST_TYPE) {
                 return Dribbble.getBucketShots(getArguments().getInt(BucketAdapter.BUCKET_ID_KEY), page);
             }

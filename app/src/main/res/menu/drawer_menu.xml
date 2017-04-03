@@ -17,6 +17,11 @@
         </item>
 
         <item
+            android:id="@+id/drawer_header_view"
+            android:icon="@drawable/ic_visibility_black_24dp"
+            android:title="@string/recent_view" />
+
+        <item
             android:id="@+id/drawer_menu_animation"
             android:icon="@drawable/ic_gif_48dp"
             android:title="@string/drawer_menu_about" />

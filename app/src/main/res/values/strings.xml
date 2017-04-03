@@ -43,4 +43,5 @@
     <string name="copyright">Copyright © 2009–2017 Dribbble Holdings Ltd. All screenshots © their respective owners.</string>
     <string name="popular">Popular</string>
     <string name="animation">Animation</string>
+    <string name="recent_view">Recent Viewed</string>
 </resources>
