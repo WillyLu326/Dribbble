@@ -25,7 +25,6 @@
         <activity android:name="willy.individual.com.dribbbow.views.bucket_list.BucketCrudActivity" />
         <activity android:name="willy.individual.com.dribbbow.views.bucket_list.BucketShotListActivity" />
         <activity android:name="willy.individual.com.dribbbow.views.profile.ProfileActivity" />
-        <activity android:name="willy.individual.com.dribbbow.views.about.AboutActivity" />
     </application>
 
 </manifest>

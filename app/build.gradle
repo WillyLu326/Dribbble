@@ -10,13 +10,13 @@ android {
             storePassword 'Lzhqueen0219'
         }
     }
-    compileSdkVersion 24
+    compileSdkVersion 22
     buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "willy.individual.com.dribbble"
         minSdkVersion 23
         targetSdkVersion 24
-        versionCode 2
+        versionCode 1
         versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

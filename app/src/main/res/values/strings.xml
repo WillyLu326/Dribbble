@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Dribbble</string>
+    <string name="app_name">Dribbbow</string>
     <string name="shot_item_image">shotItemImage</string>
     <string name="shot_item_bucket">shotItemBucket</string>
     <string name="shot_item_like">shotItemLike</string>
     <string name="shot_item_view_count">shotItemViewCount</string>
-    <string name="login_btn_text">Log Into Dribbble</string>
+    <string name="login_btn_text">Log Into Dribbbow</string>
     <string name="drawer_menu_home">Popular</string>
     <string name="drawer_menu_like">Favoriate</string>
     <string name="drawer_menu_bucket">Bucket</string>
@@ -14,7 +14,7 @@
     <string name="open_drawer">open drawer</string>
     <string name="close_drawer">close drawer</string>
     <string name="drawer_menu_logout">Log Out</string>
-    <string name="dribbble_login">Dribbble Login</string>
+    <string name="dribbble_login">Dribbbow Login</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="popup_window_save">Save</string>
@@ -30,17 +30,7 @@
     <string name="follow">Follow</string>
     <string name="follower_title">Followers</string>
     <string name="share_shot">Share Shot</string>
-    <string name="dribbble">Dribbble</string>
-    <string name="about_dribbble">About Dribbble</string>
-    <string name="dribbble_introduction">
-        <b>What are you working on?</b> Dribbble is a community of designers answering that question each day. Web designers, graphic designers, illustrators, icon artists, typographers, logo designers, and other creative types share small screenshots (shots) that show their work, process, and current projects.\n
-        \n <b>Dribbble is a place to show and tell, promote, discover, and explore design.</b> \n
-        \n Founded in 2009, Dribbble began as a side project and is now a Tiny, bootstrapped and profitable company <b>helping the world’s design talent share their creations and get hired</b>. Dribbble has become a go-to resource for discovering and connecting with designers around the globe.</string>
-    <string name="dribbble_slogan">
-        <b>“Dribbble is the single most important social network for anyone that cares about design. It’s done more to help us build our team and brand than Facebook, Twitter and Instagram combined.”</b>
-        \n\n             <i>—Dave Traver, Sticker Mule | More testimonials</i>
-    </string>
-    <string name="copyright">Copyright © 2009–2017 Dribbble Holdings Ltd. All screenshots © their respective owners.</string>
+    <string name="dribbble">Dribbbow</string>
     <string name="popular">Popular</string>
     <string name="animation">Animation</string>
     <string name="recent_view">Recent Viewed</string>

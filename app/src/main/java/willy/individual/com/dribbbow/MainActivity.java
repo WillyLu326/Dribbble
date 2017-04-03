@@ -26,7 +26,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbbow.models.User;
-import willy.individual.com.dribbbow.views.about.AboutActivity;
 import willy.individual.com.dribbbow.views.base.DribbbleException;
 import willy.individual.com.dribbbow.views.base.DribbbleTask;
 import willy.individual.com.dribbbow.views.dribbble.Dribbble;
