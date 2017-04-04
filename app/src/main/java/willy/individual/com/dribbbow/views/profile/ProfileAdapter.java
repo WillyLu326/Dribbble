@@ -88,10 +88,10 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                     .build();
             profileInfoViewHolder.profileAvatar.setController(controller);
 
-            Glide.with(profileFragment.getContext())
+            Glide.with(profileFragment.getActivity())
                     .load(user.avatar_url)
                     .centerCrop()
-                    .bitmapTransform(new BlurTransformation(profileFragment.getContext()))
+                    .bitmapTransform(new BlurTransformation(profileFragment.getActivity()))
                     .into(profileInfoViewHolder.profileIv);
 
             profileInfoViewHolder.profileStatusBtn.setElevation(20);
@@ -126,7 +126,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
             profileShotViewHolder.cover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(profileFragment.getContext(), ShotActivity.class);
+                    Intent intent = new Intent(profileFragment.getActivity(), ShotActivity.class);
                     intent.putExtra(ShotFragment.SHOT_KEY, ModelUtils.convertToString(shot, new TypeToken<Shot>() {
                     }));
                     profileFragment.startActivityForResult(intent, PROFILE_SHOT_REQ);
@@ -238,16 +238,16 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                 profileInfoViewHolder.profileStatusBtn
                         .setText(profileFragment.getResources().getString(R.string.following));
                 profileInfoViewHolder.profileStatusBtn
-                        .setTextColor(profileFragment.getResources().getColor(R.color.following_btn_text_color, null));
+                        .setTextColor(profileFragment.getResources().getColor(R.color.following_btn_text_color));
                 profileInfoViewHolder.profileStatusBtn
                         .setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_sentiment_very_satisfied_white_18dp, 0, 0, 0);
                 profileInfoViewHolder.profileStatusBtn
-                        .setBackground(profileFragment.getResources().getDrawable(R.drawable.following_btn, null));
+                        .setBackground(profileFragment.getResources().getDrawable(R.drawable.following_btn));
             } else {
                 profileInfoViewHolder.profileStatusBtn
                         .setText(profileFragment.getResources().getString(R.string.follow));
                 profileInfoViewHolder.profileStatusBtn
-                        .setTextColor(profileFragment.getResources().getColor(R.color.follow_btn_text_color, null));
+                        .setTextColor(profileFragment.getResources().getColor(R.color.follow_btn_text_color));
                 profileInfoViewHolder.profileStatusBtn
                         .setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_group_add_white_18dp, 0, 0, 0);
                 profileInfoViewHolder.profileStatusBtn
@@ -263,7 +263,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                         profileInfoViewHolder.profileStatusBtn
                                 .setText(profileFragment.getResources().getString(R.string.following));
                         profileInfoViewHolder.profileStatusBtn
-                                .setTextColor(profileFragment.getResources().getColor(R.color.following_btn_text_color, null));
+                                .setTextColor(profileFragment.getResources().getColor(R.color.following_btn_text_color));
                         profileInfoViewHolder.profileStatusBtn
                                 .setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_sentiment_very_satisfied_white_18dp, 0, 0, 0);
                         profileInfoViewHolder.profileStatusBtn
@@ -273,7 +273,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                         profileInfoViewHolder.profileStatusBtn
                                 .setText(profileFragment.getResources().getString(R.string.follow));
                         profileInfoViewHolder.profileStatusBtn
-                                .setTextColor(profileFragment.getResources().getColor(R.color.follow_btn_text_color, null));
+                                .setTextColor(profileFragment.getResources().getColor(R.color.follow_btn_text_color));
                         profileInfoViewHolder.profileStatusBtn
                                 .setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_group_add_white_18dp, 0, 0, 0);
                         profileInfoViewHolder.profileStatusBtn

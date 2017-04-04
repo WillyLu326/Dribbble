@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -100,7 +101,7 @@ public class ShotListFragment extends Fragment{
 
         setupSwipeContainer();
 
-        shotListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        shotListRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         shotListRecyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
         adapter = new ShotListAdapter(new ArrayList<Shot>(), this, new OnLoadingMoreListener() {
                 @Override

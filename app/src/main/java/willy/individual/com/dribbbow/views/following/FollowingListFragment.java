@@ -61,7 +61,7 @@ public class FollowingListFragment extends Fragment {
 
         setupSwipeContainer(followType);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new ShotListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.xsmall_space)));
         adapter = new FollowingListAdapter(new ArrayList<User>(), followType, this, new OnLoadingMoreListener() {
             @Override
@@ -79,7 +79,7 @@ public class FollowingListFragment extends Fragment {
                 AsyncTaskCompat.executeParallel(new UserFollowUsersTask(followType, true));
             }
         });
-        swipeContainer.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, null));
+        swipeContainer.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
     }
 
     private class UserFollowUsersTask extends DribbbleTask<Void, Void, List<User>> {

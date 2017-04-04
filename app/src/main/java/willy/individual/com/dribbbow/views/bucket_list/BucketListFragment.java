@@ -141,7 +141,7 @@ public class BucketListFragment extends Fragment {
 
         setupSwipeContainer(bucketType);
 
-        bucketRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        bucketRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         bucketRecyclerView.addItemDecoration(new BucketListSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.medium_space)));
 
         if (bucketType == MainActivity.CHOOSE_BUCKET_TYPE) {
@@ -189,7 +189,7 @@ public class BucketListFragment extends Fragment {
             }
         });
 
-        swipeContainer.setColorSchemeColors(getResources().getColor(R.color.colorPrimary, null));
+        swipeContainer.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
     }
 
     private class BucketLoadTask extends DribbbleTask<Void, Void, List<Bucket>> {

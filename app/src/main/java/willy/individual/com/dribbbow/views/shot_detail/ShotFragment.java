@@ -87,7 +87,7 @@ public class ShotFragment extends Fragment {
 
         shot = ModelUtils.convertToObject(getArguments().getString(SHOT_KEY), new TypeToken<Shot>(){});
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new ShotAdapter(shot, this, new ArrayList<Comment>(), new OnLoadingMoreListener() {
             @Override
             public void onLoadingMore() {

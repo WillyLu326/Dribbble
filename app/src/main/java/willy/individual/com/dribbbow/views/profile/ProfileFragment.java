@@ -76,7 +76,7 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         final User user = ModelUtils.convertToObject(getArguments().getString(USER_STRING_KEY), new TypeToken<User>(){});
 
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         profileAdapter = new ProfileAdapter(user, this, new ArrayList<Shot>(), new OnLoadingMoreListener() {
             @Override
             public void onLoadingMore() {
