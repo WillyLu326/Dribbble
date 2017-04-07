@@ -34,7 +34,7 @@ import willy.individual.com.dribbbow.views.bucket_list.BucketAdapter;
 import willy.individual.com.dribbbow.views.dribbble.Dribbble;
 import willy.individual.com.dribbbow.views.shot_detail.ShotFragment;
 
-//
+// Dribbble
 public class ShotListFragment extends Fragment{
 
     public static final int SHOTLIST_FRAGMENT_REQ_CODE = 100;
