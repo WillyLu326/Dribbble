@@ -22,8 +22,6 @@ public class ProfileShotViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.shot_item_bucket) TextView bucketsCountTv;
     @BindView(R.id.shot_item_gif) ImageView gifIv;
 
-    View itemView;
-
     public ProfileShotViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
