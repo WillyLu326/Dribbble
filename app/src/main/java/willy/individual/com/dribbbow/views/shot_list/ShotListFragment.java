@@ -36,6 +36,7 @@ import willy.individual.com.dribbbow.views.shot_detail.ShotFragment;
 
 public class ShotListFragment extends Fragment{
 
+    //
     public static final int SHOTLIST_FRAGMENT_REQ_CODE = 100;
     private static final int COUNT_PER_PAGE = 12;
 
