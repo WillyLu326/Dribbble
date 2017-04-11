@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/client_drawer_group_functions"
+        android:checkableBehavior="single" >
+        <item
+            android:id="@+id/client_drawer_menu_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/drawer_menu_home"/>
+
+        <item
+            android:id="@+id/client_drawer_menu_view"
+            android:icon="@drawable/ic_visibility_black_24dp"
+            android:title="@string/recent_view" />
+
+        <item
+            android:id="@+id/client_drawer_menu_animation"
+            android:icon="@drawable/ic_gif_48dp"
+            android:title="@string/drawer_menu_about" />
+    </group>
+
+    <group
+        android:id="@+id/client_drawer_group_setting"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/client_drawer_login"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="@string/login_btn_text" />
+
+        <item
+            android:id="@+id/client_drawer_signup"
+            android:icon="@drawable/ic_person_add_black_24dp"
+            android:title="@string/signup" />
+    </group>
+
+
+</menu>
