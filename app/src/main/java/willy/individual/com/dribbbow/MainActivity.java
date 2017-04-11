@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 Fragment fragment = null;
+
                 switch(item.getItemId()) {
                     case R.id.drawer_menu_home :
                         setTitle(R.string.popular);
@@ -172,6 +173,10 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void setupClientDrawer() {
+
     }
 
     private void setupExitDialog() {
