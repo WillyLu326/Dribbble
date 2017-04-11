@@ -70,7 +70,11 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        setupDrawer();
+        if (Auth.isLogin()) {
+            setupDrawer();
+        } else {
+            setupClientDrawer();
+        }
 
         if (savedInstanceState == null) {
             getFragmentManager()
@@ -116,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
         );
 
         drawerLayout.addDrawerListener(drawerToggle);
+
+        navigationView.inflateMenu(R.menu.drawer_menu);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -176,7 +182,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupClientDrawer() {
+        headerView = navigationView.inflateHeaderView(R.layout.drawer_header);
+        drawerToggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                R.string.open_drawer,
+                R.string.close_drawer
+        );
+        drawerLayout.addDrawerListener(drawerToggle);
 
+        navigationView.inflateMenu(R.menu.client_drawer_menu);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.isChecked()) {
+                    drawerLayout.closeDrawers();
+                    return true;
+                }
+
+                Fragment fragment = null;
+                switch (item.getItemId()) {
+                    case R.id.client_drawer_menu_home:
+                        setTitle(R.string.popular);
+                        fragment = ShotListFragment.newInstance(SHOT_LIST_POPULAR_TYPE);
+                        break;
+                    case R.id.client_drawer_menu_view:
+                        setTitle(R.string.recent_view);
+                        fragment = ShotListFragment.newInstance(SHOT_LIST_RECENT_VIEW_TYPE);
+                        break;
+                    case R.id.client_drawer_menu_animation:
+                        setTitle(R.string.animation);
+                        fragment = ShotListFragment.newInstance(SHOT_LIST_ANIMATION_TYPE);
+                        break;
+                    case R.id.client_drawer_login:
+                        break;
+                    case R.id.client_drawer_signup:
+                        break;
+                }
+
+                drawerLayout.closeDrawers();
+
+                if (fragment != null) {
+                    getFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragment_container, fragment)
+                            .commit();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void setupExitDialog() {
