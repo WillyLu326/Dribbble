@@ -10,5 +10,7 @@ public class TODO {
      *  1. Create Client Model
      *  2. Create View Pager in Profile Activity
      *  3. Add Sign Up
+     *  4. Clickable Animation
+     *  5. Check Comment Users' Profile
      */
 }
