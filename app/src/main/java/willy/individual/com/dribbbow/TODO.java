@@ -12,5 +12,6 @@ public class TODO {
      *  3. Add Sign Up
      *  4. Clickable Animation
      *  5. Check Comment Users' Profile
+     *  6. User Self Profile Checking
      */
 }
