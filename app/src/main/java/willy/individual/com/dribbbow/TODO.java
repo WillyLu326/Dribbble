@@ -13,5 +13,6 @@ public class TODO {
      *  4. Clickable Animation
      *  5. Check Comment Users' Profile
      *  6. User Self Profile Checking
+     *  7. Image zoom in & zoom out
      */
 }
