@@ -72,6 +72,13 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         if (Auth.isLogin()) {
+            System.out.println("==================");
+            System.out.println("==================");
+            System.out.println("==================");
+            System.out.println("IS LOGIN");
+            System.out.println("==================");
+            System.out.println("==================");
+            System.out.println("==================");
             setupDrawer();
         } else {
             setupClientDrawer();
@@ -217,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = ShotListFragment.newInstance(SHOT_LIST_ANIMATION_TYPE);
                         break;
                     case R.id.client_drawer_login:
-                        Intent intent = new Intent(MainActivity.this, AuthActivity.class);
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.client_drawer_signup:

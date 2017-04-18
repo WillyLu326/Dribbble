@@ -117,7 +117,7 @@ public class Auth {
     }
 
     public static void clearAccessToken(Context context) {
-        accessToken = null;
+        accessToken = CLIENT_ACCESS_TOKEN;
         SharedPreferences sp = context.getSharedPreferences(AUTH_TOKEN_SP, context.MODE_PRIVATE);
         sp.edit().putString(ACCESS_TOKEN_SP_KEY, null).apply();
     }
