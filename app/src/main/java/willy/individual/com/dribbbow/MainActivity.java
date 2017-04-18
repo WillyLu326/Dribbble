@@ -26,6 +26,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import willy.individual.com.dribbbow.models.User;
+import willy.individual.com.dribbbow.views.auth.AuthActivity;
 import willy.individual.com.dribbbow.views.base.DribbbleException;
 import willy.individual.com.dribbbow.views.base.DribbbleTask;
 import willy.individual.com.dribbbow.views.dribbble.Dribbble;
@@ -216,6 +217,8 @@ public class MainActivity extends AppCompatActivity {
                         fragment = ShotListFragment.newInstance(SHOT_LIST_ANIMATION_TYPE);
                         break;
                     case R.id.client_drawer_login:
+                        Intent intent = new Intent(MainActivity.this, AuthActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.client_drawer_signup:
                         break;
