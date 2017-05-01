@@ -126,7 +126,7 @@ public class Auth {
         SharedPreferences sp = context.getSharedPreferences(AUTH_USER_SP, context.MODE_PRIVATE);
         sp.edit().putString(ACCESS_USER_SP_KEY, ModelUtils.convertToString(user, new TypeToken<User>(){})).apply();
     }
-
+    //
     public static User loadAuthUser(Context context) {
         SharedPreferences sp = context.getSharedPreferences(AUTH_USER_SP, context.MODE_PRIVATE);
         return ModelUtils.convertToObject(sp.getString(ACCESS_USER_SP_KEY, ""), new TypeToken<User>(){});
