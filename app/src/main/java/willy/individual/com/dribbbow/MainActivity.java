@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.my_toolbar) Toolbar toolbar;
 
     private View headerView;
-
+//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
