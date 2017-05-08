@@ -226,5 +226,5 @@ public class MainActivity extends AppCompatActivity {
             Snackbar.make(getWindow().getDecorView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
         }
     }
-、、
+
 }
