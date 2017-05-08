@@ -44,7 +44,7 @@ public class Auth {
 
     public static final String CLIENT_ACCESS_TOKEN = "5479178e668d79cd23fab535529ca122a1c292507acc127d40c0ae87feb5c022";
 
-    public static String accessToken = CLIENT_ACCESS_TOKEN;
+    public static String accessToken;
 
     public static User authUser;
 
@@ -92,9 +92,7 @@ public class Auth {
 
     public static void init(Context context) {
         accessToken = loadAccessToken(context);
-        if (accessToken != CLIENT_ACCESS_TOKEN) {
-            authUser = loadAuthUser(context);
-        }
+        authUser = loadAuthUser(context);
     }
 
     public static void login(Context context, String accessToken) {
@@ -103,7 +101,7 @@ public class Auth {
     }
 
     public static boolean isLogin() {
-        return accessToken != CLIENT_ACCESS_TOKEN;
+        return accessToken != null;
     }
 
     public static void saveAccessToken(Context context, String accessToken) {
@@ -117,7 +115,7 @@ public class Auth {
     }
 
     public static void clearAccessToken(Context context) {
-        accessToken = CLIENT_ACCESS_TOKEN;
+        accessToken = null;
         SharedPreferences sp = context.getSharedPreferences(AUTH_TOKEN_SP, context.MODE_PRIVATE);
         sp.edit().putString(ACCESS_TOKEN_SP_KEY, null).apply();
     }

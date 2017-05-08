@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="willy.individual.com.dribbbow.MainActivity">
+        <activity android:name="willy.individual.com.dribbbow.views.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,8 +17,7 @@
             </intent-filter>
         </activity>
 
-        <!--<activity android:name="willy.individual.com.dribbbow.MainActivity" />-->
-        <activity android:name=".views.login.LoginActivity" />
+        <activity android:name="willy.individual.com.dribbbow.MainActivity" />
         <activity android:name="willy.individual.com.dribbbow.views.auth.AuthActivity" />
         <activity android:name="willy.individual.com.dribbbow.views.shot_detail.ShotActivity" />
         <activity android:name="willy.individual.com.dribbbow.views.shot_imgae_activity.ShotImageActivity" />
