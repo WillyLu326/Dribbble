@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 }).show();
 
     }
-//
+
     private class LoadAuthUser extends DribbbleTask<Void, Void, User> {
 
         @Override
