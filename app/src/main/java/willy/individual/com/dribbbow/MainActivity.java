@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
         protected User doJob(Void... params) throws DribbbleException {
             return Dribbble.getAuthUser();
         }
-
+//
         @Override
         protected void onSuccess(User user) {
             if (user == null) {
