@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
             ((SimpleDraweeView) headerView.findViewById(R.id.drawer_header_image)).setController(controller);
             ((TextView) headerView.findViewById(R.id.drawer_header_profile)).setText(user.location == null ? "No Location" : user.location);
         }
-
+//
         @Override
         protected void onFailed(DribbbleException e) {
             Snackbar.make(getWindow().getDecorView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
