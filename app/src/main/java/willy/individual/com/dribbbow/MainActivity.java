@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class LoadAuthUser extends DribbbleTask<Void, Void, User> {
-
+//
         @Override
         protected User doJob(Void... params) throws DribbbleException {
             return Dribbble.getAuthUser();
@@ -224,6 +224,6 @@ public class MainActivity extends AppCompatActivity {
         protected void onFailed(DribbbleException e) {
             Snackbar.make(getWindow().getDecorView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
         }
-    }
 
+    }
 }
