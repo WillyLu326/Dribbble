@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class LoadAuthUser extends DribbbleTask<Void, Void, User> {
-
+//
         @Override
         protected User doJob(Void... params) throws DribbbleException {
             return Dribbble.getAuthUser();
