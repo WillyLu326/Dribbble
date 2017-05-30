@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 R.string.open_drawer,
                 R.string.close_drawer
         );
-//
+
         drawerLayout.addDrawerListener(drawerToggle);
 
         navigationView.inflateMenu(R.menu.drawer_menu);
